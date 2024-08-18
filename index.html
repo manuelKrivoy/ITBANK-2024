@@ -1,63 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ITBANK</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <!-- Encabezado -->
     <header>
-        <h1>ITBANK</h1>
-        <img src="logo.png" alt="ITBANK Logo">
+      <h1>ITBANK</h1>
+      <img src="logo.png" alt="ITBANK Logo" />
     </header>
 
     <!-- Menu Lateral -->
     <div id="menu_lateral">
-        <ul>
-            <li><a href="#">Juan Pérez</a></li>
-            <li><a href="#">Cuentas</a></li>
-            <li><a href="#">Transferencias</a></li>
-            <li><a href="#">Pagos</a></li>
-            <li><a href="#">Inversiones</a></li>
-        </ul>
+      <ul>
+        <li><a href="#">Juan Pérez</a></li>
+        <li><a href="#">Cuentas</a></li>
+        <li><a href="#">Transferencias</a></li>
+        <li><a href="#">Pagos</a></li>
+        <li><a href="#">Inversiones</a></li>
+      </ul>
     </div>
 
     <!-- Sección Principal -->
     <div class="main-content">
-
-        <!-- Saldo -->
-        <div id="pag_principal_saldo">
-            <h2 id="saldo_disponible">Saldo disponible</h2>
-            <span id="saldo">$******</span>
-            <div class="pag_principal_saldo_opciones">
-                <span>Ingresar</span>
-                <span>Transferir</span>
-            </div>
+      <!-- Saldo -->
+      <div id="pag_principal_saldo">
+        <h2 id="saldo_disponible">Saldo disponible</h2>
+        <span id="saldo">$******</span>
+        <div class="pag_principal_saldo_opciones">
+          <span>Ingresar</span>
+          <span>Transferir</span>
         </div>
+      </div>
 
-        <!-- Movimientos -->
-        <div id="pag_principal_movimientos">
-            <h2 id="movimientos">Movimientos</h2>
-            <ol class="lista_movimientos">
-                <li><a href="#">Deposit from my Card - 25 January 2021 <span class="red">- $500</span></a></li>
-                <li><a href="#">Deposit Paypal - 25 January 2021 <span class="green">+ $1500</span></a></li>
-                <li><a href="#">Jemi Wilson - 25 January 2021 <span class="green">+ $500</span></a></li>
-            </ol>
-        </div>
-
+      <!-- Movimientos -->
+      <div id="pag_principal_movimientos">
+        <h2 id="movimientos">Movimientos</h2>
+        <ol class="lista_movimientos">
+          <li>
+            <a href="#">Deposit from my Card - 25 January 2021 <span class="red">- $500</span></a>
+          </li>
+          <li>
+            <a href="#">Deposit Paypal - 25 January 2021 <span class="green">+ $1500</span></a>
+          </li>
+          <li>
+            <a href="#">Jemi Wilson - 25 January 2021 <span class="green">+ $500</span></a>
+          </li>
+        </ol>
+      </div>
     </div>
-
     <!-- Pie de Página -->
     <footer>
-        <a href="#">Términos y Condiciones</a> |
-        <a href="#">Instagram</a> |
-        <a href="#">X</a> |
-        <a href="#">Facebook</a> |
-        <a href="#">LinkedIn</a>
+      <a href="#" class="terms">Términos y Condiciones</a>
+      <div class="icon-links">
+        <a href="https://www.instagram.com/itbauniversidad/" target="_blank"
+          ><img src="./img/instagram-logo.png" alt="instagram" class="icons"
+        /></a>
+        <a href="https://www.facebook.com/itbauniversidad/" target="_blank"
+          ><img src="./img/facebook-logo.png" alt="facebook" class="icons"
+        /></a>
+        <a href="https://twitter.com/ITBA" target="_blank"
+          ><img src="./img/x-logo.png" alt="twitter" class="icons"
+        /></a>
+        <a href="https://www.linkedin.com/school/itba/" target="_blank"
+          ><img src="./img/linkedin-logo.png" alt="linkedin" class="icons"
+        /></a>
+      </div>
     </footer>
-
-</body>
+  </body>
 </html>

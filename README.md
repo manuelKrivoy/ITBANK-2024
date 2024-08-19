@@ -4,6 +4,4 @@ Bienvenido a **ItBank**, tu solución de homebanking para una gestión financier
 
 ## 📋 Descripción
 
-**ItBank*** es una plataforma de homebanking diseñada para ofrecer una experiencia de usuario intuitiva y segura para la gestión de cuentas bancarias, transferencias y pagos en línea.
-
-## Prueba para testear el Push del repo
+**ItBank** es una plataforma de homebanking diseñada para ofrecer una experiencia de usuario intuitiva y segura para la gestión de cuentas bancarias, transferencias y pagos en línea.

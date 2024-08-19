@@ -4,6 +4,14 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f5f7fa;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.content-wrapper {
+  display: flex;
+  flex: 1;
 }
 
 /* Encabezado */
@@ -21,8 +29,27 @@ header h1 {
   color: #000000;
 }
 
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
 header img {
   height: 40px;
+  margin-left: 10px;
+}
+
+.login-button {
+  padding: 10px 20px;
+  background-color: #372e6b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #1a1744;
 }
 
 /* Logo */
@@ -49,11 +76,8 @@ header img {
   background-color: #ffffff;
   padding: 20px;
   width: 200px;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
   border-right: 1px solid #e0e0e0;
+  flex-shrink: 0;
 }
 
 #menu_lateral ul {
@@ -77,8 +101,9 @@ header img {
 
 /* Sección Principal */
 .main-content {
-  margin-left: 220px;
+  flex: 1;
   padding: 40px;
+  overflow-y: auto;
 }
 
 /* Caja de Saldo */
@@ -158,9 +183,6 @@ footer {
   background-color: #ffffff;
   padding: 20px;
   text-align: center;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
   border-top: 1px solid #e0e0e0;
 }
 
@@ -175,7 +197,7 @@ footer a:hover {
 }
 
 .icons {
-  max-width: 25px; /* Adjust size as needed */
+  max-width: 25px;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 

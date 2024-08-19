@@ -25,6 +25,25 @@ header img {
   height: 40px;
 }
 
+/* Logo */
+#logo {
+  transition: transform 0.3s ease;
+}
+
+#logo:hover {
+  animation: squish 0.5s ease-in-out infinite;
+}
+
+@keyframes squish {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1, 0.9);
+  }
+}
+
 /* Menu Lateral */
 #menu_lateral {
   background-color: #ffffff;
@@ -171,7 +190,7 @@ footer a:hover {
   margin-bottom: 10px;
 }
 
-.terms {
+.terminos {
   display: block;
   margin-bottom: 10px;
 }

@@ -1,0 +1,75 @@
+/* Estilos generales */
+body {
+  background-color: #f2f2f2;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+.container {
+  max-width: 400px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo */
+.logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo img {
+  width: 200px;
+}
+
+.logo img:hover {
+  animation: squish 0.5s ease-in-out infinite;
+}
+
+@keyframes squish {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1, 0.9);
+  }
+}
+
+/* Formulario */
+.grupo-form {
+  margin-bottom: 20px;
+  padding-right: 10px;
+}
+
+.grupo-form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.grupo-form input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.grupo-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #372e6b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.grupo-form button:hover {
+  background-color: #1a1744;
+  scale: 1.05;
+}

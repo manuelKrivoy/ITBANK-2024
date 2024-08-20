@@ -6,15 +6,16 @@
     <title>Login</title>
     <link rel="stylesheet" href="loginstyles.css" />
     <link rel="icon" href="./img/favicon.png" type="image/svg+xml" />
+    <script src="./script.js" defer></script>
   </head>
   <body>
     <div class="container">
       <div class="logo">
         <img src="./img/logo.svg" alt="Logo" />
       </div>
-      <form>
+      <form id="loginForm">
         <div class="grupo-form">
-          <label for="usuario">Usuario</label>
+          <label for="username">Usuario</label>
           <input type="text" id="username" name="username" />
         </div>
         <div class="grupo-form">
@@ -24,6 +25,7 @@
         <div class="grupo-form">
           <button type="submit">Ingresar</button>
         </div>
+        <div id="error-message" style="color: red; display: none">Usuario o contraseña incorrectos</div>
       </form>
     </div>
   </body>

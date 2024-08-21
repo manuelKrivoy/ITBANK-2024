@@ -6,8 +6,6 @@ const usuarios = [
   { user: "tomas.deibe", pass: "1234", saldo: "10000" },
 ];
 
-var selectedUser = null;
-
 document.getElementById("loginForm").addEventListener("submit", function (event) {
   event.preventDefault();
 
@@ -18,14 +16,9 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
   const user = usuarios.find((u) => u.user === username && u.pass === password);
 
   if (user) {
-    selectedUser = user;
+    localStorage.setItem("selectedUser", JSON.stringify(user)); // Guardar datos en localStorage
     window.location.href = "index.html";
   } else {
     errorMessage.style.display = "block";
   }
 });
-
-function logout() {
-  selectedUser = null;
-  window.location.href = "login.html";
-}

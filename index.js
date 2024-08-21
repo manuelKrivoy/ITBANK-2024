@@ -1,3 +1,15 @@
+var verSaldo = true;
+
+function mostrarSaldo() {
+  verSaldo = !verSaldo;
+  if (verSaldo) {
+    document.getElementById("saldo").textContent = "$*****";
+  } else {
+    const user = JSON.parse(localStorage.getItem("selectedUser"));
+    document.getElementById("saldo").textContent = "$" + user.saldo;
+  }
+}
+
 function cargarDatosUsuario() {
   const user = JSON.parse(localStorage.getItem("selectedUser"));
 

@@ -39,25 +39,20 @@ header img {
   margin-left: 10px;
 }
 
-.login-button {
+.login-img {
   padding: 10px 20px;
-  background-color: #372e6b;
-  color: #fff;
-  border: none;
   border-radius: 5px;
-  cursor: pointer;
+  font-size: 14px;
 }
 
-.login-button:hover {
-  background-color: #1a1744;
+.login-img:hover {
+  cursor: pointer;
 }
 
 .hamburger-menu {
   display: none;
-  font-size: 24px;
   background: none;
   border: none;
-  cursor: pointer;
 }
 
 /* Logo */

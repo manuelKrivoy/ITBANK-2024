@@ -52,6 +52,14 @@ header img {
   background-color: #1a1744;
 }
 
+.hamburger-menu {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 /* Logo */
 #logo {
   transition: transform 0.3s ease;
@@ -215,4 +223,41 @@ footer a:hover {
 .terminos {
   display: block;
   margin-bottom: 10px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .hamburger-menu {
+    padding-right: 20px;
+    display: block;
+  }
+
+  .hamburger-menu img {
+    height: 30px;
+    padding-top: 5px;
+  }
+
+  #menu_lateral {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    background-color: #ffffff;
+    z-index: 1000;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  #menu_lateral ul {
+    padding-top: 60px;
+  }
+
+  .content-wrapper {
+    flex-direction: column;
+  }
+
+  .main-content {
+    padding: 20px;
+  }
 }

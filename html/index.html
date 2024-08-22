@@ -6,13 +6,15 @@
     <title>ITBANK</title>
     <link rel="stylesheet" href="../styles/styles.css" />
     <link rel="icon" href="../img/favicon.png" type="image/svg+xml" />
-    <script src="../scripts/index.js"></script>
+    <script src="../scripts/index.js" defer></script>
   </head>
   <body>
     <!-- Encabezado -->
     <header>
       <img id="logo" src="../img/logo.svg" alt="ITBANK Logo" />
+
       <div class="header-right">
+        <button class="hamburger-menu" onclick="toggleMenu()"><img src="../img/menu-hamburguesa.png" alt="≡" /></button>
         <button class="login-button" onclick="logout()">Cerrar sesión</button>
       </div>
     </header>

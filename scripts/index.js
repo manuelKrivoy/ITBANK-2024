@@ -1,15 +1,4 @@
-var verSaldo = true;
-
-function mostrarSaldo() {
-  if (verSaldo) {
-    document.getElementById("saldo").textContent = "$*****";
-  } else {
-    const user = JSON.parse(localStorage.getItem("selectedUser"));
-    document.getElementById("saldo").textContent = "$" + user.saldo;
-  }
-  verSaldo = !verSaldo;
-}
-
+//Funcionalidad cargar datos de usuario
 function cargarDatosUsuario() {
   const user = JSON.parse(localStorage.getItem("selectedUser"));
 
@@ -22,9 +11,32 @@ function cargarDatosUsuario() {
   }
 }
 
+//Funcionalidad mostrar / no mostrar saldo
+var verSaldo = true;
+
+function mostrarSaldo() {
+  if (verSaldo) {
+    document.getElementById("saldo").textContent = "$*****";
+  } else {
+    const user = JSON.parse(localStorage.getItem("selectedUser"));
+    document.getElementById("saldo").textContent = "$" + user.saldo;
+  }
+  verSaldo = !verSaldo;
+}
 window.onload = cargarDatosUsuario;
 
+//Funcionalidad logout
 function logout() {
   localStorage.removeItem("selectedUser"); // Eliminar datos de localStorage
   window.location.href = "login.html";
+}
+
+//Funcionalidad menu lateral mobile
+function toggleMenu() {
+  const menu = document.getElementById("menu_lateral");
+  if (menu.style.display === "block") {
+    menu.style.display = "none";
+  } else {
+    menu.style.display = "block";
+  }
 }

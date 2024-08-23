@@ -1,0 +1,30 @@
+.main-content{
+    display:inline-flex;
+}
+#seccion_dolares {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    }
+#seccion_fondos {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    }
+#seccion_plazo_fijo {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    }

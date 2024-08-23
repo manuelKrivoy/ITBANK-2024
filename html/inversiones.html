@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ITBANK</title>
     <link rel="stylesheet" href="../styles/styles.css" />
-    <link rel="stylesheet" href="../styles/transferencia.css" />
+    <link rel="stylesheet" href="../styles/inversiones.css" />
     <link rel="icon" href="../img/favicon.png" type="image/svg+xml" />
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -33,10 +33,79 @@
           <li id="menu-inversiones"><a href="inversiones.html">Inversiones</a></li>
         </ul>
       </div>
-
       <!-- Sección Principal -->
       <div class="main-content">
-        <h1>Inversiones</h1>
+        <div id="seccion_dolares">
+          <h2 id="dolares">Dólares</h2>
+          <span id="saldo_dolares">Saldo: U$D...</span>
+          <div id="opciones_dolares">
+              <ul class="lista-opciones-dolares">Comprar</ul>
+              <ul class="lista-opciones-dolares">Vender</ul>
+              <ul class="lista-opciones-dolares">Transferir</ul>
+          </div>
+          <div id="cotizaciones">
+              <div id="dolar_MEP">
+                  <span class="precio-dolar"> Dolar MEP $...</span>
+                  <button class="compar-button">COMPRAR</button>
+              </div>
+              <div id="dolar_ahorro">
+                  <span class="precio-dolar"> Dolar ahorro $...</span>
+                  <button class="compar-button">COMPRAR</button>
+              </div>
+          </div>
+          <div id="historial_dolares">
+              <h2 id="actividad">Actividad</h2>
+              <ul id="lista_dolares">
+                  <li class="ele-lista-dolares">
+                      <a href="#">Deposit from my Card - 25 January 2021 <span class="red">- U$D 250</span></a>
+                  </li>
+                  <li class="ele-lista-dolares">
+                      <a href="#">Deposit Paypal - 15 January 2021 <span class="green">+ U$D 150</span></a>
+                  </li>
+                  <li class="ele-lista-dolares">
+                      <a href="#">Deposit Paypal - 10 January 2020 <span class="green">+ U$D 150</span></a>
+                  </li>
+                  <li class="ele-lista-dolares">
+                      <a href="#">Deposit from my Card - 3 march 2020 <span class="red">- U$D 500</span></a>
+                  </li>
+              </ul>
+          </div>
+        </div> 
+        
+        <div id="seccion_fondos">
+          <div id="fondos">
+              <h2 id="fdi">Fondos de inversion</h2>
+              <h3 id="invertido">invertido</h3>
+              <span id="1invertido">$...</span>
+              <button id="boton_invertir">Invertir</button>
+          </div>
+          <div id="mis_fondos">
+              <h2>Mis fondos: </h2>
+              <ul id="lista_fondos">
+                  <li class="fondo">
+                      <a href="#" id="link_fondo">Acciones AR</a>
+                  </li>
+                  <li class="fondo">
+                      <a href="#" id="link_fondo">SBS Balanceado</a>
+                  </li>
+                  <li class="fondo">
+                      <a href="#" id="link_fondo">Renta fija</a>
+                  </li>
+              </ul>
+          </div>
+        </div> 
+        <div id="seccion_plazo_fijo">
+          <div id="plazo_fijo_box">
+              <h2 id="plazo_fijo">Plazo fijo</h2>
+              <p class="texto_plazo_fijo">Generá rendimientos con un plazo fijo</p>
+              <a href="#" class="boton_plazo_fijo">Simular</a>
+          </div>
+          <div id="plazo_fijo_uva_box">
+              <h2 id="plazo_fijo_uva">Plazo fijo UVA</h2>
+              <p class="texto_plazo_fijo">Generá rendimientos con un plazo fijo UVA</p>
+              <a href="#" class="boton_plazo_fijo">Simular</a>
+          </div>
+        </div> 
       </div>
     </div>
 

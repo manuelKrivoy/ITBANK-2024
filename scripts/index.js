@@ -1,3 +1,31 @@
+// Funcionalidad de todo el index y funcionalidad de cambio de moneda y simulador de prestamos.
+
+// Pintar opcion seleccionada de menu
+document.addEventListener("DOMContentLoaded", () => {
+  const menuItems = {
+    "index.html": "menu-index",
+    "cuentas.html": "menu-cuentas",
+    "transferencias.html": "menu-transferencias",
+    "pagos.html": "menu-pagos",
+    "inversiones.html": "menu-inversiones",
+  };
+
+  const currentPath = window.location.pathname.split("/").pop();
+  const currentMenuItemId = menuItems[currentPath];
+
+  if (currentMenuItemId) {
+    const currentMenuItem = document.getElementById(currentMenuItemId);
+    if (currentMenuItem) {
+      currentMenuItem.classList.add("selected-menu-item");
+      const anchor = currentMenuItem.querySelector("a");
+      if (anchor) {
+        anchor.setAttribute("disabled", "true");
+        anchor.style.pointerEvents = "none";
+      }
+    }
+  }
+});
+
 //Funcionalidad cargar datos de usuario
 function cargarDatosUsuario() {
   const user = JSON.parse(localStorage.getItem("selectedUser"));
@@ -11,16 +39,6 @@ function cargarDatosUsuario() {
   }
 }
 window.onload = cargarDatosUsuario;
-
-// Mostrar sección seleccionada
-function showSection(sectionId) {
-  const sections = document.querySelectorAll(".section");
-  sections.forEach(section => {
-    section.style.display = "none";
-  });
-  
-  document.getElementById(sectionId).style.display = "block";
-}
 
 //Funcionalidad mostrar / no mostrar saldo
 var verSaldo = true;
@@ -55,14 +73,14 @@ function toggleMenu() {
 
 // Función para formatear números como moneda
 function formatearMoneda(valor) {
-  return valor.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + ' ARS';
+  return valor.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") + " ARS";
 }
 
-document.getElementById('calcularSimuladores').addEventListener('click', function() {
+document.getElementById("calcularSimuladores").addEventListener("click", function () {
   // Obtener valores del formulario
-  var paquete = document.getElementById('paquete').value;
-  var monto = parseFloat(document.getElementById('monto_solicitado').value);
-  var plazo = parseInt(document.getElementById('plazo').value);
+  var paquete = document.getElementById("paquete").value;
+  var monto = parseFloat(document.getElementById("monto_solicitado").value);
+  var plazo = parseInt(document.getElementById("plazo").value);
 
   if (isNaN(plazo) || plazo <= 0 || plazo > 60) {
     alert(" seleccione un plazo válido (máximo 60 meses).");
@@ -78,12 +96,12 @@ document.getElementById('calcularSimuladores').addEventListener('click', functio
   // Tabla de cuotas
   var tablaCuotas = '<table border="1"><tr><th>Cuota #</th><th>Pago Mensual</th></tr>';
   for (var i = 1; i <= plazo; i++) {
-    tablaCuotas += '<tr><td>' + i + '</td><td>' + formatearMoneda(cuotaMensual) + '</td></tr>';
+    tablaCuotas += "<tr><td>" + i + "</td><td>" + formatearMoneda(cuotaMensual) + "</td></tr>";
   }
-  tablaCuotas += '</table>';
+  tablaCuotas += "</table>";
 
   // Resultados
-  document.getElementById('resultadosImportesYTasas').innerHTML = `
+  document.getElementById("resultadosImportesYTasas").innerHTML = `
     <p>Paquete seleccionado: ${paquete}</p>
     <p>Monto solicitado: ${formatearMoneda(monto)}</p>
     <p>Plazo en meses: ${plazo}</p>
@@ -91,15 +109,14 @@ document.getElementById('calcularSimuladores').addEventListener('click', functio
     <p>Monto total a pagar: ${formatearMoneda(montoTotal)}</p>
   `;
 
-  document.getElementById('detalleCuotas').innerHTML = tablaCuotas;
+  document.getElementById("detalleCuotas").innerHTML = tablaCuotas;
 });
 
 //Prestamo
 function actualizarMonto() {
-
-  const montoDolares = parseFloat(document.getElementById('inputDolares').value) || 0;
+  const montoDolares = parseFloat(document.getElementById("inputDolares").value) || 0;
   const tasaDolarMEP = 1235;
   const montoTotalPesos = montoDolares * tasaDolarMEP;
 
-  document.getElementById('resultadoPesos').value = montoTotalPesos.toFixed(2);
+  document.getElementById("resultadoPesos").value = montoTotalPesos.toFixed(2);
 }

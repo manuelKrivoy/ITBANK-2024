@@ -6,7 +6,7 @@
     <title>ITBANK</title>
     <link rel="stylesheet" href="../styles/styles.css" />
     <link rel="icon" href="../img/favicon.png" type="image/svg+xml" />
-    <script src="../scripts/index.js" defer></script>
+    <script src="../scripts/index.js"></script>
   </head>
   <body>
     <!-- Encabezado -->
@@ -22,58 +22,52 @@
     <div class="content-wrapper">
       <!-- Menu Lateral -->
       <!-- revisar posibilidad nav -->
-      <div id="menu_lateral">
+      <nav id="menu_lateral">
         <ul>
-          <li><a href="#" onclick="showSection('inicio')">-</a></li>
-          <li><a href="#" onclick="showSection('cuentas')">Cuentas</a></li>
-          <li><a href="#" onclick="showSection('transf')">Transferencias</a></li>
-          <li><a href="#" onclick="showSection('pagos')">Pagos</a></li>
-          <li><a href="#" onclick="showSection('invert')">Inversiones</a></li>
+          <li><a href="index.html">-</a></li>
+          <li><a href="cuentas.html">Cuentas</a></li>
+          <li><a href="transferencias.html">Transferencias</a></li>
+          <li><a href="pagos.html">Pagos</a></li>
+          <li><a href="inversiones.html">Inversiones</a></li>
         </ul>
-      </div>
+      </nav>
 
       <!-- Sección Principal -->
       <div class="main-content">
-       
-       <!-- Agregue un div -->
+        <!-- Agregue un div -->
         <div id="inicio" class="section_main">
-           <!-- Saldo -->
+          <!-- Saldo -->
           <div id="pag_principal_saldo">
-          <h2 id="saldo_disponible">Saldo disponible</h2>
-          <a onclick="mostrarSaldo()" style="cursor: pointer"><span id="saldo"></span></a>
-          <div class="pag_principal_saldo_opciones">
-            <a href="#"><span>Ingresar</span></a>
-            <a href="#"><span>Transferir</span></a>
+            <h2 id="saldo_disponible">Saldo disponible</h2>
+            <a onclick="mostrarSaldo()" style="cursor: pointer"><span id="saldo"></span></a>
           </div>
-        </div>
-        
 
-        <!-- Movimientos -->
-        <div id="pag_principal_movimientos">
-          <h2 id="movimientos">Movimientos</h2>
-          <ol class="lista_movimientos">
-            <li>
-              <a href="#">Deposit from my Card - 25 January 2021 <span class="red">- $500</span></a>
-            </li>
-            <li>
-              <a href="#">Deposit Paypal - 25 January 2021 <span class="green">+ $1500</span></a>
-            </li>
-            <li>
-              <a href="#">Jemi Wilson - 25 January 2021 <span class="green">+ $500</span></a>
-            </li>
-          </ol>
-        </div>
+          <!-- Movimientos -->
+          <div id="pag_principal_movimientos">
+            <h2 id="movimientos">Movimientos</h2>
+            <ol class="lista_movimientos">
+              <li>
+                <a href="#">Deposit from my Card - 25 January 2021 <span class="red">- $500</span></a>
+              </li>
+              <li>
+                <a href="#">Deposit Paypal - 25 January 2021 <span class="green">+ $1500</span></a>
+              </li>
+              <li>
+                <a href="#">Jemi Wilson - 25 January 2021 <span class="green">+ $500</span></a>
+              </li>
+            </ol>
+          </div>
 
-        <!-- Préstamos y Cambio de moneda -->
-        <div id="pag_principal_prestamos">
-          <a href="simulador-prestamos.html">Solicitar Préstamo</a>
-        </div>
-        <div id="pag_principal_Cambiodemoneda">
-          <a href="cambio-de-moneda.html">Cambio de Moneda</a>
+          <!-- Préstamos y Cambio de moneda -->
+          <div id="pag_principal_prestamos">
+            <a href="simulador-prestamos.html">Simula un prestamo ahora!</a>
+          </div>
+          <div id="pag_principal_Cambiodemoneda">
+            <a href="cambio-de-moneda.html">Revisa la cotización del dolar</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
     <!-- Pie de Página -->
     <footer>

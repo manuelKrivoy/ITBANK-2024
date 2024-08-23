@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ITBANK</title>
     <link rel="stylesheet" href="../styles/styles.css" />
+    <link rel="stylesheet" href="../styles/transferencia.css" />
     <link rel="icon" href="../img/favicon.png" type="image/svg+xml" />
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../scripts/index.js" defer></script>
   </head>
   <body>
@@ -23,24 +26,16 @@
       <!-- Menu Lateral -->
       <div id="menu_lateral">
         <ul>
-          <li><a href="index.html">-</a></li>
-          <li><a href="#">Cuentas</a></li>
-          <li><a href="#">Transferencias</a></li>
-          <li><a href="#">Pagos</a></li>
-          <li><a href="#">Inversiones</a></li>
+          <li id="menu-index"><a href="index.html">-</a></li>
+          <li id="menu-cuentas"><a href="cuentas.html">Cuentas</a></li>
+          <li id="menu-transferencias"><a href="transferencias.html">Transferencias</a></li>
+          <li id="menu-pagos"><a href="pagos.html">Pagos</a></li>
+          <li id="menu-inversiones"><a href="inversiones.html">Inversiones</a></li>
         </ul>
       </div>
 
       <!-- Sección Principal -->
-      <div class="main-content">
-        <h2>Conversor de moneda</h2>
-        <div class="section">
-          <label for="inputDolares">Monto en Dólares:</label>
-          <input id="inputDolares" type="number" placeholder="Ingrese monto en dólares" oninput="actualizarMonto()" />
-          <p>Monto total (en pesos): <input id="resultadoPesos" type="text" value="0.00" readonly /></p>
-          <button>Comprar Dólar MEP</button>
-        </div>
-      </div>
+      <div class="main-content"></div>
     </div>
 
     <!-- Pie de Página -->

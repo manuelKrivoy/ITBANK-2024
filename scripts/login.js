@@ -1,12 +1,8 @@
-const usuarios = [
-  { user: "manuel.krivoy", pass: "1234", saldo: "10000" },
-  { user: "diego.lopez", pass: "1234", saldo: "10000" },
-  { user: "francisco.ruslender", pass: "1234", saldo: "10000" },
-  { user: "gonzalo.blondi", pass: "1234", saldo: "10000" },
-  { user: "tomas.deibe", pass: "1234", saldo: "10000" },
-];
+import { usuarios } from "./usuarios.js";
 
 document.getElementById("loginForm").addEventListener("submit", function (event) {
+  console.log("hola");
+  console.log(usuarios);
   event.preventDefault();
 
   const username = document.getElementById("username").value;

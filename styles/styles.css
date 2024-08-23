@@ -1,4 +1,4 @@
-/* Estilos Generales */
+/* General Styles */
 body {
   font-family: "Arial", sans-serif;
   margin: 0;
@@ -14,7 +14,7 @@ body {
   flex: 1;
 }
 
-/* Encabezado */
+/* Header */
 header {
   background-color: #ffffff;
   padding: 5px;
@@ -55,6 +55,11 @@ header img {
   border: none;
 }
 
+.hamburger-menu img {
+  height: 30px;
+  padding-top: 5px;
+}
+
 /* Logo */
 #logo {
   transition: transform 0.3s ease;
@@ -74,7 +79,7 @@ header img {
   }
 }
 
-/* Menu Lateral */
+/* Sidebar Menu */
 #menu_lateral {
   background-color: #ffffff;
   padding: 20px;
@@ -102,14 +107,33 @@ header img {
   color: #5f73a1;
 }
 
-/* Sección Principal */
+.selected-menu-item {
+  background-color: #f0f0f0; /* Color de fondo suave */
+  color: #333; /* Color del texto */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  padding: 10px 15px; /* Espaciado interno */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
+}
+
+.selected-menu-item a {
+  color: inherit; /* Heredar el color del texto */
+  text-decoration: none; /* Sin subrayado */
+}
+
+.selected-menu-item:hover {
+  background-color: #e0e0e0; /* Color de fondo al pasar el ratón */
+  color: #000; /* Color del texto al pasar el ratón */
+}
+
+/* Main Content */
 .main-content {
   flex: 1;
   padding: 40px;
   overflow-y: auto;
 }
 
-/* Caja de Saldo */
+/* Balance Box */
 #pag_principal_saldo {
   background: linear-gradient(135deg, #4c60d9, #b950df);
   color: white;
@@ -118,6 +142,7 @@ header img {
   display: inline-block;
   width: 60%;
   text-align: center;
+  margin: 20px;
 }
 
 #saldo_disponible {
@@ -129,25 +154,7 @@ header img {
   font-weight: bold;
 }
 
-.pag_principal_saldo_opciones {
-  margin-top: 20px;
-}
-
-.pag_principal_saldo_opciones span {
-  background-color: white;
-  color: #4c60d9;
-  padding: 10px 20px;
-  margin: 0 10px;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-.pag_principal_saldo_opciones span:hover {
-  background-color: #ffffff;
-  color: #b950df;
-}
-
-/* Movimientos */
+/* Transactions */
 #pag_principal_movimientos {
   display: inline-block;
   width: 30%;
@@ -181,7 +188,31 @@ header img {
   color: green;
 }
 
-/* Pie de página */
+/* Loans and Currency Exchange */
+#pag_principal_prestamos,
+#pag_principal_Cambiodemoneda {
+  background-color: #4c60d9;
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  margin: 20px;
+  width: 25%;
+}
+
+#pag_principal_Cambiodemoneda {
+  background-color: #6c63ff;
+}
+
+#pag_principal_prestamos a,
+#pag_principal_Cambiodemoneda a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Footer */
 footer {
   background-color: #ffffff;
   padding: 20px;
@@ -220,32 +251,7 @@ footer a:hover {
   margin-bottom: 10px;
 }
 
-/* Préstamo y Cambio de moneda */
-#pag_principal_prestamos,
-#pag_principal_Cambiodemoneda {
-  background-color: #4c60d9;
-  color: white;
-  padding: 15px;
-  border-radius: 10px;
-  text-align: center;
-  margin: 20px;
-  width: 25%;
-}
-
-#pag_principal_Cambiodemoneda {
-  background-color: #6c63ff; 
-}
-
-#pag_principal_prestamos a,
-#pag_principal_Cambiodemoneda a {
-  text-decoration: none;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-
-/* Formulario */
+/* Form */
 form {
   background-color: #ffffff;
   padding: 20px;
@@ -276,7 +282,6 @@ form {
   margin-bottom: 10px;
 }
 
-
 button {
   background-color: #4c60d9;
   color: white;
@@ -287,8 +292,7 @@ button {
   cursor: pointer;
 }
 
-
-/* Tabla */
+/* Table */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -297,7 +301,8 @@ table {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-th, td {
+th,
+td {
   padding: 10px;
   text-align: center;
   border: 1px solid #dddddd;
@@ -313,27 +318,9 @@ td {
   color: #333333;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .simulador {
-    padding: 10px;
-  }
-
-  .form-group input,
-  .form-group select {
-    font-size: 14px;
-  }
-
-  button {
-    padding: 8px 16px;
-    font-size: 14px;
-  }
-}
-
-
-/* Cambio de moneda */
+/* Currency Exchange Section */
 .section {
-  background-color: #ffffff; 
+  background-color: #ffffff;
   color: #333333;
   padding: 20px;
   border-radius: 10px;
@@ -348,10 +335,11 @@ label {
   color: #333333;
 }
 
-input[type="number"], input[type="text"] {
-  width: calc(100% - 22px); 
+input[type="number"],
+input[type="text"] {
+  width: calc(100% - 22px);
   padding: 10px;
-  box-sizing: border-box; 
+  box-sizing: border-box;
   border: 1px solid #cccccc;
   border-radius: 5px;
   font-size: 16px;
@@ -364,7 +352,7 @@ input[readonly] {
 }
 
 button {
-  background-color: #4c60d9; 
+  background-color: #4c60d9;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -382,11 +370,6 @@ button {
     display: block;
   }
 
-  .hamburger-menu img {
-    height: 30px;
-    padding-top: 5px;
-  }
-
   #menu_lateral {
     display: none;
     position: absolute;
@@ -401,5 +384,19 @@ button {
 
   #menu_lateral ul {
     padding-top: 60px;
+  }
+
+  .simulador {
+    padding: 10px;
+  }
+
+  .form-group input,
+  .form-group select {
+    font-size: 14px;
+  }
+
+  button {
+    padding: 8px 16px;
+    font-size: 14px;
   }
 }

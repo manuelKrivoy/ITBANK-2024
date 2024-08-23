@@ -23,7 +23,7 @@
       <!-- Menu Lateral -->
       <div id="menu_lateral">
         <ul>
-          <li><a href="#">-</a></li>
+          <li><a href="index.html">-</a></li>
           <li><a href="#">Cuentas</a></li>
           <li><a href="#">Transferencias</a></li>
           <li><a href="#">Pagos</a></li>
@@ -33,40 +33,14 @@
 
       <!-- Sección Principal -->
       <div class="main-content">
-        <!-- Saldo -->
-        <div id="pag_principal_saldo">
-          <h2 id="saldo_disponible">Saldo disponible</h2>
-          <a onclick="mostrarSaldo()" style="cursor: pointer"><span id="saldo"></span></a>
-          <div class="pag_principal_saldo_opciones">
-            <a href="#"><span>Ingresar</span></a>
-            <a href="#"><span>Transferir</span></a>
-          </div>
+        <h2>Conversor de moneda</h2>
+            <div class="section">
+                <label for="inputDolares">Monto en Dólares:</label>
+                <input id="inputDolares" type="number" placeholder="Ingrese monto en dólares" oninput="actualizarMonto()" />
+                <p>Monto total (en pesos): <input id="resultadoPesos" type="text" value="0.00" readonly /></p>
+                <button>Comprar Dólar MEP</button> 
+            </div>    
         </div>
-
-        <!-- Movimientos -->
-        <div id="pag_principal_movimientos">
-          <h2 id="movimientos">Movimientos</h2>
-          <ol class="lista_movimientos">
-            <li>
-              <a href="#">Deposit from my Card - 25 January 2021 <span class="red">- $500</span></a>
-            </li>
-            <li>
-              <a href="#">Deposit Paypal - 25 January 2021 <span class="green">+ $1500</span></a>
-            </li>
-            <li>
-              <a href="#">Jemi Wilson - 25 January 2021 <span class="green">+ $500</span></a>
-            </li>
-          </ol>
-        </div>
-
-        <!-- Préstamos y Cambio de moneda -->
-        <div id="pag_principal_prestamos">
-          <a href="simulador-prestamos.html">Solicitar Préstamo</a>
-        </div>
-        <div id="pag_principal_Cambiodemoneda">
-          <a href="cambio-de-moneda.html">Cambio de Moneda</a>
-        </div>
-      </div>
     </div>
 
     <!-- Pie de Página -->

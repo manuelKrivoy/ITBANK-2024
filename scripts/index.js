@@ -11,6 +11,16 @@ function cargarDatosUsuario() {
   }
 }
 
+// Mostrar sección seleccionada
+function showSection(sectionId) {
+  const sections = document.querySelectorAll(".section");
+  sections.forEach(section => {
+    section.style.display = "none";
+  });
+  
+  document.getElementById(sectionId).style.display = "block";
+}
+
 //Funcionalidad mostrar / no mostrar saldo
 var verSaldo = true;
 

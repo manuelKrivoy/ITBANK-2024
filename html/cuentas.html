@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ITBANK</title>
     <link rel="stylesheet" href="../styles/styles.css" />
-    <link rel="stylesheet" href="../styles/transferencia.css" />
+    <link rel="stylesheet" href="../styles/cuentas.css" />
     <link rel="icon" href="../img/favicon.png" type="image/svg+xml" />
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -33,10 +33,18 @@
           <li id="menu-inversiones"><a href="inversiones.html">Inversiones</a></li>
         </ul>
       </div>
-
       <!-- Sección Principal -->
       <div class="main-content">
-        <h1>Mis cuentas</h1>
+        <div class="cuenta" id="cuenta-dolares">
+          <h2>Caja de Ahorro en Dólares</h2>
+          <p>Saldo: $1,000.00</p>
+          <button onclick="showDetallesPesos()">Ver detalles</button>
+        </div>
+        <div class="cuenta" id="cuenta-pesos">
+          <h2>Caja de Ahorro en Pesos</h2>
+          <p>Saldo: $50,000.00</p>
+          <button onclick="showDetallesUsd()">Ver detalles</button>
+        </div>
       </div>
     </div>
 
@@ -59,4 +67,5 @@
       </div>
     </footer>
   </body>
+  <script src="../scripts/cuentas.js"></script>
 </html>

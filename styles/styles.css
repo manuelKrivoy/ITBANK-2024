@@ -38,6 +38,7 @@ header img {
   height: 40px;
   margin-left: 10px;
 }
+
 .login-img {
   padding: 10px 20px;
   border-radius: 5px;
@@ -399,5 +400,44 @@ button {
   button {
     padding: 8px 16px;
     font-size: 14px;
+  }
+
+  .content-wrapper {
+    flex-direction: column;
+  }
+
+  .main-content {
+    padding: 20px;
+    margin-right: 10px;
+  }
+
+  #pag_principal_saldo,
+  #pag_principal_movimientos,
+  #pag_principal_prestamos,
+  #pag_principal_Cambiodemoneda {
+    width: 100%;
+    margin: 10px 10px;
+    padding-right: 10px;
+  }
+
+  #pag_principal_saldo {
+    font-size: 18px;
+  }
+
+  #saldo {
+    font-size: 36px;
+  }
+
+  #movimientos {
+    font-size: 20px;
+  }
+
+  .lista_movimientos li {
+    font-size: 16px;
+  }
+
+  #pag_principal_prestamos a,
+  #pag_principal_Cambiodemoneda a {
+    font-size: 16px;
   }
 }

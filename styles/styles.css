@@ -247,12 +247,4 @@ footer a:hover {
   #menu_lateral ul {
     padding-top: 60px;
   }
-
-  .content-wrapper {
-    flex-direction: column;
-  }
-
-  .main-content {
-    padding: 20px;
-  }
 }

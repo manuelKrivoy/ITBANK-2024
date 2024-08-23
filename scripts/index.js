@@ -10,6 +10,7 @@ function cargarDatosUsuario() {
     window.location.href = "login.html";
   }
 }
+window.onload = cargarDatosUsuario;
 
 //Funcionalidad mostrar / no mostrar saldo
 var verSaldo = true;
@@ -23,7 +24,6 @@ function mostrarSaldo() {
   }
   verSaldo = !verSaldo;
 }
-window.onload = cargarDatosUsuario;
 
 //Funcionalidad logout
 function logout() {

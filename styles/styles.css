@@ -220,6 +220,161 @@ footer a:hover {
   margin-bottom: 10px;
 }
 
+/* Préstamo y Cambio de moneda */
+#pag_principal_prestamos,
+#pag_principal_Cambiodemoneda {
+  background-color: #4c60d9;
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  margin: 20px;
+  width: 25%;
+}
+
+#pag_principal_Cambiodemoneda {
+  background-color: #6c63ff; 
+}
+
+#pag_principal_prestamos a,
+#pag_principal_Cambiodemoneda a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
+/* Formulario */
+form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 16px;
+  color: #333333;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+
+button {
+  background-color: #4c60d9;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+/* Tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #dddddd;
+}
+
+th {
+  background-color: #f5f5f5;
+  font-size: 16px;
+}
+
+td {
+  font-size: 14px;
+  color: #333333;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .simulador {
+    padding: 10px;
+  }
+
+  .form-group input,
+  .form-group select {
+    font-size: 14px;
+  }
+
+  button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+
+
+/* Cambio de moneda */
+.section {
+  background-color: #ffffff; 
+  color: #333333;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 16px;
+  color: #333333;
+}
+
+input[type="number"], input[type="text"] {
+  width: calc(100% - 22px); 
+  padding: 10px;
+  box-sizing: border-box; 
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+input[readonly] {
+  background-color: #f9f9f9;
+  cursor: not-allowed;
+}
+
+button {
+  background-color: #4c60d9; 
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+}
+
 /* Responsive Styles */
 @media (max-width: 768px) {
   .hamburger-menu {

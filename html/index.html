@@ -24,18 +24,21 @@
       <!-- revisar posibilidad nav -->
       <div id="menu_lateral">
         <ul>
-          <li><a href="#">-</a></li>
-          <li><a href="#">Cuentas</a></li>
-          <li><a href="#">Transferencias</a></li>
-          <li><a href="#">Pagos</a></li>
-          <li><a href="#">Inversiones</a></li>
+          <li><a href="#" onclick="showSection('inicio')">-</a></li>
+          <li><a href="#" onclick="showSection('cuentas')">Cuentas</a></li>
+          <li><a href="#" onclick="showSection('transf')">Transferencias</a></li>
+          <li><a href="#" onclick="showSection('pagos')">Pagos</a></li>
+          <li><a href="#" onclick="showSection('invert')">Inversiones</a></li>
         </ul>
       </div>
 
       <!-- Sección Principal -->
       <div class="main-content">
-        <!-- Saldo -->
-        <div id="pag_principal_saldo">
+       
+       <!-- Agregue un div -->
+        <div id="inicio" class="section_main">
+           <!-- Saldo -->
+          <div id="pag_principal_saldo">
           <h2 id="saldo_disponible">Saldo disponible</h2>
           <a onclick="mostrarSaldo()" style="cursor: pointer"><span id="saldo"></span></a>
           <div class="pag_principal_saldo_opciones">
@@ -43,6 +46,7 @@
             <a href="#"><span>Transferir</span></a>
           </div>
         </div>
+        
 
         <!-- Movimientos -->
         <div id="pag_principal_movimientos">
@@ -59,8 +63,18 @@
             </li>
           </ol>
         </div>
+
+        <!-- Préstamos y Cambio de moneda -->
+        <div id="pag_principal_prestamos">
+          <a href="simulador-prestamos.html">Solicitar Préstamo</a>
+        </div>
+        <div id="pag_principal_Cambiodemoneda">
+          <a href="cambio-de-moneda.html">Cambio de Moneda</a>
+        </div>
       </div>
     </div>
+  </div>
+
     <!-- Pie de Página -->
     <footer>
       <a href="#" class="terminos">Términos y Condiciones</a>

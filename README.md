@@ -1,8 +1,24 @@
-#React + Vite ITBANK
+# ItBank
 
-Para levantar el proyecto:
+Frontend para TP desarollado con REACT + VITE
 
-1. Clonas el repositorio
-2. cd itbank
-3. npm install
-4. npm run dev
+## Levanta el proyecto !
+
+### 1. Clona the repository
+
+```bash
+git clone https://github.com/yourusername/itbank.git
+cd itbank
+```
+
+### 2. Instala las dependencias
+
+```bash
+npm install
+```
+
+### 3. Levanta el proyecto
+
+```bash
+npm run dev
+```

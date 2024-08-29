@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Container, TextField, Typography, Link } from "@mui/material";
 import { Root, LeftSide, RightSide, FormContainer, Logo, HoverButton } from "./LoginPageStyles";
+import Index from "../Index/Index";
 
-const LoginPage = () => {
+const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
 
   const toggleForm = () => {
@@ -26,9 +27,16 @@ const LoginPage = () => {
             {!isLogin && (
               <TextField fullWidth label="Confirmar contraseña" type="password" margin="normal" variant="outlined" />
             )}
-            <HoverButton variant="contained" color="primary" fullWidth>
-              {isLogin ? "Iniciar sesión" : "Registrarse"}
-            </HoverButton>
+            {isLogin ? (
+              <HoverButton variant="contained" color="primary" fullWidth onClick={<Index></Index>}>
+                Iniciar Sesión
+              </HoverButton>
+            ) : (
+              <HoverButton variant="contained" color="primary" fullWidth>
+                Registrarse
+              </HoverButton>
+            )}
+
             <Typography variant="body2" align="center" style={{ marginTop: "20px" }}>
               {isLogin ? "¿No tienes cuenta?" : "¿Ya tienes cuenta?"}
               <Link href="#" onClick={toggleForm} style={{ marginLeft: "5px" }}>
@@ -43,4 +51,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;

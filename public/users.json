@@ -1,0 +1,42 @@
+[
+  {
+    "user-id": 1,
+    "name": "Manuel Krivoy",
+    "dni": 43840924,
+    "email": "krivoymanuel@gmail.com",
+    "saldoPesos": 50000,
+    "saldoDolares": 1000
+  },
+  {
+    "user-id": 2,
+    "name": "Tomas Deibi",
+    "dni": 43840925,
+    "email": "tomasdeibi@gmail.com",
+    "saldoPesos": 10000,
+    "saldoDolares": 500
+  },
+  {
+    "user-id": 3,
+    "name": "Gonzalo Deibi",
+    "dni": 43840923,
+    "email": "gonzaloblondi@gmail.com",
+    "saldoPesos": 20000,
+    "saldoDolares": 200
+  },
+  {
+    "user-id": 4,
+    "name": "Diego Gomez",
+    "dni": 43840926,
+    "email": "diegogomez@gmail.com",
+    "saldoPesos": 30000,
+    "saldoDolares": 300
+  },
+  {
+    "user-id": 5,
+    "name": "Francisco Ruslender",
+    "dni": 43840927,
+    "email": "franciscoruslender@gmail.com",
+    "saldoPesos": 40000,
+    "saldoDolares": 400
+  }
+]

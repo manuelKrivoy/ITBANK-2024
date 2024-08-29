@@ -10,22 +10,25 @@ import Index from "./components/pages/Index/Index";
 import HomeProfile from "./components/common/HomeProfile";
 import Cuentas from "./components/common/Cuentas";
 import Footer from "./components/layout/Footer";
+import { UserProvider } from "./context/UserContext";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Index component={<HomeProfile />} />} />
-        <Route path="/profile/cuentas" element={<Index component={<Cuentas />} />} />
-        <Route path="/profile/transferencias" element={<Index />} />
-        <Route path="/profile/pagos" element={<Index />} />
-        <Route path="/profile/inversiones" element={<Index />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-      <Footer />
-    </Router>
+    <UserProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Index component={<HomeProfile />} />} />
+          <Route path="/profile/cuentas" element={<Index component={<Cuentas />} />} />
+          <Route path="/profile/transferencias" element={<Index />} />
+          <Route path="/profile/pagos" element={<Index />} />
+          <Route path="/profile/inversiones" element={<Index />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </UserProvider>
   );
 }
 

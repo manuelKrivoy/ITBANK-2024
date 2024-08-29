@@ -1,9 +1,9 @@
 import Sidebar from "../../layout/Sidebar";
 
-const Index = () => {
+const Index = ({ component }) => {
   return (
     <div>
-      <Sidebar></Sidebar>
+      <Sidebar component={component}></Sidebar>
     </div>
   );
 };

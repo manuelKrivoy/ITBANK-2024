@@ -9,6 +9,7 @@ import NotFound from "./components/pages/NotFound";
 import Index from "./components/pages/Index/Index";
 import HomeProfile from "./components/common/HomeProfile";
 import Cuentas from "./components/common/Cuentas";
+import Footer from "./components/layout/Footer";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/profile/inversiones" element={<Index />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }

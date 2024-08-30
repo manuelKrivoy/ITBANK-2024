@@ -1,5 +1,4 @@
 footer {
-  background-color: #ffffff;
   padding: 20px;
   text-align: center;
   border-top: 1px solid #e0e0e0;
@@ -34,4 +33,5 @@ footer a:hover {
 .terminos {
   display: block;
   margin-bottom: 10px;
+  color: rgb(2, 1, 1);
 }

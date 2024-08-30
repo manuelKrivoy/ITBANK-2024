@@ -44,6 +44,7 @@ const Login = () => {
         <Container>
           <FormContainer>
             <Logo src="/logo.svg" alt="Logo" />
+            {!isLogin && <TextField id="dni" fullWidth label="DNI" type="number" margin="normal" variant="outlined" />}
             <TextField
               id="email"
               fullWidth
@@ -55,16 +56,7 @@ const Login = () => {
               <TextField id="name" fullWidth label="Correo electrónico" margin="normal" variant="outlined" />
             )}
             <TextField id="password" fullWidth label="Contraseña" type="password" margin="normal" variant="outlined" />
-            {!isLogin && (
-              <TextField
-                id="confirmPassword"
-                fullWidth
-                label="Confirmar contraseña"
-                type="password"
-                margin="normal"
-                variant="outlined"
-              />
-            )}
+
             {isLogin ? (
               <HoverButton variant="contained" color="primary" fullWidth onClick={handleLogIn}>
                 Iniciar Sesión

@@ -1,0 +1,37 @@
+footer {
+  background-color: #ffffff;
+  padding: 20px;
+  text-align: center;
+  border-top: 1px solid #e0e0e0;
+}
+
+footer a {
+  margin: 0 10px;
+  color: #4c60d9;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #b950df;
+}
+
+.icons {
+  max-width: 25px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.icons:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+.icon-links {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.terminos {
+  display: block;
+  margin-bottom: 10px;
+}

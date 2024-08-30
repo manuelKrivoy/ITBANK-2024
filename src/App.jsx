@@ -12,6 +12,9 @@ import Cuentas from "./components/common/Cuentas";
 import Footer from "./components/layout/Footer";
 import { UserProvider } from "./context/UserContext";
 
+//Rutas privadas
+import ProtectedRoute from "./ProtectedRoute";
+
 function App() {
   return (
     <UserProvider>
@@ -19,11 +22,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Index component={<HomeProfile />} />} />
-          <Route path="/profile/cuentas" element={<Index component={<Cuentas />} />} />
-          <Route path="/profile/transferencias" element={<Index />} />
-          <Route path="/profile/pagos" element={<Index />} />
-          <Route path="/profile/inversiones" element={<Index />} />
+          <Route path="/profile" element={<ProtectedRoute element={<Index component={<HomeProfile />} />} />} />
+          <Route path="/profile/cuentas" element={<ProtectedRoute element={<Index component={<Cuentas />} />} />} />
+          <Route path="/profile/transferencias" element={<ProtectedRoute element={<Index />} />} />
+          <Route path="/profile/pagos" element={<ProtectedRoute element={<Index />} />} />
+          <Route path="/profile/inversiones" element={<ProtectedRoute element={<Index />} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

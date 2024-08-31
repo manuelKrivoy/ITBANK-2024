@@ -31,6 +31,8 @@ import { UserContext } from "../../context/UserContext";
 
 //Estilos
 import { AppBar, Drawer, DrawerHeader, Logo } from "./SidebarStyles";
+//SweetAlert
+import Swal from "sweetalert2";
 
 export default function Sidebar({ component }) {
   const theme = useTheme();
@@ -60,8 +62,20 @@ export default function Sidebar({ component }) {
       text: "Cerrar Sesión",
       icon: <LogoutIcon />,
       onClick: () => {
-        userLogOut();
-        navigate("/login");
+        Swal.fire({
+          title: "¿Cerrar sesión?",
+          showCancelButton: true,
+          confirmButtonColor: "#a03b3b",
+          cancelButtonColor: "#648399",
+          confirmButtonText: "Sí, cerrar sesión",
+          cancelButtonText: "Volver",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Si se apreta que sí se ejecuta lo siguiente:
+            userLogOut();
+            navigate("/login");
+          }
+        });
       },
     },
   ];

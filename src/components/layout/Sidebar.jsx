@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -23,6 +23,8 @@ import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import SavingsIcon from "@mui/icons-material/Savings";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
 
 const drawerWidth = 240;
 
@@ -111,6 +113,8 @@ export default function Sidebar({ component }) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -118,16 +122,27 @@ export default function Sidebar({ component }) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  const { userLogOut } = useContext(UserContext);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const menuItems = [
-    { text: "Home", icon: <HomeIcon /> },
-    { text: "Cuentas", icon: <SavingsIcon /> },
-    { text: "Transferencias", icon: <CurrencyExchangeIcon /> },
-    { text: "Pagos", icon: <PaymentsIcon /> },
-    { text: "Inversiones", icon: <QueryStatsIcon /> },
+    { text: user.name, icon: <HomeIcon />, onClick: () => navigate("/profile") },
+    { text: "Cuentas", icon: <SavingsIcon />, onClick: () => navigate("/profile/cuentas") },
+    { text: "Transferencias", icon: <CurrencyExchangeIcon />, onClick: () => navigate("/profile/transferencias") },
+    { text: "Pagos", icon: <PaymentsIcon />, onClick: () => navigate("/profile/pagos") },
+    { text: "Inversiones", icon: <QueryStatsIcon />, onClick: () => navigate("/profile/inversiones") },
   ];
 
-  const otherItems = [{ text: "Cerrar Sesión", icon: <LogoutIcon /> }];
+  const otherItems = [
+    {
+      text: "Cerrar Sesión",
+      icon: <LogoutIcon />,
+      onClick: () => {
+        userLogOut();
+        navigate("/login");
+      },
+    },
+  ];
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -179,6 +194,7 @@ export default function Sidebar({ component }) {
                       justifyContent: "center",
                     },
               ]}
+              onClick={item.onClick}
             >
               <ListItemIcon
                 sx={[
@@ -231,6 +247,7 @@ export default function Sidebar({ component }) {
                         justifyContent: "center",
                       },
                 ]}
+                onClick={item.onClick}
               >
                 <ListItemIcon
                   sx={[

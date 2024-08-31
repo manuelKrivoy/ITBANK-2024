@@ -1,7 +1,7 @@
 import React from "react";
 
 const Cuentas = () => {
-  return <div>Cuentas</div>;
+  return <div>Completar componente Cuentas</div>;
 };
 
 export default Cuentas;

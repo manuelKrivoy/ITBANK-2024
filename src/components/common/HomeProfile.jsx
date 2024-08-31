@@ -1,7 +1,5 @@
-import React from "react";
-
 const HomeProfile = () => {
-  return <div>HomeProfile</div>;
+  return <div>Completar componente HomeProfile</div>;
 };
 
 export default HomeProfile;

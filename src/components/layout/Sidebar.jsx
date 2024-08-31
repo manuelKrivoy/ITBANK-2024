@@ -1,8 +1,7 @@
 import { useContext, useState } from "react";
-import { styled, useTheme } from "@mui/material/styles";
+
+//MUI
 import Box from "@mui/material/Box";
-import MuiDrawer from "@mui/material/Drawer";
-import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -16,104 +15,29 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import useTheme from "@mui/material/styles/useTheme";
 
+//Iconos
 import HomeIcon from "@mui/icons-material/Home";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import SavingsIcon from "@mui/icons-material/Savings";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
 import LogoutIcon from "@mui/icons-material/Logout";
+
+//Context y RRD
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 
-const drawerWidth = 240;
-
-// Estilos para el cajón abierto
-const openedMixin = (theme) => ({
-  width: drawerWidth,
-  transition: theme.transitions.create("width", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen,
-  }),
-  overflowX: "hidden",
-});
-
-// Estilos para el cajón cerrado
-const closedMixin = (theme) => ({
-  transition: theme.transitions.create("width", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: "hidden",
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up("sm")]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
-  },
-});
-
-// Estilos para el encabezado del cajón
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-end",
-  padding: theme.spacing(0, 1),
-
-  ...theme.mixins.toolbar,
-}));
-
-// Estilos para la barra de la aplicación
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(["width", "margin"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  variants: [
-    {
-      props: ({ open }) => open,
-      style: {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(["width", "margin"], {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-      },
-    },
-  ],
-}));
-
-// Estilos para el cajón
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" })(({ theme }) => ({
-  width: drawerWidth,
-  flexShrink: 0,
-  whiteSpace: "nowrap",
-  boxSizing: "border-box",
-  variants: [
-    {
-      props: ({ open }) => open,
-      style: {
-        ...openedMixin(theme),
-        "& .MuiDrawer-paper": openedMixin(theme),
-      },
-    },
-    {
-      props: ({ open }) => !open,
-      style: {
-        ...closedMixin(theme),
-        "& .MuiDrawer-paper": closedMixin(theme),
-      },
-    },
-  ],
-}));
+//Estilos
+import { AppBar, Drawer, DrawerHeader, Logo } from "./SidebarStyles";
 
 export default function Sidebar({ component }) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-
   const navigate = useNavigate();
+  const { userLogOut } = useContext(UserContext);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -122,8 +46,6 @@ export default function Sidebar({ component }) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const { userLogOut } = useContext(UserContext);
-  const user = JSON.parse(localStorage.getItem("user"));
 
   const menuItems = [
     { text: user.name, icon: <HomeIcon />, onClick: () => navigate("/profile") },
@@ -150,7 +72,7 @@ export default function Sidebar({ component }) {
       <AppBar position="fixed" open={open}>
         <Toolbar
           sx={{
-            backgroundColor: "#2b4252 ",
+            backgroundColor: "#2b4252",
           }}
         >
           <IconButton
@@ -167,7 +89,12 @@ export default function Sidebar({ component }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div" justifyContent="center">
-            <img src="/logo.svg" alt="Logo" style={{ width: "100px", margin: "auto", padding: "auto" }} />
+            <Logo
+              src="/logo.svg"
+              alt="Logo"
+              sx={{ width: "100px", margin: "auto", padding: "auto" }}
+              onClick={() => navigate("/profile")}
+            />
           </Typography>
         </Toolbar>
       </AppBar>

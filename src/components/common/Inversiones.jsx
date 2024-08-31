@@ -1,5 +1,5 @@
 const Inversiones = () => {
-  return <div>Inversiones</div>;
+  return <div>Completar componente Inversiones</div>;
 };
 
 export default Inversiones;

@@ -1,5 +1,5 @@
 const Pagos = () => {
-  return <div>Pagos</div>;
+  return <div> Completar componente Pagos</div>;
 };
 
 export default Pagos;

@@ -1,5 +1,5 @@
 const Transferencias = () => {
-  return <div>Transferencias</div>;
+  return <div>Completar componente Transferencias</div>;
 };
 
 export default Transferencias;

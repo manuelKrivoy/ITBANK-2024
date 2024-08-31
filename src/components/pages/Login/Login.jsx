@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Container, TextField, Typography, Link } from "@mui/material";
-import { Root, LeftSide, RightSide, FormContainer, Logo, HoverButton } from "./LoginPageStyles";
+import { Root, LeftSide, RightSide, FormContainer, Logo, HoverButton } from "./LoginStyles";
 import { UserContext } from "../../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 

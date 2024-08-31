@@ -14,6 +14,9 @@ import { UserProvider } from "./context/UserContext";
 
 //Rutas privadas
 import ProtectedRoute from "./ProtectedRoute";
+import Transferencias from "./components/common/Transferencias";
+import Pagos from "./components/common/Pagos";
+import Inversiones from "./components/common/Inversiones";
 
 function App() {
   return (
@@ -24,9 +27,15 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<ProtectedRoute element={<Index component={<HomeProfile />} />} />} />
           <Route path="/profile/cuentas" element={<ProtectedRoute element={<Index component={<Cuentas />} />} />} />
-          <Route path="/profile/transferencias" element={<ProtectedRoute element={<Index />} />} />
-          <Route path="/profile/pagos" element={<ProtectedRoute element={<Index />} />} />
-          <Route path="/profile/inversiones" element={<ProtectedRoute element={<Index />} />} />
+          <Route
+            path="/profile/transferencias"
+            element={<ProtectedRoute element={<Index component={<Transferencias />} />} />}
+          />
+          <Route path="/profile/pagos" element={<ProtectedRoute element={<Index component={<Pagos />} />} />} />
+          <Route
+            path="/profile/inversiones"
+            element={<ProtectedRoute element={<Index component={<Inversiones />} />} />}
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

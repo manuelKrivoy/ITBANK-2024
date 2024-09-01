@@ -1,4 +1,24 @@
-/* src/index.css (o en el archivo CSS global que estés utilizando) */
+/*src/index.css (o en el archivo CSS global que estés utilizando)*/
+
+
+/* html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: hsl(220, 2%, 75%);
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+} */
+
+
+/* src/App.css */
+
 html,
 body {
   margin: 0;
@@ -12,4 +32,65 @@ body {
 #root {
   height: 100%;
   width: 100%;
+}
+
+h1 {
+  color: white; 
+  font-size: 2rem;
+}
+
+.home-container {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url('public/login-image.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.login-button {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.login-button:hover {
+  background-color: rgba(0, 0, 0, 1);
+  transform: scale(1.05);
+}
+
+.footer {
+  background-color: rgba(0, 51, 102, 0.8);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+}
+
+.social-icons {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.social-icons li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.social-icons a {
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
 }

@@ -5,12 +5,12 @@ body {
   height: 100%;
   width: 100%;
   overflow: hidden;
-  background-color: hsl(219, 45%, 85%);
 }
 
 #root {
   height: 100%;
   width: 100%;
+  background-color: rgb(179, 165, 165);
 }
 
 h1 {
@@ -19,7 +19,6 @@ h1 {
 }
 
 .footer {
-  background-color: rgba(0, 51, 102, 0.8);
   color: white;
   padding: 20px;
   text-align: center;

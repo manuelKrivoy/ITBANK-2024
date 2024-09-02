@@ -2,7 +2,7 @@ body {
   height: 100%;
   width: 100%;
   overflow: hidden;
-  background-image: linear-gradient(to bottom, hsl(218, 89%, 11%), hsl(218, 71%, 16%));
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,7 +33,7 @@ body {
 }
 .seParte {
   margin-top: 10px;
-  background: linear-gradient(45deg, #262e76, #3f5184);
+  background: linear-gradient(45deg, #262e76, #6383db);
   color: #fff;
   border: none;
   border-radius: 25px;
@@ -53,8 +53,7 @@ body {
   position: absolute;
   width: 0px;
   opacity: 0.75;
-  background-color: red;
-  box-shadow: #e9f1f1 0px 0px 20px 2px;
+  box-shadow: #096060 0px 0px 20px 2px;
   opacity: 0;
   top: 100vh;
   bottom: 0px;

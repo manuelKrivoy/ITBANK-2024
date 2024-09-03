@@ -6,7 +6,6 @@ const ProtectedProfileRoute = ({ element }) => {
 
   useEffect(() => {
     const user = localStorage.getItem("user");
-    console.log("User in localStorage:", user);
 
     if (!user) {
       console.log("No user found, navigating to /login");

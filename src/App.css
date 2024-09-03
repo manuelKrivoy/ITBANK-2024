@@ -1,4 +1,3 @@
-/* src/index.css (o en el archivo CSS global que estés utilizando) */
 html,
 body {
   margin: 0;
@@ -6,10 +5,42 @@ body {
   height: 100%;
   width: 100%;
   overflow: hidden;
-  background-color: hsl(220, 2%, 75%);
 }
 
 #root {
   height: 100%;
   width: 100%;
+  background-color: rgb(179, 165, 165);
+}
+
+h1 {
+  color: white;
+  font-size: 2rem;
+}
+
+.footer {
+  color: white;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+}
+
+.social-icons {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.social-icons li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.social-icons a {
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
 }

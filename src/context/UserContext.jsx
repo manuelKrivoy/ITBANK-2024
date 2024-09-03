@@ -7,12 +7,12 @@ const UserProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const savedUsername = localStorage.getItem("user");
-    if (savedUsername) {
-      setUser(user);
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
     }
     getListOfUsers();
-  }, [user]);
+  }, []);
 
   const loggedUser = (user) => {
     setUser(user);

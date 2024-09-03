@@ -16,13 +16,13 @@ import ProtectedProfileRoute from "../Routes/ProtectedProfileRoute";
 import Transferencias from "../components/common/Transferencias";
 import Pagos from "../components/common/Pagos";
 import Inversiones from "../components/common/Inversiones";
+import ProtectedLoginRoute from "./ProtectedLoginRoute";
 
 function AppRoutes() {
-  const { user } = useContext(UserContext);
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/login" element={user ? <Navigate to="/profile" /> : <Login />} />
+      <Route path="/login" element={<ProtectedLoginRoute element={<Login />} />} />
       <Route path="/profile" element={<ProtectedProfileRoute element={<Index component={<HomeProfile />} />} />} />
       <Route path="/profile/cuentas" element={<ProtectedProfileRoute element={<Index component={<Cuentas />} />} />} />
       <Route

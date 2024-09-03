@@ -50,7 +50,7 @@ export default function Sidebar({ component }) {
   };
 
   const menuItems = [
-    { text: user.name, icon: <HomeIcon />, onClick: () => navigate("/profile") },
+    { text: user?.name, icon: <HomeIcon />, onClick: () => navigate("/profile") },
     { text: "Cuentas", icon: <SavingsIcon />, onClick: () => navigate("/profile/cuentas") },
     { text: "Transferencias", icon: <CurrencyExchangeIcon />, onClick: () => navigate("/profile/transferencias") },
     { text: "Pagos", icon: <PaymentsIcon />, onClick: () => navigate("/profile/pagos") },

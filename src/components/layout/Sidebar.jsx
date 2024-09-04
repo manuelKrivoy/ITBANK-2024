@@ -71,7 +71,7 @@ export default function Sidebar({ component }) {
           cancelButtonText: "Volver",
         }).then((result) => {
           if (result.isConfirmed) {
-            // Si se apreta que sí se ejecuta lo siguiente:
+
             userLogOut();
             navigate("/login");
           }
@@ -86,7 +86,7 @@ export default function Sidebar({ component }) {
       <AppBar position="fixed" open={open}>
         <Toolbar
           sx={{
-            backgroundColor: "#2b4252",
+            backgroundColor: "#fff",
           }}
         >
           <IconButton

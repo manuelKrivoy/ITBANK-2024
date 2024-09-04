@@ -14,6 +14,17 @@ const UserProvider = ({ children }) => {
     getListOfUsers();
   }, []);
 
+  const modifyCurrencyAmount = (currency, amount) => {
+    if (currency === "USD") {
+      setUser({ ...user, saldoDolares: user.saldoDolares - amount });
+      localStorage.setItem("user", JSON.stringify({ ...user, saldoDolares: user.saldoDolares - amount }));
+    } else {
+      setUser({ ...user, saldoPesos: user.saldoPesos - amount });
+      localStorage.setItem("user", JSON.stringify({ ...user, saldoPesos: user.saldoPesos - amount }));
+    }
+  };
+
+
   const loggedUser = (user) => {
     setUser(user);
     localStorage.setItem("user", JSON.stringify(user));
@@ -35,7 +46,8 @@ const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, users, userLogOut, loggedUser }}>
+
+    <UserContext.Provider value={{ user, users, userLogOut, loggedUser, modifyCurrencyAmount }}>
       {children}
     </UserContext.Provider>
   );

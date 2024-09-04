@@ -1,3 +1,4 @@
+
 import React, { useContext } from 'react';
 import { Container, Typography, Box, Link } from '@mui/material';
 import MyCards from './MyCards';
@@ -18,7 +19,7 @@ const HomeProfile = () => {
     <Container className="container" sx={{ maxWidth: '100%', overflowX: 'hidden', paddingX: { xs: 2, md: 3 } }}>
       <Box my={4}>
         <Typography variant="h4" gutterBottom>
-          Bienvenido, <span style={{ color: '#3f51b5' }}>{user?.name || "Usuario"}</span>
+          Bienvenido, <span style={{ color: "#3f51b5" }}>{user?.name || "Usuario"}</span>
         </Typography>
         <Box display="flex" flexWrap="wrap" justifyContent="space-between" gap={3}>
           <Box flexBasis={{ xs: '100%', md: '48%' }}>

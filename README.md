@@ -7,7 +7,7 @@ Frontend para TP desarollado con REACT + VITE
 ### 1. Clona the repository
 
 ```bash
-git clone https://github.com/yourusername/itbank.git
+git clone https://github.com/manuelKrivoy/ITBANK-2024.git
 cd itbank
 ```
 

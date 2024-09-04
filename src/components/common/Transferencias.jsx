@@ -65,6 +65,19 @@ const Transferencias = () => {
       icon: "success",
       title: "Transferencia realizada",
       text: `Se transfirieron ${amount} ${currency} a ${recipient}`,
+      showCancelButton: true,
+      confirmButtonText: "Aceptar",
+      cancelButtonText: "Descargar Comprobante",
+    }).then((result) => {
+      if (result.dismiss === Swal.DismissReason.cancel) {
+        const pdfUrl = "/plantilla-comprobante.pdf";
+        const link = document.createElement("a");
+        link.href = pdfUrl;
+        link.setAttribute("download", "comprobante-transferencia.pdf");
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      }
     });
   };
 

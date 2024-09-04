@@ -1,32 +1,64 @@
 import React, { useContext } from 'react';
-import { Container, Grid, Typography, Box } from '@mui/material';
+import { Container, Typography, Box, Link } from '@mui/material';
 import MyCards from './MyCards';
-import RecentTransactions from './RecentTransactions';
+import TransactionesRecientes from './TransactionesRecientes';
 import { UserContext } from '../../context/UserContext';
-
+import ConversorDivisas from './ConversorDivisas';
+import PrestamoSimulador from './PrestamoSimulador';
 
 const HomeProfile = () => {
   const { user } = useContext(UserContext);
   const transactions = [
-    { description: 'Deposit from my Card', date: '25 January 2021', amount: '- $500' },
-    { description: 'Deposit Paypal', date: '25 January 2021', amount: '+ $500' },
-    { description: 'Withdrawal', date: '25 January 2021', amount: '- $500' },
+    { description: 'Depósito desde mi tarjeta', date: '25 Enero 2021', amount: '- $500' },
+    { description: 'Depósito Paypal', date: '25 Enero 2021', amount: '+ $500' },
+    { description: 'Retiro', date: '25 Enero 2021', amount: '- $500' },
   ];
 
   return (
-    <Container>
+    <Container className="container" sx={{ maxWidth: '100%', overflowX: 'hidden', paddingX: { xs: 2, md: 3 } }}>
       <Box my={4}>
         <Typography variant="h4" gutterBottom>
           Bienvenido, <span style={{ color: '#3f51b5' }}>{user?.name || "Usuario"}</span>
         </Typography>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
+        <Box display="flex" flexWrap="wrap" justifyContent="space-between" gap={3}>
+          <Box flexBasis={{ xs: '100%', md: '48%' }}>
             <MyCards color="#3f51b5" type="savings" />
-          </Grid>
-          <Grid item xs={12} md={6}>
+          </Box>
+          <Box flexBasis={{ xs: '100%', md: '48%' }}>
             <MyCards color="#9e9e9e" type="credit" />
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
+        <Box mt={4}>
+          <Typography variant="h5" gutterBottom>
+            Novedades
+          </Typography>
+          <img src="/novedades.png" alt="Novedades" style={{ width: '100%', borderRadius: '12px' }} />
+        </Box>
+        <Box mt={4}>
+          <Typography variant="h5" gutterBottom>
+            Simulador de Préstamos
+          </Typography>
+          <Box sx={{ maxWidth: '100%', overflowX: 'hidden' }}>
+            <PrestamoSimulador />
+          </Box>
+        </Box>
+        <Box mt={4}>
+          <Box display="flex" justifyContent="space-between" alignItems="center">
+            <Typography variant="h5" gutterBottom>
+              Movimientos
+            </Typography>
+            <Link href="#" variant="body2" style={{ marginRight: '20px' }}>
+              Ver todos
+            </Link>
+          </Box>
+          <TransactionesRecientes transactions={transactions} />
+        </Box>
+        <Box mt={4}>
+          <Typography variant="h5" gutterBottom>
+            Conversor de divisas
+          </Typography>
+          <ConversorDivisas />
+        </Box>
       </Box>
     </Container>
   );

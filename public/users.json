@@ -6,7 +6,9 @@
     "email": "krivoymanuel@gmail.com",
     "password": "1234",
     "saldoPesos": 50000,
-    "saldoDolares": 1000
+    "saldoDolares": 1000,
+    "cvu": "0000003100000000000001",
+    "numeroTarjeta": "1234-5678-9012-3456"
   },
   {
     "user-id": 2,
@@ -15,7 +17,9 @@
     "email": "tomasdeibi@gmail.com",
     "password": "1234",
     "saldoPesos": 10000,
-    "saldoDolares": 500
+    "saldoDolares": 500,
+    "cvu": "0000003100000000000002",
+    "numeroTarjeta": "2345-6789-0123-4567"
   },
   {
     "user-id": 3,
@@ -24,7 +28,9 @@
     "email": "gonzaloblondi@gmail.com",
     "password": "1234",
     "saldoPesos": 20000,
-    "saldoDolares": 200
+    "saldoDolares": 200,
+    "cvu": "0000003100000000000003",
+    "numeroTarjeta": "3456-7890-1234-5678"
   },
   {
     "user-id": 4,
@@ -33,7 +39,9 @@
     "email": "diegogomez@gmail.com",
     "password": "1234",
     "saldoPesos": 30000,
-    "saldoDolares": 300
+    "saldoDolares": 300,
+    "cvu": "0000003100000000000004",
+    "numeroTarjeta": "4567-8901-2345-6789"
   },
   {
     "user-id": 5,
@@ -42,6 +50,8 @@
     "email": "franciscoruslender@gmail.com",
     "password": "1234",
     "saldoPesos": 40000,
-    "saldoDolares": 400
+    "saldoDolares": 400,
+    "cvu": "0000003100000000000005",
+    "numeroTarjeta": "5678-9012-3456-7890"
   }
 ]

@@ -1,5 +1,4 @@
-import { Route, Routes, Navigate } from "react-router-dom";
-import { useContext } from "react";
+import { Route, Routes } from "react-router-dom";
 
 import Login from "../components/pages/Login/Login";
 import Home from "../components/pages/Home/Home";
@@ -7,15 +6,14 @@ import NotFound from "../components/pages/NotFound";
 
 // Perfil de usuario:
 import Index from "../components/pages/Index/Index";
-import HomeProfile from "../components/common/HomeProfile";
-import Cuentas from "../components/common/Cuentas";
-import { UserContext } from "../context/UserContext";
+import HomeProfile from "../components/SideBarComponents/HomeProfile/HomeProfile";
+import Cuentas from "../components/SideBarComponents/Cuentas";
 
 //Rutas privadas
 import ProtectedProfileRoute from "../Routes/ProtectedProfileRoute";
-import Transferencias from "../components/common/Transferencias";
-import Pagos from "../components/common/Pagos";
-import Inversiones from "../components/common/Inversiones";
+import Transferencias from "../components/SideBarComponents/Transferencias";
+import Pagos from "../components/SideBarComponents/Pagos";
+import Inversiones from "../components/SideBarComponents/Inversiones";
 import ProtectedLoginRoute from "./ProtectedLoginRoute";
 
 function AppRoutes() {

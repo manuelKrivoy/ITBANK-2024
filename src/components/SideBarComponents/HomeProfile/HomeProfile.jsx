@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Container, Typography, Box, Link } from "@mui/material";
 import MyCards from "./MyCards";
-import { UserContext } from "../../context/UserContext";
+import { UserContext } from "../../../context/UserContext";
 import ConversorDivisas from "./ConversorDivisas";
 import PrestamoSimulador from "./PrestamoSimulador";
 import TransaccionesRecientes from "./TransaccionesRecientes";

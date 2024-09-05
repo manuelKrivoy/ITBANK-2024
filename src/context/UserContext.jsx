@@ -24,7 +24,6 @@ const UserProvider = ({ children }) => {
     }
   };
 
-
   const loggedUser = (user) => {
     setUser(user);
     localStorage.setItem("user", JSON.stringify(user));
@@ -46,7 +45,6 @@ const UserProvider = ({ children }) => {
   };
 
   return (
-
     <UserContext.Provider value={{ user, users, userLogOut, loggedUser, modifyCurrencyAmount }}>
       {children}
     </UserContext.Provider>

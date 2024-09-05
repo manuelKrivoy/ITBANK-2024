@@ -1,10 +1,21 @@
-import { useContext, useState } from "react";
-import { UserContext } from "../../context/UserContext";
-import { Card, CardContent, Typography, Button, Box, Stack, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  Box,
+  Stack,
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
 import Swal from "sweetalert2";
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import SyncAltIcon from '@mui/icons-material/SyncAlt';
-import CallMadeIcon from '@mui/icons-material/CallMade';
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import SyncAltIcon from "@mui/icons-material/SyncAlt";
+import CallMadeIcon from "@mui/icons-material/CallMade";
 
 const showSwalInversion = () => {
   Swal.fire({
@@ -15,32 +26,38 @@ const showSwalInversion = () => {
     cancelButtonColor: "#d33",
     confirmButtonText: "Invertir",
     cancelButtonText: "Cancelar",
-  })
-}
+  });
+};
 
 const Inversiones = () => {
-  return(
-    <Box sx={{
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    }}>
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <Stack spacing={3}>
-      <Card 
-        sx={{
-          borderRadius: 2,
-          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-          width: "60vw",
-          transition: "transform 0.3s ease-in-out", "&:hover": {
-            transform: "scale(1.02)",
+        <Card
+          sx={{
+            borderRadius: 2,
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+            width: "60vw",
+            transition: "transform 0.3s ease-in-out",
+            "&:hover": {
+              transform: "scale(1.02)",
             },
-        }}>
-          <CardContent sx={{padding: "20px"}}> 
-            <Typography variant="h4" align="center">Dólares</Typography>
+          }}
+        >
+          <CardContent sx={{ padding: "20px" }}>
+            <Typography variant="h4" align="center">
+              Dólares
+            </Typography>
             <Typography variant="h6">U$D ... </Typography>
             <Divider sx={{ marginY: 1 }} />
             <List>
-              <ListItem  >
+              <ListItem>
                 <ListItemButton>
                   <ListItemIcon>
                     <AttachMoneyIcon />
@@ -48,7 +65,7 @@ const Inversiones = () => {
                   <ListItemText primary="Comprar" />
                 </ListItemButton>
               </ListItem>
-              <ListItem >
+              <ListItem>
                 <ListItemButton>
                   <ListItemIcon>
                     <CallMadeIcon />
@@ -56,7 +73,7 @@ const Inversiones = () => {
                   <ListItemText primary="Vender" />
                 </ListItemButton>
               </ListItem>
-              <ListItem >
+              <ListItem>
                 <ListItemButton>
                   <ListItemIcon>
                     <SyncAltIcon />
@@ -75,62 +92,67 @@ const Inversiones = () => {
             </Stack>
             <Divider sx={{ marginY: 1 }} />
             <Stack>
-            <Typography variant="h6" >Actividad</Typography>
-            <List>
+              <Typography variant="h6">Actividad</Typography>
+              <List>
                 <ListItem>deposito de mi tarjet - 25 de enero de 2021 - U$D 250</ListItem>
                 <ListItem>deposito de mi tarjet - 20 de febrero de 2021 - U$D 500</ListItem>
                 <ListItem>deposito de mi tarjet - 15 de abril de 2020 - U$D 100</ListItem>
               </List>
             </Stack>
           </CardContent>
-      </Card>
+        </Card>
         <Card
           sx={{
             borderRadius: 2,
             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
             width: "60vw",
             transition: "transform 0.3s ease-in-out",
-              "&:hover": {
-                transform: "scale(1.02)",
-              },
-          }}>
-          <CardContent sx={{padding: "20px"}}>
-          <Typography variant="h4" align="center">Fondos de inversión</Typography>
-          <Typography variant="h6">invertido $ ... </Typography>
-          <Button>Invertir</Button>
-          <Divider sx={{ marginY: 1 }} />
+            "&:hover": {
+              transform: "scale(1.02)",
+            },
+          }}
+        >
+          <CardContent sx={{ padding: "20px" }}>
+            <Typography variant="h4" align="center">
+              Fondos de inversión
+            </Typography>
+            <Typography variant="h6">invertido $ ... </Typography>
+            <Button>Invertir</Button>
+            <Divider sx={{ marginY: 1 }} />
             <box variant="div">
-            <Typography variant="h6">mis fondos: </Typography>
-            <List>
+              <Typography variant="h6">mis fondos: </Typography>
+              <List>
                 <ListItem>
                   <Button onClick={showSwalInversion}>Acciones AR</Button>
-                  </ListItem>
+                </ListItem>
                 <ListItem>
                   <Button onClick={showSwalInversion}>Renta fija</Button>
-                  </ListItem>
+                </ListItem>
                 <ListItem>
                   <Button onClick={showSwalInversion}>SBS Balanceado</Button>
-                  </ListItem>
+                </ListItem>
               </List>
             </box>
           </CardContent>
         </Card>
 
-        <Card 
-        sx={{
-          borderRadius: 2,
-          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-          width: "60vw",
-          transition: "transform 0.3s ease-in-out",
+        <Card
+          sx={{
+            borderRadius: 2,
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+            width: "60vw",
+            transition: "transform 0.3s ease-in-out",
             "&:hover": {
               transform: "scale(1.02)",
             },
-        }}s>
-          <CardContent sx={{padding: "20px"}}>
+          }}
+          s
+        >
+          <CardContent sx={{ padding: "20px" }}>
             <box variant="div">
               <Typography variant="h4">Plazo fijo</Typography>
               <Typography variant="body2">Generá rendidimientos con un plazo fijo</Typography>
-              <Button >Simular</Button>
+              <Button>Simular</Button>
             </box>
             <Divider sx={{ marginY: 1 }} />
             <box variant="div">
@@ -140,9 +162,9 @@ const Inversiones = () => {
             </box>
           </CardContent>
         </Card>
-      </Stack> 
+      </Stack>
     </Box>
-  ) 
+  );
 };
 
 export default Inversiones;

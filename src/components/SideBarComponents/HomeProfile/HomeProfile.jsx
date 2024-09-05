@@ -9,9 +9,9 @@ import TransaccionesRecientes from "./TransaccionesRecientes";
 const HomeProfile = () => {
   const { user } = useContext(UserContext);
   const transactions = [
-    { description: "Depósito desde mi tarjeta", date: "25 Enero 2021", amount: "- $500" },
-    { description: "Depósito Paypal", date: "25 Enero 2021", amount: "+ $500" },
-    { description: "Retiro", date: "25 Enero 2021", amount: "- $500" },
+    { description: "Depósito desde mi tarjeta", date: "05 Junio 2024", amount: "- $750" },
+    { description: "Depósito Paypal", date: "11 Abril 2024", amount: "+ $535" },
+    { description: "Retiro", date: "25 Enero 2024", amount: "- $225" },
   ];
 
   return (

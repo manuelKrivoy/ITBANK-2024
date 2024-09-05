@@ -19,7 +19,7 @@ const MyCards = ({ color, type }) => {
       {type === "savings" ? (
         <>
           <Box display="flex" alignItems="center" justifyContent="space-between">
-            <Typography variant="h5">Cuenta ID: {user?.["user-id"] || "Desconocido"}</Typography>
+            <Typography variant="h5">Cuenta ID: {user?.["id"] || "Desconocido"}</Typography>
             <div onClick={toggleBalanceVisibility} style={{ cursor: "pointer" }}>
               {showBalance ? (
                 <VisibilityIcon style={{ color: "white" }} />

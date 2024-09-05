@@ -13,6 +13,8 @@ const Login = () => {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const toggleForm = () => {
     setIsLogin(!isLogin);
   };
@@ -37,6 +39,13 @@ const Login = () => {
       });
     }
   };
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
 
   return (
     <Root>
@@ -47,22 +56,40 @@ const Login = () => {
             {!isLogin && <TextField id="dni" fullWidth label="DNI" type="number" margin="normal" variant="outlined" />}
             <TextField
               id="email"
+              type="email"
               fullWidth
               label={isLogin ? "Correo electrónico" : "Nombre completo"}
               margin="normal"
               variant="outlined"
+              value={email}
+              onChange={handleEmailChange}
             />
             {!isLogin && (
               <TextField id="name" fullWidth label="Correo electrónico" margin="normal" variant="outlined" />
             )}
-            <TextField id="password" fullWidth label="Contraseña" type="password" margin="normal" variant="outlined" />
+            <TextField
+              id="password"
+              fullWidth
+              label="Contraseña"
+              type="password"
+              margin="normal"
+              variant="outlined"
+              value={password}
+              onChange={handlePasswordChange}
+            />
 
             {isLogin ? (
-              <HoverButton variant="contained" color="primary" fullWidth onClick={handleLogIn}>
+              <HoverButton
+                variant="contained"
+                color="primary"
+                fullWidth
+                onClick={handleLogIn}
+                disabled={!email || !password}
+              >
                 Iniciar Sesión
               </HoverButton>
             ) : (
-              <HoverButton variant="contained" color="primary" fullWidth>
+              <HoverButton variant="contained" color="primary" fullWidth disabled>
                 Registrarse
               </HoverButton>
             )}

@@ -1,6 +1,6 @@
 [
   {
-    "user-id": 1,
+    "id": 1,
     "name": "Manuel Krivoy",
     "dni": 43840924,
     "email": "krivoymanuel@gmail.com",
@@ -11,7 +11,7 @@
     "numeroTarjeta": "1234-5678-9012-3456"
   },
   {
-    "user-id": 2,
+    "id": 2,
     "name": "Tomas Deibi",
     "dni": 43840925,
     "email": "tomasdeibi@gmail.com",
@@ -22,7 +22,7 @@
     "numeroTarjeta": "2345-6789-0123-4567"
   },
   {
-    "user-id": 3,
+    "id": 3,
     "name": "Gonzalo Blondi",
     "dni": 43840923,
     "email": "gonzaloblondi@gmail.com",
@@ -33,7 +33,7 @@
     "numeroTarjeta": "3456-7890-1234-5678"
   },
   {
-    "user-id": 4,
+    "id": 4,
     "name": "Diego Gomez",
     "dni": 43840926,
     "email": "diegogomez@gmail.com",
@@ -44,7 +44,7 @@
     "numeroTarjeta": "4567-8901-2345-6789"
   },
   {
-    "user-id": 5,
+    "id": 5,
     "name": "Francisco Ruslender",
     "dni": 43840927,
     "email": "franciscoruslender@gmail.com",

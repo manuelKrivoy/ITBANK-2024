@@ -73,7 +73,7 @@ const Cuentas = () => {
         <Typography variant="body1" color="textSecondary" gutterBottom>
           Saldo actual:
         </Typography>
-        <Typography variant="h4" color="primary">
+        <Typography variant="h4" sx={{ color: type === "pesos" ? "#42a5f5" : "#3aa066" }}>
           {type === "pesos" ? `ARS $${balance}` : `USD $${balance}`}
         </Typography>
       </Paper>

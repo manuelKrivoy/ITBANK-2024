@@ -22,3 +22,11 @@ npm install
 ```bash
 npm run dev
 ```
+
+## 🧑‍💻 Desarrolladores
+
+- Francisco Ruslender
+- Gonzalo Blondi
+- Manuel Krivoy
+- Diego Agustín Gómez
+- Tomás Deibe

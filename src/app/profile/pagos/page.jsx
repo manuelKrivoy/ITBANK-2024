@@ -45,11 +45,13 @@ const CuentasPage = () => {
       if (result.isConfirmed) {
         modifyCurrencyAmount("$", pago.valor);
         setPagos(pagos.filter((p) => p.title !== pago.title));
-        Swal.fire(
-          "¡Pago realizado!",
-          "El pago fue realizado con éxito",
-          "success",
-        );
+        Swal.fire({
+          title: "¡Pago realizado!",
+          text: "El pago fue realizado con éxito",
+          icon: "success",
+          confirmButtonText: "OK",
+          confirmButtonColor: "#3085d6",
+        });
       }
     });
   };

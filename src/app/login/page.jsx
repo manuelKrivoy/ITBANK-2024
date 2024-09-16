@@ -52,6 +52,7 @@ const page = () => {
         text: "Datos incorrectos",
         icon: "error",
         confirmButtonText: "Aceptar",
+        confirmButtonColor: "#f50057",
       });
     }
   };

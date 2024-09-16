@@ -1,7 +1,14 @@
 "use client";
 import { useContext, useState, useEffect } from "react";
 import { Container, TextField, Typography, Link } from "@mui/material";
-import { Root, LeftSide, RightSide, FormContainer, Logo, HoverButton } from "./LoginStyles";
+import {
+  Root,
+  LeftSide,
+  RightSide,
+  FormContainer,
+  Logo,
+  HoverButton,
+} from "./LoginStyles";
 import { UserContext } from "../context/UserContext";
 import { useRouter } from "next/navigation";
 
@@ -11,8 +18,9 @@ import withReactContent from "sweetalert2-react-content";
 const MySwal = withReactContent(Swal);
 
 const page = () => {
+  const { users, loggedUser } = useContext(UserContext);
   useEffect(() => {
-    if (loggedUser) {
+    if (loggedUser.nombre) {
       router.push("/profile");
     }
   });
@@ -26,14 +34,15 @@ const page = () => {
     setIsLogin(!isLogin);
   };
 
-  const { users, loggedUser } = useContext(UserContext);
   const handleLogIn = () => {
     // Obtengo mail y contraseña de los inputs
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     console.log(email, password);
     // Verifico que exista
-    const user = users.find((user) => user.email === email && user.password === password);
+    const user = users.find(
+      (user) => user.email === email && user.password === password,
+    );
     if (user) {
       loggedUser(user);
       router.push("/profile");
@@ -60,7 +69,16 @@ const page = () => {
         <Container>
           <FormContainer>
             <Logo src="/logo.svg" alt="Logo" />
-            {!isLogin && <TextField id="dni" fullWidth label="DNI" type="number" margin="normal" variant="outlined" />}
+            {!isLogin && (
+              <TextField
+                id="dni"
+                fullWidth
+                label="DNI"
+                type="number"
+                margin="normal"
+                variant="outlined"
+              />
+            )}
             <TextField
               id="email"
               type="email"
@@ -72,7 +90,13 @@ const page = () => {
               onChange={handleEmailChange}
             />
             {!isLogin && (
-              <TextField id="name" fullWidth label="Correo electrónico" margin="normal" variant="outlined" />
+              <TextField
+                id="name"
+                fullWidth
+                label="Correo electrónico"
+                margin="normal"
+                variant="outlined"
+              />
             )}
             <TextField
               id="password"
@@ -96,12 +120,21 @@ const page = () => {
                 Iniciar Sesión
               </HoverButton>
             ) : (
-              <HoverButton variant="contained" color="primary" fullWidth disabled>
+              <HoverButton
+                variant="contained"
+                color="primary"
+                fullWidth
+                disabled
+              >
                 Registrarse
               </HoverButton>
             )}
 
-            <Typography variant="body2" align="center" style={{ marginTop: "20px" }}>
+            <Typography
+              variant="body2"
+              align="center"
+              style={{ marginTop: "20px" }}
+            >
               {isLogin ? "¿No tienes cuenta?" : "¿Ya tienes cuenta?"}
               <Link href="#" onClick={toggleForm} style={{ marginLeft: "5px" }}>
                 {isLogin ? "Regístrate" : "Inicia sesión"}

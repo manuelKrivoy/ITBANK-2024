@@ -1,7 +1,10 @@
-import React from "react";
+import HomeProfile from "./components/Dashboard/HomeProfile";
+import DefaultLayout from "./components/Layouts/DefaultLayout";
 
-const page = () => {
-  return <div>page</div>;
-};
-
-export default page;
+export default function Home() {
+  return (
+    <DefaultLayout>
+      <HomeProfile />
+    </DefaultLayout>
+  );
+}

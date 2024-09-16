@@ -3,7 +3,7 @@ import { UserProvider } from "./context/UserContext";
 export const metadata = {
   title: "ITBANK",
   description: "Aplicación de HomeBanking",
-  favicon: "/favicon.png",
+  favicon: "/favicon.ico",
 };
 
 export default function RootLayout({ children }) {

@@ -1,21 +1,15 @@
-import React from "react";
 import styles from "./home.module.css";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Home = () => {
-  const router = useRouter();
   return (
     <div>
       <div className={styles.content}>
         <img className={styles.logo} src="./logo.svg" alt="logo" />
-        <button
-          className={styles.seParte}
-          onClick={() => {
-            router.push("/login");
-          }}
-        >
-          Forma parte
-        </button>
+        <Link href="/login">
+          <button className={styles.seParte}>Forma parte</button>
+        </Link>
       </div>
 
       <div className={`${styles.light} ${styles.x1}`}></div>

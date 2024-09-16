@@ -18,10 +18,16 @@ const UserProvider = ({ children }) => {
   const modifyCurrencyAmount = (currency, amount) => {
     if (currency === "USD") {
       setUser({ ...user, saldoDolares: user.saldoDolares - amount });
-      localStorage.setItem("user", JSON.stringify({ ...user, saldoDolares: user.saldoDolares - amount }));
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ ...user, saldoDolares: user.saldoDolares - amount }),
+      );
     } else {
       setUser({ ...user, saldoPesos: user.saldoPesos - amount });
-      localStorage.setItem("user", JSON.stringify({ ...user, saldoPesos: user.saldoPesos - amount }));
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ ...user, saldoPesos: user.saldoPesos - amount }),
+      );
     }
   };
 
@@ -34,9 +40,7 @@ const UserProvider = ({ children }) => {
     try {
       const response = await fetch("/users.json");
       const data = await response.json();
-      console.log(data);
       setUsers(data);
-      console.log(users);
     } catch (error) {
       console.error("Error fetcheando json:", error);
     }
@@ -48,7 +52,9 @@ const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, users, userLogOut, loggedUser, modifyCurrencyAmount }}>
+    <UserContext.Provider
+      value={{ user, users, userLogOut, loggedUser, modifyCurrencyAmount }}
+    >
       {children}
     </UserContext.Provider>
   );

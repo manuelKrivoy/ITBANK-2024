@@ -18,12 +18,12 @@ import withReactContent from "sweetalert2-react-content";
 const MySwal = withReactContent(Swal);
 
 const page = () => {
-  const { users, loggedUser } = useContext(UserContext);
+  const { users, user, loggedUser } = useContext(UserContext);
   useEffect(() => {
-    if (loggedUser.nombre) {
+    if (localStorage.getItem("user")) {
       router.push("/profile");
     }
-  });
+  }, []);
 
   const router = useRouter();
   const [isLogin, setIsLogin] = useState(true);

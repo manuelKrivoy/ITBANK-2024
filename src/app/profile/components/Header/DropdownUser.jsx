@@ -41,8 +41,8 @@ const DropdownUser = () => {
       <Box display="flex" alignItems="center" gap={2}>
         <IconButton onClick={handleAvatarClick}>
           <Avatar
-            alt="User"
-            src="/user/user-01.png"
+            alt={user.name}
+            src={user.avatar}
             sx={{ width: 52, height: 52 }}
           />
         </IconButton>
@@ -56,8 +56,8 @@ const DropdownUser = () => {
       >
         <Box px={2} py={2} textAlign="center">
           <Avatar
-            alt="User"
-            src="/user/user-01.png"
+            alt={user.name}
+            src={user.avatar}
             sx={{ width: 80, height: 80, mx: "auto" }}
           />
           <Typography variant="h6" mt={1}>

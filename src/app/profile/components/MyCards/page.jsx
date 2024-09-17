@@ -24,7 +24,7 @@ const MyCards = ({ color, type }) => {
             justifyContent="space-between"
           >
             <Typography variant="h5">
-              Cuenta ID: {user?.["user-id"] || "Desconocido"}
+              Cuenta ID: {user?.id || "Desconocido"}
             </Typography>
             <div
               onClick={toggleBalanceVisibility}

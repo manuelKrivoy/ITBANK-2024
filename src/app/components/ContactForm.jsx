@@ -1,5 +1,6 @@
 import React from 'react';
 import { TextField, Button, Box, Typography } from '@mui/material';
+import Image from 'next/image';
 
 const ContactForm = () => {
   return (
@@ -17,6 +18,15 @@ const ContactForm = () => {
         boxShadow: 3,
       }}
     >
+      <Typography variant="body1" align="center" gutterBottom>
+      <Image
+              width={190}
+              height={48}
+              src={"/logo/logo.svg"}
+              alt="Logo"
+              priority
+            />
+      </Typography>
       <Typography variant="h4" component="h2" align="center" gutterBottom>
         Contáctanos
       </Typography>

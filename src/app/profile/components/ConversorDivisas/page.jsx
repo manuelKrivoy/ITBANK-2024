@@ -28,8 +28,8 @@ const ConversorDivisas = () => {
     <Container>
       <Card sx={{ padding: 3, borderRadius: '12px', backgroundColor: '#f5f5f5', boxShadow: 'none' }}>
         <CardContent>
-          <Typography variant="h6" sx={{ marginBottom: 2 }}>
-            Saldo en dólares: ${user?.saldoDolares || "0.00"}
+          <Typography variant="h6" textAlign="center" sx={{ marginBottom: 2 , color:"green"}}  >
+            Saldo en dólares: <b> ${user?.saldoDolares || "0.00"}</b>
           </Typography>
           <form onSubmit={(e) => { e.preventDefault(); convertCurrency(); }}>
             <TextField

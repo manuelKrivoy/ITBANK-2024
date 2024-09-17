@@ -19,6 +19,7 @@ import SendIcon from "@mui/icons-material/Send";
 import { UserContext } from "../../context/UserContext";
 import Swal from "sweetalert2";
 import DefaultLayout from "../components/Layouts/DefaultLayout";
+import { useRouter } from 'next/navigation';
 
 const CuentasPage = () => {
   const { users, user, modifyCurrencyAmount } = useContext(UserContext);
@@ -26,6 +27,7 @@ const CuentasPage = () => {
   const [recipient, setRecipient] = useState("");
   const [amount, setAmount] = useState("");
   const actualUser = user;
+  const router = useRouter();
 
   const confirmTransfer = (recipient, currency, amount) => {
     Swal.fire({
@@ -66,26 +68,23 @@ const CuentasPage = () => {
         return;
       }
     }
-    modifyCurrencyAmount(currency, amount);
-    Swal.fire({
-      icon: "success",
-      title: "Transferencia realizada",
-      text: `Se transfirieron ${amount} ${currency} a ${recipient}`,
-      showCancelButton: true,
-      confirmButtonText: "Aceptar",
-      cancelButtonText: "Descargar Comprobante",
-      confirmButtonColor: "#3085d6",
-    }).then((result) => {
-      if (result.dismiss === Swal.DismissReason.cancel) {
-        const pdfUrl = "/plantilla-comprobante.pdf";
-        const link = document.createElement("a");
-        link.href = pdfUrl;
-        link.setAttribute("download", "comprobante-transferencia.pdf");
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-      }
-    });
+  // Caso exitoso
+  modifyCurrencyAmount(currency, amount);
+  const transferId = Math.random().toString(36).substr(2, 9);
+
+  // Definir parámetros adicionales
+  const additionalParams = {
+    currency: currency,
+    amount: amount,
+    recipient: recipient,
+  };
+
+  // Convertir parámetros a una cadena de consulta
+  const queryParams = new URLSearchParams(additionalParams).toString();
+
+  // Redirección con parámetros
+  router.push(`./transferencias/${transferId}?${queryParams}`);
+
   };
 
   // Verifica si alguno de los campos está vacío

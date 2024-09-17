@@ -1,9 +1,7 @@
 import React, { useMemo } from 'react';
 import { Container, Typography, Box } from '@mui/material';
-import MyCards from '../MyCards/page';
 import TransaccionesRecientes from '../TransaccionesRecientes/page';
-import ConversorDivisas from '../ConversorDivisas/page';
-import PrestamoSimulador from '../PrestamoSimulador/page';
+import MyCards from '../MyCards/page';
 
 const HomeProfile: React.FC = React.memo(() => {
   const transactions = useMemo(() => [
@@ -22,26 +20,14 @@ const HomeProfile: React.FC = React.memo(() => {
           <MyCards color="#9e9e9e" type="credit" />
         </Box>
       </Box>
-      <Box mt={4}>
-        <Typography variant="h5" gutterBottom>
-          Simulador de Préstamos
-        </Typography>
-        <Box sx={{ maxWidth: '100%', overflowX: 'hidden' }}>
-          <PrestamoSimulador />
-        </Box>
-      </Box>
+
       <Box my={4}>
         <Typography variant="h5" gutterBottom>
           Movimientos
         </Typography>
         <TransaccionesRecientes transactions={transactions} />
       </Box>
-      <Box mt={4}>
-        <Typography variant="h5" gutterBottom>
-          Conversor de divisas
-        </Typography>
-        <ConversorDivisas />
-      </Box>
+
     </Container>
   );
 });

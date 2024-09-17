@@ -83,7 +83,7 @@ const MyCards = ({ color, type }) => {
 
   return (
     <Card sx={{ 
-      backgroundColor: type === 'savings' ? 'transparent' : color, 
+      backgroundColor: color, 
       color: '#fff', 
       padding: '16px', 
       borderRadius: '12px', 

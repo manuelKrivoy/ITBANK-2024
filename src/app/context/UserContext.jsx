@@ -1,18 +1,24 @@
 "use client";
+
 import { createContext, useState, useEffect } from "react";
+import useSWR from "swr";
 
 const UserContext = createContext();
 
+// Función para fetch de datos
+const fetcher = (url) => fetch(url).then((res) => res.json());
+
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState({});
-  const [users, setUsers] = useState([]);
+
+  // Uso de SWR para fetchear los usuarios
+  const { data: users, error } = useSWR("/users.json", fetcher);
 
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
-    getListOfUsers();
   }, []);
 
   const modifyCurrencyAmount = (currency, amount) => {
@@ -36,21 +42,22 @@ const UserProvider = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(user));
   };
 
-  const getListOfUsers = async () => {
-    try {
-      const response = await fetch("/users.json");
-      const data = await response.json();
-      setUsers(data);
-    } catch (error) {
-      console.error("Error fetcheando json:", error);
-    }
-  };
-
   const userLogOut = () => {
     setUser({});
     localStorage.removeItem("user");
   };
 
+  // Manejo de errores en el fetch
+  if (error) {
+    console.error("Error fetcheando json:", error);
+  }
+  if (!users) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="h-32 w-32 animate-spin rounded-full border-b-2 border-t-2 border-blue-500"></div>
+      </div>
+    );
+  }
   return (
     <UserContext.Provider
       value={{ user, users, userLogOut, loggedUser, modifyCurrencyAmount }}

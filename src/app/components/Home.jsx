@@ -1,5 +1,4 @@
 import styles from "./home.module.css";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const Home = () => {
@@ -7,7 +6,7 @@ const Home = () => {
     <div>
       <div className={styles.content}>
         <img className={styles.logo} src="./logo.svg" alt="logo" />
-        <Link href="/login">
+        <Link href="/login" prefetch>
           <button className={styles.seParte}>Forma parte</button>
         </Link>
       </div>

@@ -49,6 +49,8 @@ const CuentasPage = () => {
           icon: "error",
           title: "Saldo insuficiente",
           text: "No tienes suficientes dólares para realizar esta transferencia",
+          confirmButtonText: "Aceptar",
+          confirmButtonColor: "#3085d6",
         });
         return;
       }
@@ -58,6 +60,8 @@ const CuentasPage = () => {
           icon: "error",
           title: "Saldo insuficiente",
           text: "No tienes suficientes pesos para realizar esta transferencia",
+          confirmButtonText: "Aceptar",
+          confirmButtonColor: "#3085d6",
         });
         return;
       }
@@ -70,6 +74,7 @@ const CuentasPage = () => {
       showCancelButton: true,
       confirmButtonText: "Aceptar",
       cancelButtonText: "Descargar Comprobante",
+      confirmButtonColor: "#3085d6",
     }).then((result) => {
       if (result.dismiss === Swal.DismissReason.cancel) {
         const pdfUrl = "/plantilla-comprobante.pdf";

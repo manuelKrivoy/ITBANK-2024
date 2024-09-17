@@ -11,8 +11,15 @@ const HomeProfile: React.FC = () => {
   ];
 
   return (
-    
     <Container className="container" sx={{ maxWidth: '100%', overflowX: 'hidden', paddingX: { xs: 2, md: 3 } }}>
+      <Box display="flex" flexWrap="wrap" justifyContent="space-between" gap={3}>
+        <Box flexBasis={{ xs: '100%', md: '48%' }}>
+          <MyCards color="#3f51b5" type="savings" />
+        </Box>
+        <Box flexBasis={{ xs: '100%', md: '48%' }}>
+          <MyCards color="#9e9e9e" type="credit" />
+        </Box>
+      </Box>
       <Box my={4}>
         <Typography variant="h5" gutterBottom>
           Movimientos

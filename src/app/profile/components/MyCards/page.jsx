@@ -1,6 +1,8 @@
+"use client";
+
 import React, { useContext, useState } from 'react';
 import { Card, CardContent, Typography, Box } from '@mui/material';
-import { UserContext } from '../../context/UserContext';
+import { UserContext } from "@/app/context/UserContext";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
@@ -35,7 +37,6 @@ const MyCards = ({ color, type }) => {
         <>
           <Box display="flex" justifyContent="space-between" alignItems="center">
             <Typography variant="body2">Titular de la tarjeta</Typography>
-            <img src={VisaLogo} alt="Visa" style={{ width: '40px', height: 'auto' }} />
           </Box>
           <Typography variant="h6">{user?.name || "Usuario"}</Typography>
           <Box display="flex" justifyContent="space-between" mt={2}>
@@ -55,7 +56,7 @@ const MyCards = ({ color, type }) => {
       padding: '16px', 
       borderRadius: '12px', 
       minHeight: '200px', 
-      backgroundImage: type === 'savings' ? `url(${BalanceBg})` : 'none', 
+      backgroundImage: type === 'savings' ? 'url(/Balance.png)' : 'none', 
       backgroundSize: 'cover' 
     }}>
       <CardContent>

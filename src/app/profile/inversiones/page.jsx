@@ -1,35 +1,21 @@
-"use client";
-import {
-  Card,
-  CardContent,
-  Typography,
-  Button,
-  Box,
-  Stack,
-  Divider,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+
 import Swal from "sweetalert2";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import CallMadeIcon from "@mui/icons-material/CallMade";
 import DefaultLayout from "../components/Layouts/DefaultLayout";
-
-const showSwalInversion = () => {
-  Swal.fire({
-    title: " SBS Balanceado ",
-    text: ` Capital en fondo: $6.384,80 `,
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Invertir",
-    cancelButtonText: "Cancelar",
-  });
-};
 
 const CuentasPage = () => {
   return (
@@ -97,15 +83,9 @@ const CuentasPage = () => {
               <Stack>
                 <Typography variant="h6">Actividad</Typography>
                 <List>
-                  <ListItem>
-                    deposito de mi tarjet - 25 de enero de 2021 - U$D 250
-                  </ListItem>
-                  <ListItem>
-                    deposito de mi tarjet - 20 de febrero de 2021 - U$D 500
-                  </ListItem>
-                  <ListItem>
-                    deposito de mi tarjet - 15 de abril de 2020 - U$D 100
-                  </ListItem>
+                  <ListItem>deposito de mi tarjet - 25 de enero de 2021 - U$D 250</ListItem>
+                  <ListItem>deposito de mi tarjet - 20 de febrero de 2021 - U$D 500</ListItem>
+                  <ListItem>deposito de mi tarjet - 15 de abril de 2020 - U$D 100</ListItem>
                 </List>
               </Stack>
             </CardContent>
@@ -132,13 +112,13 @@ const CuentasPage = () => {
                 <Typography variant="h6">mis fondos: </Typography>
                 <List>
                   <ListItem>
-                    <Button onClick={showSwalInversion}>Acciones AR</Button>
+                    <Button>Acciones AR</Button>
                   </ListItem>
                   <ListItem>
-                    <Button onClick={showSwalInversion}>Renta fija</Button>
+                    <Button>Renta fija</Button>
                   </ListItem>
                   <ListItem>
-                    <Button onClick={showSwalInversion}>SBS Balanceado</Button>
+                    <Button>SBS Balanceado</Button>
                   </ListItem>
                 </List>
               </box>
@@ -160,17 +140,13 @@ const CuentasPage = () => {
             <CardContent sx={{ padding: "20px" }}>
               <box variant="div">
                 <Typography variant="h4">Plazo fijo</Typography>
-                <Typography variant="body2">
-                  Generá rendidimientos con un plazo fijo
-                </Typography>
+                <Typography variant="body2">Generá rendidimientos con un plazo fijo</Typography>
                 <Button>Simular</Button>
               </box>
               <Divider sx={{ marginY: 1 }} />
               <box variant="div">
                 <Typography variant="h4">Plazo fijo UVA</Typography>
-                <Typography variant="body2">
-                  Generá rendidimientos con un plazo fijo UVA
-                </Typography>
+                <Typography variant="body2">Generá rendidimientos con un plazo fijo UVA</Typography>
                 <Button>Simular</Button>
               </box>
             </CardContent>

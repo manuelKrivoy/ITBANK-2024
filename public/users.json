@@ -8,7 +8,22 @@
     "saldoPesos": 50000,
     "saldoDolares": 1000,
     "cvu": "0000003100000000000001",
-    "numeroTarjeta": "1234-5678-9012-3456",
+    "cards": [
+      {
+        "id": 1,
+        "name": "Visa",
+        "numeroTarjeta": "1234-5678-9012-3456",
+        "expiration": "12/2024",
+        "cvv": "423"
+      },
+      {
+        "id": 2,
+        "name": "Mastercard",
+        "numeroTarjeta": "2345-6789-0123-4567",
+        "expiration": "12/2024",
+        "cvv": "323"
+      }
+    ],
     "avatar":"/user/01.png"
   },
   {
@@ -20,7 +35,22 @@
     "saldoPesos": 10000,
     "saldoDolares": 500,
     "cvu": "0000003100000000000002",
-    "numeroTarjeta": "2345-6789-0123-4567",
+    "cards": [
+      {
+        "id": 1,
+        "name": "Visa",
+        "numeroTarjeta": "1234-5678-9012-3456",
+        "expiration": "12/2024",
+        "cvv": "123"
+      },
+      {
+        "id": 2,
+        "name": "Mastercard",
+        "numeroTarjeta": "2345-6789-0123-4567",
+        "expiration": "12/2024",
+        "cvv": "123"
+      }
+    ],
     "avatar":"/user/02.png"
   },
   {
@@ -32,7 +62,22 @@
     "saldoPesos": 20000,
     "saldoDolares": 200,
     "cvu": "0000003100000000000003",
-    "numeroTarjeta": "3456-7890-1234-5678",
+    "cards": [
+      {
+        "id": 1,
+        "name": "Visa",
+        "numeroTarjeta": "1234-5678-9012-3456",
+        "expiration": "12/2024",
+        "cvv": "123"
+      },
+      {
+        "id": 2,
+        "name": "Mastercard",
+        "numeroTarjeta": "2345-6789-0123-4567",
+        "expiration": "12/2024",
+        "cvv": "123"
+      }
+    ],
     "avatar":"/user/03.png"
   },
   {
@@ -44,7 +89,22 @@
     "saldoPesos": 30000,
     "saldoDolares": 300,
     "cvu": "0000003100000000000004",
-    "numeroTarjeta": "4567-8901-2345-6789",
+    "cards": [
+      {
+        "id": 1,
+        "name": "Visa",
+        "numeroTarjeta": "1234-5678-9012-3456",
+        "expiration": "12/2024",
+        "cvv": "123"
+      },
+      {
+        "id": 2,
+        "name": "Mastercard",
+        "numeroTarjeta": "2345-6789-0123-4567",
+        "expiration": "12/2024",
+        "cvv": "123"
+      }
+    ],
     "avatar":"/user/04.png"
   },
   {
@@ -56,7 +116,22 @@
     "saldoPesos": 40000,
     "saldoDolares": 400,
     "cvu": "0000003100000000000005",
-    "numeroTarjeta": "5678-9012-3456-7890",
+    "cards": [
+      {
+        "id": 1,
+        "name": "Visa",
+        "numeroTarjeta": "1234-5678-9012-3456",
+        "expiration": "12/2024",
+        "cvv": "123"
+      },
+      {
+        "id": 2,
+        "name": "Mastercard",
+        "numeroTarjeta": "2345-6789-0123-4567",
+        "expiration": "12/2024",
+        "cvv": "123"
+      }
+    ],
     "avatar":"/user/05.png"
   }
 ]

@@ -5,6 +5,7 @@ import { Card, CardContent, Typography, Box } from '@mui/material';
 import { UserContext } from "@/app/context/UserContext";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import Image from 'next/image';
 
 const MyCards = ({ color, type }) => {
   const { user } = useContext(UserContext);
@@ -66,16 +67,34 @@ const MyCards = ({ color, type }) => {
           >
             <Typography variant="body2">Titular de la tarjeta</Typography>
           </Box>
+          <Box display="flex" justifyContent="space-between">
           <Typography variant="h6">{user?.name || "Usuario"}</Typography>
+          <Image
+              width={80}
+              height={20}
+              src={`/cards_types/${user?.cards[0].name}.png`}	
+              alt={user?.cards[0].name || "Usuario"}
+              priority
+            />
+          </Box>
           <Box display="flex" justifyContent="space-between" mt={2}>
             <Typography variant="body2">VÁLIDA HASTA</Typography>
             <Typography variant="body2">
-              {user?.expiryDate || "12/29"}
+              {user?.cards[0].expiration || "12/29"}
             </Typography>
           </Box>
-          <Typography variant="h6" mt={2}>
-            {user?.numeroTarjeta || "**** **** **** ****"}
+          <Typography variant="h6" mt={2} display="flex" justifyContent="space-between" >
+            {user?.cards[0].numeroTarjeta || "**** **** **** ****"}
+            <Typography
+              variant="body2"
+              sx={{ textDecoration: "underline", cursor: "pointer"   }}
+              onClick={toggleCVUVisibility}
+
+            >
+              {showCVU ? ` ${user?.cards[0].cvv || "No disponible"}` : "Ver CVV"}
+            </Typography>
           </Typography>
+
         </>
       )}
     </>

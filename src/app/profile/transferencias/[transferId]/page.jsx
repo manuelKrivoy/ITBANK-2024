@@ -26,74 +26,109 @@ const TransferPage = () => {
   };
 
   return (
-    <DefaultLayout>
-      <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-        <Card sx={{ maxWidth: 1000, width: "100%", borderRadius: 4, boxShadow: 3 }}>
-          <CardContent>
-            <Typography variant="h5" gutterBottom align="center" color="primary">
-              Transferencia Exitosa
+    <Box sx={{ display: "flex", justifyContent: "center", mt: 4, px: 2 }}>
+      <Card
+        sx={{
+          width: {
+            xs: "90%",
+            sm: "70%",
+            md: "60%",
+            lg: "50%",
+          },
+          borderRadius: 4,
+          boxShadow: 3,
+          padding: { xs: 2, sm: 3 },
+        }}
+      >
+        <CardContent>
+          <Typography variant="h5" gutterBottom align="center" color="primary">
+            Transferencia Exitosa
+          </Typography>
+          <Divider sx={{ mb: 2 }} />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+              alignItems: "center",
+              textAlign: "center",
+            }}
+          >
+            <Typography variant="body1">
+              <strong>ID de Transferencia:</strong> {params.transferId}
             </Typography>
-            <Divider sx={{ mb: 2 }} />
-            {/* Usamos Flexbox para alinear los elementos */}
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 2, alignItems: "center" }}>
-              <Typography variant="body1" align="center">
-                <strong>ID de Transferencia:</strong> {params.transferId}
-              </Typography>
-              <Typography variant="body1" align="center">
-                <strong>Usuario remitente:</strong> {user.name}
-              </Typography>
-              <Typography variant="body1" align="center">
-                <strong>Usuario destinatario:</strong> {recipient}
-              </Typography>
-              <Typography variant="body1" align="center">
-                <strong>Monto:</strong> {currency} {amount}
-              </Typography>
-            </Box>
-            <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
-              <Link href="/profile/transferencias" >
-              <Button
-                variant="contained"
-                color="primary"
-          
-                sx={{
-                  textTransform: "none",
-                  fontWeight: "bold",
-                  borderRadius: 2,
-                  px: 4,
-                  py: 1.5,
-                  mr:4,
-                }}
-              >
-                Realizar otra transfenrencia
-              </Button>
-              </Link>
+            <Typography variant="body1">
+              <strong>Usuario remitente:</strong> {user.name}
+            </Typography>
+            <Typography variant="body1">
+              <strong>Usuario destinatario:</strong> {recipient}
+            </Typography>
+            <Typography variant="body1">
+              <strong>Monto:</strong> {currency} {amount}
+            </Typography>
+          </Box>
 
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: {
+                xs: "column",
+                sm: "row",
+              },
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 2,
+              mt: 3,
+            }}
+          >
+            <Link href="/profile/transferencias">
               <Button
                 variant="contained"
                 color="primary"
-                startIcon={<DownloadIcon />}
                 sx={{
                   textTransform: "none",
                   fontWeight: "bold",
                   borderRadius: 2,
                   px: 4,
                   py: 1.5,
-                  background: "linear-gradient(45deg, #2b43a4 30%, #48599f 90%)",
-                  transition: "background 0.3s ease",
-                  "&:hover": {
-                    background: "linear-gradient(45deg, #48599f 30%, #2b43a4 90%)",
+                  width: {
+                    xs: "100%",
+                    sm: "auto",
                   },
                 }}
-                onClick={handleDownload}
               >
-                Descargar comprobante
+                Realizar otra transferencia
               </Button>
-    
-            </Box>
-          </CardContent>
-        </Card>
-      </Box>
-    </DefaultLayout>
+            </Link>
+
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<DownloadIcon />}
+              sx={{
+                textTransform: "none",
+                fontWeight: "bold",
+                borderRadius: 2,
+                px: 4,
+                py: 1.5,
+                width: {
+                  xs: "100%",
+                  sm: "auto",
+                },
+                background: "linear-gradient(45deg, #2b43a4 30%, #48599f 90%)",
+                transition: "background 0.3s ease",
+                "&:hover": {
+                  background: "linear-gradient(45deg, #48599f 30%, #2b43a4 90%)",
+                },
+              }}
+              onClick={handleDownload}
+            >
+              Descargar comprobante
+            </Button>
+          </Box>
+        </CardContent>
+      </Card>
+    </Box>
   );
 };
 

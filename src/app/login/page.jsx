@@ -41,9 +41,6 @@ const page = () => {
     if (user) {
       loggedUser(user);
       router.push("/profile"); // Redirección a /profile
-
-      // Desactivamos el spinner una vez que se complete la redirección
-      router.events.on("routeChangeComplete", () => setIsLoading(false));
     } else {
       MySwal.fire({
         title: "Error",

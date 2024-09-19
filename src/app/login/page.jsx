@@ -5,14 +5,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import CircularProgress from "@mui/material/CircularProgress"; // Spinner de MUI
-import {
-  Root,
-  LeftSide,
-  RightSide,
-  FormContainer,
-  Logo,
-  HoverButton,
-} from "./LoginStyles";
+import { Root, LeftSide, RightSide, FormContainer, Logo, HoverButton } from "./LoginStyles";
 import { UserContext } from "../context/UserContext";
 import { useRouter } from "next/navigation";
 
@@ -22,7 +15,7 @@ import withReactContent from "sweetalert2-react-content";
 const MySwal = withReactContent(Swal);
 
 const page = () => {
-  const { users, loggedUser } = useContext(UserContext);
+  const { users, loggedUser, userLogOut } = useContext(UserContext);
   const router = useRouter();
 
   const [isLogin, setIsLogin] = useState(true);
@@ -32,11 +25,8 @@ const page = () => {
 
   // Prefetch de la ruta /profile cuando el componente se monta
   useEffect(() => {
-    if (localStorage.getItem("user")) {
-      router.push("/profile");
-    }
-    router.prefetch("/profile");
-  }, [router]);
+    userLogOut();
+  }, []);
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
@@ -46,9 +36,7 @@ const page = () => {
     setIsLoading(true); // Activar spinner
 
     // Obtengo mail y contraseña de los inputs
-    const user = users.find(
-      (user) => user.email === email && user.password === password,
-    );
+    const user = users.find((user) => user.email === email && user.password === password);
 
     if (user) {
       loggedUser(user);
@@ -90,14 +78,7 @@ const page = () => {
               <>
                 <Logo src="/logo.svg" alt="Logo" />
                 {!isLogin && (
-                  <TextField
-                    id="dni"
-                    fullWidth
-                    label="DNI"
-                    type="number"
-                    margin="normal"
-                    variant="outlined"
-                  />
+                  <TextField id="dni" fullWidth label="DNI" type="number" margin="normal" variant="outlined" />
                 )}
                 <TextField
                   id="email"
@@ -110,13 +91,7 @@ const page = () => {
                   onChange={handleEmailChange}
                 />
                 {!isLogin && (
-                  <TextField
-                    id="name"
-                    fullWidth
-                    label="Correo electrónico"
-                    margin="normal"
-                    variant="outlined"
-                  />
+                  <TextField id="name" fullWidth label="Correo electrónico" margin="normal" variant="outlined" />
                 )}
                 <TextField
                   id="password"
@@ -140,27 +115,14 @@ const page = () => {
                     Iniciar Sesión
                   </HoverButton>
                 ) : (
-                  <HoverButton
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    disabled
-                  >
+                  <HoverButton variant="contained" color="primary" fullWidth disabled>
                     Registrarse
                   </HoverButton>
                 )}
 
-                <Typography
-                  variant="body2"
-                  align="center"
-                  style={{ marginTop: "20px" }}
-                >
+                <Typography variant="body2" align="center" style={{ marginTop: "20px" }}>
                   {isLogin ? "¿No tienes cuenta?" : "¿Ya tienes cuenta?"}
-                  <Link
-                    href="#"
-                    onClick={toggleForm}
-                    style={{ marginLeft: "5px" }}
-                  >
+                  <Link href="#" onClick={toggleForm} style={{ marginLeft: "5px" }}>
                     {isLogin ? "Regístrate" : "Inicia sesión"}
                   </Link>
                 </Typography>

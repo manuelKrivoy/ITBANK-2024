@@ -23,11 +23,6 @@ const DropdownUser = () => {
     setAnchorEl(null);
   };
 
-  const handleLogOut = () => {
-    userLogOut();
-    router.push("/login");
-  };
-
   return (
     <ClickOutside onClick={handleClose} className="relative">
       <Box display="flex" alignItems="center" gap={2}>
@@ -64,11 +59,14 @@ const DropdownUser = () => {
             Configuración de Cuenta
           </Typography>
         </MenuItem>
-        <MenuItem onClick={() => handleLogOut()}>
+
+        <MenuItem>
           <LogoutIcon />
-          <Typography variant="body2" ml={2}>
-            Salir
-          </Typography>
+          <Link href="/login">
+            <Typography variant="body2" ml={2}>
+              Salir
+            </Typography>
+          </Link>
         </MenuItem>
       </Menu>
     </ClickOutside>

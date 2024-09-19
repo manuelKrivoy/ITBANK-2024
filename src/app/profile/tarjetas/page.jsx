@@ -6,57 +6,65 @@ import { Card, Button, Typography, Box } from "@mui/material";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-const page = () => {
+
+const Page = () => {
   const { user } = useContext(UserContext);
   const [showCNN, setshowCNN] = useState(false);
   const toggleCVUVisibility = () => setshowCNN(!showCNN);
+
   return (
     <DefaultLayout>
       <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column">
-        {user.cards.map((card) => (
-          <Card
-            key={card.id}
-            sx={{
-              backgroundColor: "#9e9e9e",
-              color: "#fff",
-              padding: "16px",
-              borderRadius: "12px",
-              minHeight: "100px", // Valores por defecto para dispositivos móviles
-              minWidth: "300px",
-              backgroundSize: "cover",
-              m: 4,
-              // Aplicamos los estilos para pantallas medianas (web)
-              "@media (min-width: 900px)": {
-                minHeight: "200px",
-                maxHeight: "250px",
-                minWidth: "500px",
-                maxWidth: "600px",
-              },
-            }}
-          >
-            <Box display="flex" justifyContent="space-between" alignItems="center">
-              <Typography variant="body2">Titular de la tarjeta</Typography>
-            </Box>
-            <Box display="flex" justifyContent="space-between">
-              <Typography variant="h6">{user?.name || "Usuario"}</Typography>
-              <Image
-                width={80}
-                height={20}
-                src={`/cards_types/${card.name}.png`}
-                alt={card.name || "Usuario"}
-                priority
-              />
-            </Box>
-            <Box display="flex" justifyContent="space-between" mt={2}>
-              <Typography variant="body2">VÁLIDA HASTA</Typography>
-              <Typography variant="body2">{card.expiration || "12/29"}</Typography>
-            </Box>
-            <Typography variant="h6" mt={2} display="flex" justifyContent="space-between">
-              {card.numeroTarjeta || "**** **** **** ****"}
-              <Typography variant="body2">{card.cvv}</Typography>
-            </Typography>
-          </Card>
-        ))}
+        {user ? (
+          user.cards.map((card) => (
+            <Card
+              key={card.id}
+              sx={{
+                backgroundColor: "#9e9e9e",
+                color: "#fff",
+                padding: "16px",
+                borderRadius: "12px",
+                minHeight: "100px", // Valores por defecto para dispositivos móviles
+                minWidth: "300px",
+                backgroundSize: "cover",
+                m: 4,
+                // Aplicamos los estilos para pantallas medianas (web)
+                "@media (min-width: 900px)": {
+                  minHeight: "200px",
+                  maxHeight: "250px",
+                  minWidth: "500px",
+                  maxWidth: "600px",
+                },
+              }}
+            >
+              <Box display="flex" justifyContent="space-between" alignItems="center">
+                <Typography variant="body2">Titular de la tarjeta</Typography>
+              </Box>
+              <Box display="flex" justifyContent="space-between">
+                <Typography variant="h6">{user?.name || "Usuario"}</Typography>
+                <Image
+                  width={80}
+                  height={20}
+                  src={`/cards_types/${card.name}.png`}
+                  alt={card.name || "Usuario"}
+                  priority
+                />
+              </Box>
+              <Box display="flex" justifyContent="space-between" mt={2}>
+                <Typography variant="body2">VÁLIDA HASTA</Typography>
+                <Typography variant="body2">{card.expiration || "12/29"}</Typography>
+              </Box>
+              <Typography variant="h6" mt={2} display="flex" justifyContent="space-between">
+                {card.numeroTarjeta || "**** **** **** ****"}
+                <Typography variant="body2">{card.cvv}</Typography>
+              </Typography>
+            </Card>
+          ))
+        ) : (
+          <Typography variant="h6" color="textSecondary">
+            No hay tarjetas disponibles
+          </Typography>
+        )}
         <Link href={`/profile`}>
           <Button
             variant="contained"
@@ -81,4 +89,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

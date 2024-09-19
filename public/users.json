@@ -22,9 +22,23 @@
         "numeroTarjeta": "2345-6789-0123-4567",
         "expiration": "12/2024",
         "cvv": "323"
+      },
+      {
+        "id": 3,
+        "name": "American_Express",
+        "numeroTarjeta": "5543-5678-3312-3480",
+        "expiration": "12/2024",
+        "cvv": "563"
+      },
+      {
+        "id": 4,
+        "name": "Mastercard",
+        "numeroTarjeta": "2345-6789-0123-4567",
+        "expiration": "12/2024",
+        "cvv": "793"
       }
     ],
-    "avatar":"/user/01.png"
+    "avatar": "/user/01.png"
   },
   {
     "id": 2,
@@ -49,9 +63,23 @@
         "numeroTarjeta": "2345-6789-0123-4567",
         "expiration": "12/2024",
         "cvv": "123"
+      },
+      {
+        "id": 3,
+        "name": "American_Express",
+        "numeroTarjeta": "5543-5678-3312-3480",
+        "expiration": "12/2024",
+        "cvv": "563"
+      },
+      {
+        "id": 4,
+        "name": "Mastercard",
+        "numeroTarjeta": "2345-6789-0123-4567",
+        "expiration": "12/2024",
+        "cvv": "793"
       }
     ],
-    "avatar":"/user/02.png"
+    "avatar": "/user/02.png"
   },
   {
     "id": 3,
@@ -78,7 +106,7 @@
         "cvv": "123"
       }
     ],
-    "avatar":"/user/03.png"
+    "avatar": "/user/03.png"
   },
   {
     "id": 4,
@@ -105,7 +133,7 @@
         "cvv": "123"
       }
     ],
-    "avatar":"/user/04.png"
+    "avatar": "/user/04.png"
   },
   {
     "id": 5,
@@ -132,6 +160,6 @@
         "cvv": "123"
       }
     ],
-    "avatar":"/user/05.png"
+    "avatar": "/user/05.png"
   }
 ]

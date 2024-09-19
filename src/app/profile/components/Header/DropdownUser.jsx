@@ -32,7 +32,7 @@ const DropdownUser = () => {
     <ClickOutside onClick={handleClose} className="relative">
       <Box display="flex" alignItems="center" gap={2}>
         <IconButton onClick={handleAvatarClick}>
-          <Avatar alt={user.name} src={user.avatar} sx={{ width: 52, height: 52 }} />
+          <Avatar alt={user?.name} src={user?.avatar} sx={{ width: 52, height: 52 }} />
         </IconButton>
       </Box>
 
@@ -43,9 +43,9 @@ const DropdownUser = () => {
         sx={{ width: "350px", boxShadow: "none", mt: 1, borderRadius: 2 }}
       >
         <Box px={2} py={2} textAlign="center">
-          <Avatar alt={user.name} src={user.avatar} sx={{ width: 80, height: 80, mx: "auto" }} />
+          <Avatar alt={user?.name} src={user?.avatar} sx={{ width: 80, height: 80, mx: "auto" }} />
           <Typography variant="h6" mt={1}>
-            {user.name}
+            {user?.name}
           </Typography>
           <Typography variant="body2" color="textSecondary">
             Cliente nivel 6

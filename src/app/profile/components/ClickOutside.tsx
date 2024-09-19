@@ -8,28 +8,20 @@ interface Props {
   className?: string;
 }
 
-const ClickOutside: React.FC<Props> = ({
-  children,
-  exceptionRef,
-  onClick,
-  className,
-}) => {
+const ClickOutside: React.FC<Props> = ({ children, exceptionRef, onClick, className }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickListener = (event: MouseEvent) => {
-      let clickedInside: null | boolean = false;
-      if (exceptionRef) {
+      let clickedInside = false;
+
+      if (wrapperRef.current) {
+        clickedInside = wrapperRef.current.contains(event.target as Node);
+      }
+
+      if (exceptionRef?.current) {
         clickedInside =
-          (wrapperRef.current &&
-            wrapperRef.current.contains(event.target as Node)) ||
-          (exceptionRef.current && exceptionRef.current === event.target) ||
-          (exceptionRef.current &&
-            exceptionRef.current.contains(event.target as Node));
-      } else {
-        clickedInside =
-          wrapperRef.current &&
-          wrapperRef.current.contains(event.target as Node);
+          clickedInside || exceptionRef.current === event.target || exceptionRef.current.contains(event.target as Node);
       }
 
       if (!clickedInside) onClick();

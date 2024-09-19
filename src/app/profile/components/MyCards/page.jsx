@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useContext, useState } from "react";
 import { Card, CardContent, Typography, Box } from "@mui/material";
 import { UserContext } from "@/app/context/UserContext";
@@ -12,15 +11,19 @@ const MyCards = ({ color, type }) => {
   const [showBalance, setShowBalance] = useState(true);
   const [showCVUCNN, setshowCVUCNN] = useState(false);
 
-  const toggleBalanceVisibility = () => setShowBalance(!showBalance);
-  const toggleCVUVisibility = () => setshowCVUCNN(!showCVUCNN);
+  if (!user) {
+    return <div>Loading...</div>;
+  }
+
+  const toggleBalanceVisibility = () => setShowBalance((prev) => !prev);
+  const toggleCVUVisibility = () => setshowCVUCNN((prev) => !prev);
 
   const renderCardContent = () => (
     <>
       {type === "savings" ? (
         <>
           <Box display="flex" alignItems="center" justifyContent="space-between">
-            <Typography variant="h5">Cuenta ID: {user?.id || "Desconocido"}</Typography>
+            <Typography variant="h5">Cuenta ID: {user.id}</Typography>
             <div onClick={toggleBalanceVisibility} style={{ cursor: "pointer" }}>
               {showBalance ? (
                 <VisibilityIcon style={{ color: "white" }} />
@@ -30,7 +33,7 @@ const MyCards = ({ color, type }) => {
             </div>
           </Box>
           <Box display="flex" mt={2} alignItems="center" justifyContent="space-between">
-            <Typography variant="h4">Saldo: {showBalance ? `$${user?.saldoPesos || "0.00"}` : "******"}</Typography>
+            <Typography variant="h4">Saldo: {showBalance ? `$${user.saldoPesos}` : "******"}</Typography>
           </Box>
           <Box display="flex" mt={4} alignItems="center">
             <Typography
@@ -38,7 +41,7 @@ const MyCards = ({ color, type }) => {
               sx={{ textDecoration: "underline", cursor: "pointer" }}
               onClick={toggleCVUVisibility}
             >
-              {showCVUCNN ? `CVU: ${user?.cvu || "No disponible"}` : "Ver CVU"}
+              {showCVUCNN ? `CVU: ${user.cvu}` : "Ver CVU"}
             </Typography>
           </Box>
         </>
@@ -48,27 +51,27 @@ const MyCards = ({ color, type }) => {
             <Typography variant="body2">Titular de la tarjeta</Typography>
           </Box>
           <Box display="flex" justifyContent="space-between">
-            <Typography variant="h6">{user?.name || "Usuario"}</Typography>
+            <Typography variant="h6">{user.name}</Typography>
             <Image
               width={80}
               height={20}
-              src={`/cards_types/${user?.cards[0].name}.png`}
-              alt={user?.cards[0].name || "Usuario"}
+              src={`/cards_types/${user.cards[0]?.name || "default"}.png`}
+              alt={user.cards[0]?.name || "Usuario"}
               priority
             />
           </Box>
           <Box display="flex" justifyContent="space-between" mt={2}>
             <Typography variant="body2">VÁLIDA HASTA</Typography>
-            <Typography variant="body2">{user?.cards[0].expiration || "12/29"}</Typography>
+            <Typography variant="body2">{user.cards[0]?.expiration || "12/29"}</Typography>
           </Box>
           <Typography variant="h6" mt={2} display="flex" justifyContent="space-between">
-            {user?.cards[0].numeroTarjeta || "**** **** **** ****"}
+            {user.cards[0]?.numeroTarjeta || "**** **** **** ****"}
             <Typography
               variant="body2"
               sx={{ textDecoration: "underline", cursor: "pointer" }}
               onClick={toggleCVUVisibility}
             >
-              {showCVUCNN ? ` ${user?.cards[0].cvv || "No disponible"}` : "Ver CVV"}
+              {showCVUCNN ? ` ${user.cards[0]?.cvv || "No disponible"}` : "Ver CVV"}
             </Typography>
           </Typography>
         </>

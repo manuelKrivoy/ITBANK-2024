@@ -1,6 +1,6 @@
-import React from 'react';
-import { TextField, Button, Box, Typography } from '@mui/material';
-import Image from 'next/image';
+import React from "react";
+import { TextField, Button, Box, Typography } from "@mui/material";
+import Image from "next/image";
 
 const ContactForm = () => {
   return (
@@ -11,21 +11,15 @@ const ContactForm = () => {
       sx={{
         maxWidth: 600,
         mt: 6,
-        mx: 'auto',
+        mx: "auto",
         p: 3,
-        bgcolor: 'background.paper',
+        bgcolor: "background.paper",
         borderRadius: 2,
         boxShadow: 3,
       }}
     >
       <Typography variant="body1" align="center" gutterBottom>
-      <Image
-              width={190}
-              height={48}
-              src={"/logo/logo.svg"}
-              alt="Logo"
-              priority
-            />
+        <Image width={190} height={48} src={"/logo/logo.svg"} alt="Logo" priority />
       </Typography>
       <Typography variant="h4" component="h2" align="center" gutterBottom>
         Contáctanos
@@ -49,6 +43,7 @@ const ContactForm = () => {
           fullWidth
           label="Nombre Completo"
           id="name"
+          name="name"
           required
           variant="outlined"
           margin="normal"
@@ -77,7 +72,7 @@ const ContactForm = () => {
           sx={{
             px: 4,
             py: 1,
-            textTransform: 'none',
+            textTransform: "none",
           }}
         >
           Enviar

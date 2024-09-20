@@ -14,28 +14,32 @@
         "name": "Visa",
         "numeroTarjeta": "1234-5678-9012-3456",
         "expiration": "12/2024",
-        "cvv": "423"
+        "cvv": "423",
+        "level": "gold"
       },
       {
         "id": 2,
         "name": "Mastercard",
         "numeroTarjeta": "2345-6789-0123-4567",
         "expiration": "12/2024",
-        "cvv": "323"
+        "cvv": "323",
+        "level": "silver"
       },
       {
         "id": 3,
         "name": "American_Express",
         "numeroTarjeta": "5543-5678-3312-3480",
         "expiration": "12/2024",
-        "cvv": "563"
+        "cvv": "563",
+        "level": "gold"
       },
       {
         "id": 4,
         "name": "Mastercard",
         "numeroTarjeta": "2345-6789-0123-4567",
         "expiration": "12/2024",
-        "cvv": "793"
+        "cvv": "793",
+        "level": "black"
       }
     ],
     "avatar": "/user/01.png"
@@ -55,28 +59,32 @@
         "name": "Visa",
         "numeroTarjeta": "1234-5678-9012-3456",
         "expiration": "12/2024",
-        "cvv": "123"
+        "cvv": "123",
+        "level": "gold"
       },
       {
         "id": 2,
         "name": "Mastercard",
         "numeroTarjeta": "2345-6789-0123-4567",
         "expiration": "12/2024",
-        "cvv": "123"
+        "cvv": "123",
+        "level": "black"
       },
       {
         "id": 3,
         "name": "American_Express",
         "numeroTarjeta": "5543-5678-3312-3480",
         "expiration": "12/2024",
-        "cvv": "563"
+        "cvv": "563",
+        "level": "silver"
       },
       {
         "id": 4,
         "name": "Mastercard",
         "numeroTarjeta": "2345-6789-0123-4567",
         "expiration": "12/2024",
-        "cvv": "793"
+        "cvv": "793",
+        "level": "black"
       }
     ],
     "avatar": "/user/02.png"
@@ -96,14 +104,16 @@
         "name": "Visa",
         "numeroTarjeta": "1234-5678-9012-3456",
         "expiration": "12/2024",
-        "cvv": "123"
+        "cvv": "123",
+        "level": "silver"
       },
       {
         "id": 2,
         "name": "Mastercard",
         "numeroTarjeta": "2345-6789-0123-4567",
         "expiration": "12/2024",
-        "cvv": "123"
+        "cvv": "123",
+        "level": "gold"
       }
     ],
     "avatar": "/user/03.png"
@@ -123,14 +133,16 @@
         "name": "Visa",
         "numeroTarjeta": "1234-5678-9012-3456",
         "expiration": "12/2024",
-        "cvv": "123"
+        "cvv": "123",
+        "level": "gold"
       },
       {
         "id": 2,
         "name": "Mastercard",
         "numeroTarjeta": "2345-6789-0123-4567",
         "expiration": "12/2024",
-        "cvv": "123"
+        "cvv": "123",
+        "level": "black"
       }
     ],
     "avatar": "/user/04.png"

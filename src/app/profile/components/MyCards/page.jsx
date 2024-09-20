@@ -6,11 +6,27 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import Image from "next/image";
 
-const MyCards = ({ color, type }) => {
+const MyCards = ({ type }) => {
   const { user } = useContext(UserContext);
   const [showBalance, setShowBalance] = useState(true);
   const [showCVUCNN, setshowCVUCNN] = useState(false);
 
+  const getBackgroundColor = (level) => {
+    switch (level) {
+      case "gold":
+        return "#eecc16 "; // color dorado
+      case "silver":
+        return "#C0C0C0"; // color plateado
+      case "black":
+        return "#000000"; // color negro
+      default:
+        return "#E0E0E0"; // color por defecto (gris claro)
+    }
+  };
+
+  const getTextColor = (level) => {
+    return level === "black" ? "#ffffff" : "#000000";
+  };
   if (!user) {
     return <div>Loading...</div>;
   }
@@ -82,8 +98,8 @@ const MyCards = ({ color, type }) => {
   return (
     <Card
       sx={{
-        backgroundColor: color,
-        color: "#fff",
+        backgroundColor: getBackgroundColor(user.cards[0]?.level),
+        color: type === "savings" ? "#fff" : getTextColor(user.cards[0]?.level),
         padding: "16px",
         borderRadius: "12px",
         minHeight: "200px",

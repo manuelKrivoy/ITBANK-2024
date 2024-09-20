@@ -12,6 +12,22 @@ const Page = () => {
   const [showCNN, setshowCNN] = useState(false);
   const toggleCVUVisibility = () => setshowCNN(!showCNN);
 
+  const getBackgroundColor = (level) => {
+    switch (level) {
+      case "gold":
+        return "#eecc16 "; // color dorado
+      case "silver":
+        return "#C0C0C0"; // color plateado
+      case "black":
+        return "#000000"; // color negro
+      default:
+        return "#E0E0E0"; // color por defecto (gris claro)
+    }
+  };
+
+  const getTextColor = (level) => {
+    return level === "black" ? "#ffffff" : "#000000";
+  };
   return (
     <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column">
       {user ? (
@@ -19,8 +35,8 @@ const Page = () => {
           <Card
             key={card.id}
             sx={{
-              backgroundColor: "#9e9e9e",
-              color: "#fff",
+              backgroundColor: getBackgroundColor(card.level),
+              color: getTextColor(card.level),
               padding: "16px",
               borderRadius: "12px",
               minHeight: "100px", // Valores por defecto para dispositivos móviles

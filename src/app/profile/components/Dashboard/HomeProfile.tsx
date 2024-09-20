@@ -16,10 +16,10 @@ const HomeProfile: React.FC = React.memo(() => {
     <Container sx={{ maxWidth: "100%", overflowX: "hidden", px: { xs: 2, md: 3 } }}>
       <Box display="flex" flexWrap="wrap" justifyContent="space-between" gap={3}>
         <Box flexBasis={{ xs: "100%", md: "48%" }}>
-          <MyCards color="#3f51b5" type="savings" />
+          <MyCards type="savings" />
         </Box>
         <Box flexBasis={{ xs: "100%", md: "48%" }}>
-          <MyCards color="#9e9e9e" type="credit" />
+          <MyCards type="credit" />
           <Box display="flex" justifyContent="center" mt={2}>
             <Link href="./profile/tarjetas" prefetch={true}>
               <Typography

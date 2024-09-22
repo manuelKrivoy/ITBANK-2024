@@ -9,8 +9,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <AppRouterCacheProvider>
-      <html lang="en">
+    <html lang="es">
+      <AppRouterCacheProvider>
         <head>
           <title>{metadata.title}</title>
           <meta name="description" content={metadata.description} />
@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
         <body style={{ margin: 0, padding: 0, height: "100vh" }}>
           <UserProvider>{children}</UserProvider>
         </body>
-      </html>
-    </AppRouterCacheProvider>
+      </AppRouterCacheProvider>
+    </html>
   );
 }

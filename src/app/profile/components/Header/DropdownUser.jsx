@@ -8,6 +8,7 @@ import { Menu, MenuItem, Typography, Avatar, IconButton, Box, Divider } from "@m
 import { UserContext } from "@/app/context/UserContext";
 import { useContext } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const DropdownUser = () => {
   const router = useRouter();
@@ -27,7 +28,17 @@ const DropdownUser = () => {
     <ClickOutside onClick={handleClose} className="relative">
       <Box display="flex" alignItems="center" gap={2}>
         <IconButton onClick={handleAvatarClick}>
-          <Avatar alt={user?.name} src={user?.avatar} sx={{ width: 52, height: 52 }} />
+          <Box
+            sx={{
+              width: 52,
+              height: 52,
+              borderRadius: "50%",
+              overflow: "hidden",
+              mx: "auto",
+            }}
+          >
+            <Image alt={user?.name} src={user?.avatar} width={80} height={80} objectFit="cover" />
+          </Box>
         </IconButton>
       </Box>
 
@@ -38,7 +49,17 @@ const DropdownUser = () => {
         sx={{ width: "350px", boxShadow: "none", mt: 1, borderRadius: 2 }}
       >
         <Box px={2} py={2} textAlign="center">
-          <Avatar alt={user?.name} src={user?.avatar} sx={{ width: 80, height: 80, mx: "auto" }} />
+          <Box
+            sx={{
+              width: 80,
+              height: 80,
+              borderRadius: "50%",
+              overflow: "hidden",
+              mx: "auto",
+            }}
+          >
+            <Image alt={user?.name} src={user?.avatar} width={80} height={80} objectFit="cover" />
+          </Box>
           <Typography variant="h6" mt={1}>
             {user?.name}
           </Typography>

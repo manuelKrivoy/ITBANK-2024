@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div>
       <div className={styles.content}>
-        <Image className={styles.logo} src="/logo.svg" alt="logo" width={200} height={100} />
+        <Image className={styles.logo} src="/logo.svg" alt="itbank_logo" width={200} height={100} />
         <Link href="/login" prefetch={true}>
           <button className={styles.seParte}>Forma parte</button>
         </Link>

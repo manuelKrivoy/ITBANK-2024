@@ -20,13 +20,13 @@ export const LeftSide = styled(Box)(({ theme }) => ({
   alignItems: "center",
   backgroundColor: "#f0f0f0",
   [theme.breakpoints.down("md")]: {
-    backgroundImage: "url(/login-image.jpg)",
+    background: "linear-gradient(to bottom, #0d47a1, #1976d2)",
   },
 }));
 
 export const RightSide = styled(Box)(({ theme }) => ({
   flex: 1,
-  backgroundImage: "url(/login-image.jpg)",
+  background: "linear-gradient(to bottom, #0d47a1, #1976d2)",
   backgroundSize: "cover",
   backgroundPosition: "center",
   display: "block",

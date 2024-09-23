@@ -4,11 +4,8 @@ const SwitcherTwo = () => {
   const [enabled, setEnabled] = useState(false);
 
   return (
-    <div x-data="{ switcherToggle: false }">
-      <label
-        htmlFor="toggle2"
-        className="flex cursor-pointer select-none items-center"
-      >
+    <div x-data="{ switcherToggle }">
+      <label htmlFor="toggle2" className="flex cursor-pointer select-none items-center">
         <div className="relative">
           <input
             id="toggle2"

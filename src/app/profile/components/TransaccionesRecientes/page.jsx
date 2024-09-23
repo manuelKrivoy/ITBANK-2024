@@ -1,24 +1,40 @@
-import React from 'react';
-import { Typography, List, ListItem, ListItemText, Box, Avatar } from '@mui/material';
-import ReceiptIcon from '@mui/icons-material/Receipt';
+import React from "react";
+import { Typography, List, ListItem, ListItemText, Box, Avatar } from "@mui/material";
+import ReceiptIcon from "@mui/icons-material/Receipt";
 
-const TransaccionesRecientes = ({ transactions }) => {
+const TransaccionesRecientes = () => {
+  const transactions = [
+    { description: "Depósito desde mi tarjeta", date: "25 Enero 2021", amount: "- $500" },
+    { description: "Depósito Paypal", date: "25 Enero 2021", amount: "+ $500" },
+    { description: "Retiro", date: "25 Enero 2021", amount: "- $500" },
+  ];
   return (
-    <Box sx={{ borderRadius: '16px', p: 2, bgcolor: 'background.paper' }}>
+    <Box sx={{ borderRadius: "16px", p: 2, bgcolor: "background.paper" }}>
       <List>
         {transactions.map((transaction, index) => (
-          <ListItem key={index} sx={{ borderBottom: '1px solid #e0e0e0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <ListItem
+            key={index}
+            sx={{
+              borderBottom: "1px solid #e0e0e0",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
             <Box display="flex" alignItems="center">
-              <Avatar sx={{ bgcolor: transaction.amount.startsWith('+') ? 'success.main' : 'error.main', mr: 2 }}>
+              <Avatar sx={{ bgcolor: transaction.amount.startsWith("+") ? "success.main" : "error.main", mr: 2 }}>
                 <ReceiptIcon />
               </Avatar>
-              <ListItemText 
-                primary={transaction.description} 
-                secondary={transaction.date} 
-                primaryTypographyProps={{ fontWeight: 'bold' }}
+              <ListItemText
+                primary={transaction.description}
+                secondary={transaction.date}
+                primaryTypographyProps={{ fontWeight: "bold" }}
               />
             </Box>
-            <Typography variant="body1" sx={{ fontWeight: 'bold', color: transaction.amount.startsWith('+') ? 'success.main' : 'error.main' }}>
+            <Typography
+              variant="body1"
+              sx={{ fontWeight: "bold", color: transaction.amount.startsWith("+") ? "success.main" : "error.main" }}
+            >
               {transaction.amount}
             </Typography>
           </ListItem>

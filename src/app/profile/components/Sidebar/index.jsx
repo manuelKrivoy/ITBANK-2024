@@ -6,18 +6,7 @@ import Image from "next/image";
 import SidebarItem from "./SidebarItem";
 import ClickOutside from "../ClickOutside";
 import useLocalStorage from "../../../hooks/useLocalStorage";
-import {
-  Home,
-  AccountCircle,
-  Payment,
-  TransferWithinAStation,
-  ShowChart,
-} from "@mui/icons-material";
-
-interface SidebarProps {
-  sidebarOpen: boolean;
-  setSidebarOpen: (arg: boolean) => void;
-}
+import { Home, AccountCircle, Payment, TransferWithinAStation, ShowChart } from "@mui/icons-material";
 
 const menuGroups = [
   {
@@ -52,7 +41,7 @@ const menuGroups = [
   },
 ];
 
-const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
+const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const pathname = usePathname();
   const [pageName, setPageName] = useLocalStorage("selectedMenu", "inicio");
 
@@ -64,23 +53,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         }`}
         style={{ borderRight: "1px solid #e0e0e0" }} // Línea gris para dividir el lado derecho
       >
-        {/* <!-- SIDEBAR HEADER --> */}
+        {/* SIDEBAR HEADER */}
         <div className="flex items-center justify-start gap-2 px-4 py-7 ">
           <Link href="/profile">
-            <Image
-              width={176}
-              height={32}
-              src={"/logo/logo.svg"}
-              alt="Logo"
-              priority
-            />
+            <Image width={176} height={32} src={"/logo/logo.svg"} alt="Logo" priority />
           </Link>
 
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            aria-controls="sidebar"
-            className="block lg:hidden"
-          >
+          <button onClick={() => setSidebarOpen(!sidebarOpen)} aria-controls="sidebar" className="block lg:hidden">
             <svg
               className="fill-current text-blue-500"
               width="20"
@@ -99,31 +78,24 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             </svg>
           </button>
         </div>
-        {/* <!-- SIDEBAR HEADER --> */}
+        {/* SIDEBAR HEADER */}
 
         <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
-          {/* <!-- Sidebar Menu --> */}
+          {/* Sidebar Menu */}
           <nav className="mt-5 px-4 py-4 lg:mt-9 lg:px-6">
             {menuGroups.map((group, groupIndex) => (
               <div key={groupIndex}>
-                <h3 className="text-gray-700 mb-4 ml-4 text-sm font-semibold">
-                  {group.name}
-                </h3>
+                <h3 className="text-gray-700 mb-4 ml-4 text-sm font-semibold">{group.name}</h3>
 
                 <ul className="mb-6 flex flex-col gap-1.5">
                   {group.menuItems.map((menuItem, menuIndex) => (
-                    <SidebarItem
-                      key={menuIndex}
-                      item={menuItem}
-                      pageName={pageName}
-                      setPageName={setPageName}
-                    />
+                    <SidebarItem key={menuIndex} item={menuItem} pageName={pageName} setPageName={setPageName} />
                   ))}
                 </ul>
               </div>
             ))}
           </nav>
-          {/* <!-- Sidebar Menu --> */}
+          {/* Sidebar Menu */}
         </div>
       </aside>
     </ClickOutside>

@@ -1,17 +1,10 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { Container, Typography, Box } from "@mui/material";
 import TransaccionesRecientes from "../TransaccionesRecientes/page";
 import MyCards from "../MyCards/page";
 import Link from "next/link";
-const HomeProfile: React.FC = React.memo(() => {
-  const transactions = useMemo(
-    () => [
-      { description: "Depósito desde mi tarjeta", date: "25 Enero 2021", amount: "- $500" },
-      { description: "Depósito Paypal", date: "25 Enero 2021", amount: "+ $500" },
-      { description: "Retiro", date: "25 Enero 2021", amount: "- $500" },
-    ],
-    []
-  );
+
+const HomeProfile = React.memo(function HomeProfile() {
   return (
     <Container sx={{ maxWidth: "100%", overflowX: "hidden", px: { xs: 2, md: 3 } }}>
       <Box display="flex" flexWrap="wrap" justifyContent="space-between" gap={3}>
@@ -43,7 +36,7 @@ const HomeProfile: React.FC = React.memo(() => {
         <Typography variant="h5" gutterBottom>
           Movimientos
         </Typography>
-        <TransaccionesRecientes transactions={transactions} />
+        <TransaccionesRecientes />
       </Box>
     </Container>
   );

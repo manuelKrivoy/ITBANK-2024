@@ -3,19 +3,18 @@ import Link from "next/link";
 import SidebarDropdown from "./SidebarDropdown";
 import { usePathname } from "next/navigation";
 
-const SidebarItem = ({ item, pageName, setPageName }: any) => {
+const SidebarItem = ({ item, pageName, setPageName }) => {
   const handleClick = () => {
-    const updatedPageName =
-      pageName !== item.label.toLowerCase() ? item.label.toLowerCase() : "";
+    const updatedPageName = pageName !== item.label.toLowerCase() ? item.label.toLowerCase() : "";
     return setPageName(updatedPageName);
   };
 
   const pathname = usePathname();
 
-  const isActive = (item: any) => {
+  const isActive = (item) => {
     if (item.route === pathname) return true;
     if (item.children) {
-      return item.children.some((child: any) => isActive(child));
+      return item.children.some((child) => isActive(child));
     }
     return false;
   };
@@ -32,11 +31,7 @@ const SidebarItem = ({ item, pageName, setPageName }: any) => {
             isItemActive ? "text-blue-500" : "text-gray-700"
           } group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium duration-300 ease-in-out hover:text-blue-500`}
         >
-          <span
-            className={`${isItemActive ? "text-blue-500" : "text-gray-700"}`}
-          >
-            {item.icon}
-          </span>
+          <span className={`${isItemActive ? "text-blue-500" : "text-gray-700"}`}>{item.icon}</span>
           {item.label}
           {item.children && (
             <svg
@@ -60,11 +55,7 @@ const SidebarItem = ({ item, pageName, setPageName }: any) => {
         </Link>
 
         {item.children && (
-          <div
-            className={`translate transform overflow-hidden ${
-              pageName !== item.label.toLowerCase() && "hidden"
-            }`}
-          >
+          <div className={`translate transform overflow-hidden ${pageName !== item.label.toLowerCase() && "hidden"}`}>
             <SidebarDropdown item={item.children} />
           </div>
         )}

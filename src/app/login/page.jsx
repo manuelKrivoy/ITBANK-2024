@@ -14,7 +14,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 const MySwal = withReactContent(Swal);
 
-const page = () => {
+const Page = () => {
   const { users, loggedUser, userLogOut } = useContext(UserContext);
   const router = useRouter();
 
@@ -23,7 +23,6 @@ const page = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false); // Estado de carga
 
-  // Prefetch de la ruta /profile cuando el componente se monta
   useEffect(() => {
     userLogOut();
   }, []);
@@ -133,4 +132,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

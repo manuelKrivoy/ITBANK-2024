@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
         textAlign: "center",
       }}
     >
-      <Image src="/logo/logo.svg" width={300} height={300}></Image>
+      <Image src="/logo/logo.svg" alt="logo" width={300} height={300}></Image>
       <Typography
         variant="h5"
         sx={{

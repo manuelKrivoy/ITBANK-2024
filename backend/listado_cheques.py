@@ -5,6 +5,7 @@ import sys
 from datetime import datetime
 import os
 import platform
+
 # Datos de usuarios
 usuarios = {
     "krivoymanuel@gmail.com": "1234",
@@ -12,9 +13,10 @@ usuarios = {
     "franciscoruslender@gmail.com": "1234",
     "gonzaloblondi@gmail.com": "1234",
     "diegogomez@gmail.com": "1234",
-    "test": "test" #Usuario de prueba
-} 
-# Limpiar consola 
+    "test": "test"  # Usuario de prueba
+}
+
+# Limpiar consola
 def limpiar_consola():
     sistema = platform.system()
     if sistema == "Windows":
@@ -29,9 +31,10 @@ def iniciar_sesion():
         print("Iniciar Sesión")
         email = input("Email: ")
         password = input("Password: ")
-        
+
         if email in usuarios and usuarios[email] == password:
             print("Inicio de sesión exitoso.")
+            time.sleep(1)
             return True
         else:
             limpiar_consola()
@@ -39,7 +42,30 @@ def iniciar_sesion():
             retry = input("¿Quieres intentar de nuevo? (s/n): ").lower()
             if retry != 's':
                 print("Gracias por utilizar el sistema.")
-                return
+                return False
+
+
+def ingresar_datos_filtro():
+    # Opción para filtrar cheques
+    while True:
+        dni_cliente = input("Ingrese el DNI del cliente: ")
+        if dni_cliente.isdigit() and len(dni_cliente) == 8:
+            break
+        else:
+            print("El DNI debe ser un número de 8 dígitos.")
+    while True:
+        tipo_cheque = input("Ingrese el tipo de cheque (EMITIDO o DEPOSITADO): ")
+        if tipo_cheque.upper() in ['EMITIDO', 'DEPOSITADO']:
+            break
+        else:
+            print("El tipo de cheque debe ser EMITIDO o DEPOSITADO.")
+    while True:
+        estado = input("Ingrese el estado del cheque (PENDIENTE, APROBADO, RECHAZADO) o presione Enter para omitir: ")
+        if not estado or estado.lower() in ['pendiente', 'aprobado', 'rechazado']:
+            break
+        else:
+            print("El estado del cheque debe ser PENDIENTE, APROBADO o RECHAZADO o vacío")
+    return dni_cliente, tipo_cheque, estado
 
 # Función para leer cheques desde un archivo CSV
 def leer_cheques_csv(nombre_archivo):
@@ -76,6 +102,14 @@ def exportar_cheques_csv(cheques, dni_cliente):
     
     print(f"Cheques exportados a '{nombre_archivo}'.")
 
+# Menú de opciones
+def menu_opciones():
+    print("\n--- Menú de Opciones ---")
+    print("1. Filtrar cheques")
+    print("2. Exportar cheques a CSV")
+    print("3. Salir")
+    return input("Elige una opción: ")
+
 # Función principal
 def main():
     if not iniciar_sesion():
@@ -95,30 +129,47 @@ def main():
             print(f"El archivo '{nombre_archivo}' no se encontró.")
             retry = input("¿Quieres intentar de nuevo? (s/n): ").lower()
             if retry != 's':
-                
                 print("Gracias por utilizar el sistema.")
                 return
-    limpiar_consola()
-    print("Cheques cargados exitosamente")        
-    dni_cliente = input("Ingrese el DNI del cliente: ")
-    tipo_cheque = input("Ingrese el tipo de cheque (EMITIDO o DEPOSITADO): ")
-    
-    # Filtrar cheques según el DNI y tipo de cheque
-    estado = input("Ingrese el estado del cheque (PENDIENTE, APROBADO, RECHAZADO) o presione Enter para omitir: ")
-    
-    filtrados = filtrar_cheques(cheques, dni_cliente, tipo_cheque, estado if estado else None)
 
-    salida = input("¿Desea ver los resultados en pantalla o exportarlos a un archivo CSV? (PANTALLA/CSV): ").strip().upper()
+    limpiar_consola()
+    print("Cheques cargados exitosamente")
     
-    if salida == 'PANTALLA':
-        for cheque in filtrados:
-            print(cheque)
-    
-    elif salida == 'CSV' and filtrados:
-        exportar_cheques_csv(filtrados, dni_cliente)
-    
-    else:
-        print("No se encontraron cheques que coincidan con los criterios.")
+    # Bucle de opciones
+    while True:
+        opcion = menu_opciones()
+        
+        if opcion == '1':
+            # Opción para filtrar cheques
+            dni_cliente, tipo_cheque, estado = ingresar_datos_filtro()
+            filtrados = filtrar_cheques(cheques, dni_cliente, tipo_cheque.upper(), estado.lower() if estado else None )
+
+            if filtrados:
+                for cheque in filtrados:
+                    print(cheque)
+                    input("Presiona Enter para continuar...")
+            else:
+                print("No se encontraron cheques que coincidan con los criterios.")
+                input("Presiona Enter para continuar...")
+
+        elif opcion == '2':
+            # Opción para exportar cheques a CSV
+            dni_cliente, tipo_cheque, estado = ingresar_datos_filtro()
+            filtrados = filtrar_cheques(cheques, dni_cliente, tipo_cheque, estado if estado else None)
+
+            if filtrados:
+                exportar_cheques_csv(filtrados, dni_cliente)
+            else:
+                print("No se encontraron cheques que coincidan con los criterios.")
+                input("Presiona Enter para continuar...")
+
+        elif opcion == '3':
+            # Opción para salir del programa
+            print("Gracias por utilizar el sistema. Saliendo...")
+            break
+
+        else:
+            print("Opción no válida. Por favor, elige una opción del menú.")
 
 if __name__ == "__main__":
     main()

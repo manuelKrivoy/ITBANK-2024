@@ -6,6 +6,14 @@ from datetime import datetime
 import os
 import platform
 
+# Definición de códigos de color
+RED = "\033[91m"
+YELLOW = "\033[93m"
+GREEN = "\033[92m"
+CYAN = "\033[96m"
+BLUE = "\033[94m"
+RESET = "\033[0m"
+
 # Datos de usuarios
 usuarios = {
     "krivoymanuel@gmail.com": "1234",
@@ -33,17 +41,16 @@ def iniciar_sesion():
         password = input("Password: ")
 
         if email in usuarios and usuarios[email] == password:
-            print("Inicio de sesión exitoso.")
+            print(GREEN + "Inicio de sesión exitoso." + RESET)
             time.sleep(1)
             return True
         else:
             limpiar_consola()
-            print("Credenciales incorrectas. Intente nuevamente.")
+            print(RED + "Credenciales incorrectas. Intente nuevamente." + RESET)
             retry = input("¿Quieres intentar de nuevo? (s/n): ").lower()
             if retry != 's':
-                print("Gracias por utilizar el sistema.")
+                print(YELLOW + "Gracias por utilizar el sistema." + RESET)
                 return False
-
 
 def ingresar_datos_filtro():
     # Opción para filtrar cheques
@@ -52,19 +59,19 @@ def ingresar_datos_filtro():
         if dni_cliente.isdigit() and len(dni_cliente) == 8:
             break
         else:
-            print("El DNI debe ser un número de 8 dígitos.")
+            print(RED + "El DNI debe ser un número de 8 dígitos." + RESET)
     while True:
         tipo_cheque = input("Ingrese el tipo de cheque (EMITIDO o DEPOSITADO): ")
         if tipo_cheque.upper() in ['EMITIDO', 'DEPOSITADO']:
             break
         else:
-            print("El tipo de cheque debe ser EMITIDO o DEPOSITADO.")
+            print(RED + "El tipo de cheque debe ser EMITIDO o DEPOSITADO." + RESET)
     while True:
         estado = input("Ingrese el estado del cheque (PENDIENTE, APROBADO, RECHAZADO) o presione Enter para omitir: ")
         if not estado or estado.lower() in ['pendiente', 'aprobado', 'rechazado']:
             break
         else:
-            print("El estado del cheque debe ser PENDIENTE, APROBADO o RECHAZADO o vacío")
+            print(RED + "El estado del cheque debe ser PENDIENTE, APROBADO o RECHAZADO o vacío" + RESET)
     return dni_cliente, tipo_cheque, estado
 
 # Función para leer cheques desde un archivo CSV
@@ -100,15 +107,15 @@ def exportar_cheques_csv(cheques, dni_cliente):
         writer.writeheader()
         writer.writerows(cheques)
     
-    print(f"Cheques exportados a '{nombre_archivo}'.")
+    print(GREEN + f"Cheques exportados a '{nombre_archivo}'." + RESET)
 
 # Menú de opciones
 def menu_opciones():
-    print("\n--- Menú de Opciones ---")
+    print(BLUE +"\n--- Menú de Opciones ---")
     print("1. Filtrar cheques")
     print("2. Exportar cheques a CSV")
-    print("3. Salir")
-    return input("Elige una opción: ")
+    print("3. Salir" )
+    return input("Elige una opción: " + RESET)
 
 # Función principal
 def main():
@@ -126,14 +133,14 @@ def main():
             cheques = leer_cheques_csv(nombre_archivo)
             break  # Si el archivo se lee correctamente, salir del bucle
         except FileNotFoundError:
-            print(f"El archivo '{nombre_archivo}' no se encontró.")
+            print(RED + f"El archivo '{nombre_archivo}' no se encontró." + RESET)
             retry = input("¿Quieres intentar de nuevo? (s/n): ").lower()
             if retry != 's':
-                print("Gracias por utilizar el sistema.")
+                print(YELLOW + "Gracias por utilizar el sistema." + RESET)
                 return
 
     limpiar_consola()
-    print("Cheques cargados exitosamente")
+    print(GREEN + "Cheques cargados exitosamente" + RESET)
     
     # Bucle de opciones
     while True:
@@ -146,10 +153,10 @@ def main():
 
             if filtrados:
                 for cheque in filtrados:
-                    print(cheque)
+                    print(CYAN + str(cheque) + RESET)
                     input("Presiona Enter para continuar...")
             else:
-                print("No se encontraron cheques que coincidan con los criterios.")
+                print(RED + "No se encontraron cheques que coincidan con los criterios." + RESET)
                 input("Presiona Enter para continuar...")
 
         elif opcion == '2':
@@ -160,16 +167,16 @@ def main():
             if filtrados:
                 exportar_cheques_csv(filtrados, dni_cliente)
             else:
-                print("No se encontraron cheques que coincidan con los criterios.")
+                print(RED + "No se encontraron cheques que coincidan con los criterios." + RESET)
                 input("Presiona Enter para continuar...")
 
         elif opcion == '3':
             # Opción para salir del programa
-            print("Gracias por utilizar el sistema. Saliendo...")
+            print(YELLOW + "Gracias por utilizar el sistema. Saliendo..." + RESET)
             break
 
         else:
-            print("Opción no válida. Por favor, elige una opción del menú.")
+            print(RED + "Opción no válida. Por favor, elige una opción del menú." + RESET)
 
 if __name__ == "__main__":
     main()

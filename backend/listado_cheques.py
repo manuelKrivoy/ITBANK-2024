@@ -3,19 +3,29 @@ import time
 import csv
 import sys
 from datetime import datetime
-
+import os
+import platform
 # Datos de usuarios
 usuarios = {
     "krivoymanuel@gmail.com": "1234",
     "tomasdeibi@gmail.com": "1234",
     "franciscoruslender@gmail.com": "1234",
     "gonzaloblondi@gmail.com": "1234",
-    "diegogomez@gmail.com": "1234"
-}
+    "diegogomez@gmail.com": "1234",
+    "test": "test" #Usuario de prueba
+} 
+# Limpiar consola 
+def limpiar_consola():
+    sistema = platform.system()
+    if sistema == "Windows":
+        os.system("cls")
+    else:
+        os.system("clear")
 
 # Función para iniciar sesión
 def iniciar_sesion():
     while True:  # Bucle indefinido hasta que las credenciales sean correctas
+        limpiar_consola()
         print("Iniciar Sesión")
         email = input("Email: ")
         password = input("Password: ")
@@ -24,7 +34,12 @@ def iniciar_sesion():
             print("Inicio de sesión exitoso.")
             return True
         else:
+            limpiar_consola()
             print("Credenciales incorrectas. Intente nuevamente.")
+            retry = input("¿Quieres intentar de nuevo? (s/n): ").lower()
+            if retry != 's':
+                print("Gracias por utilizar el sistema.")
+                return
 
 # Función para leer cheques desde un archivo CSV
 def leer_cheques_csv(nombre_archivo):
@@ -66,18 +81,25 @@ def main():
     if not iniciar_sesion():
         return
     
-    # Leer los cheques desde el archivo CSV proporcionado como argumento o solicitarlo al usuario
-    if len(sys.argv) < 2:
-        nombre_archivo = input("Por favor proporciona el nombre del archivo CSV: ")
-    else:
-        nombre_archivo = sys.argv[1]
-    
-    try:
-        cheques = leer_cheques_csv(nombre_archivo)
-    except FileNotFoundError:
-        print(f"El archivo '{nombre_archivo}' no se encontró.")
-        return
-
+    while True:
+        # Leer los cheques desde el archivo CSV proporcionado como argumento o solicitarlo al usuario
+        if len(sys.argv) < 2:
+            nombre_archivo = input("Por favor proporciona el nombre del archivo CSV: ")
+        else:
+            nombre_archivo = sys.argv[1]
+        
+        try:
+            cheques = leer_cheques_csv(nombre_archivo)
+            break  # Si el archivo se lee correctamente, salir del bucle
+        except FileNotFoundError:
+            print(f"El archivo '{nombre_archivo}' no se encontró.")
+            retry = input("¿Quieres intentar de nuevo? (s/n): ").lower()
+            if retry != 's':
+                
+                print("Gracias por utilizar el sistema.")
+                return
+    limpiar_consola()
+    print("Cheques cargados exitosamente")        
     dni_cliente = input("Ingrese el DNI del cliente: ")
     tipo_cheque = input("Ingrese el tipo de cheque (EMITIDO o DEPOSITADO): ")
     

@@ -154,10 +154,14 @@ def main():
             if filtrados:
                 for cheque in filtrados:
                     print(CYAN + str(cheque) + RESET)
-                    input("Presiona Enter para continuar...")
+                   # input("Presiona Enter para continuar...")
             else:
                 print(RED + "No se encontraron cheques que coincidan con los criterios." + RESET)
-                input("Presiona Enter para continuar...")
+               # input("Presiona Enter para continuar...")
+            
+            input("Presiona Enter para continuar...")
+            
+            limpiar_consola()
 
         elif opcion == '2':
             # Opción para exportar cheques a CSV

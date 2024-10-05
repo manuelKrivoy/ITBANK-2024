@@ -145,6 +145,24 @@ def exportar_cheques_csv(cheques, dni_cliente):
 
     print(GREEN + f"Cheques exportados a '{nombre_archivo}'." + RESET)
 
+def opciones_1_y_2(cheques, opcion):
+    #filtrar cheques
+    dni_cliente, tipo_cheque, estado = ingresar_datos_filtro()
+    filtrados = filtrar_cheques(
+        cheques, 
+        dni_cliente, 
+        tipo_cheque, 
+        estado
+    )
+    if filtrados:
+        if opcion == '1':
+            for cheque in filtrados:
+                print(CYAN + str(cheque) + RESET)
+        elif opcion == '2':
+            exportar_cheques_csv(filtrados, dni_cliente)
+    else:
+        print(RED + "No se encontraron cheques que coincidan con los criterios." + RESET)
+
 # Menú de opciones actualizado
 def menu_opciones():
     print(BLUE + "\n--- Menú de Opciones ---")
@@ -188,42 +206,11 @@ def main():
     while True:
         opcion = menu_opciones()
 
-        if opcion == '1':
-            # Opción para filtrar cheques
-            dni_cliente, tipo_cheque, estado = ingresar_datos_filtro()
-            filtrados = filtrar_cheques(
-                cheques, 
-                dni_cliente, 
-                tipo_cheque, 
-                estado
-            )
-
-            if filtrados:
-                for cheque in filtrados:
-                    print(CYAN + str(cheque) + RESET)
-            else:
-                print(RED + "No se encontraron cheques que coincidan con los criterios." + RESET)
+        if opcion == '1' or opcion == '2':
+            opciones_1_y_2(cheques, opcion)
+            input("Presiona Enter para continuar...")
+            limpiar_consola()
             
-            input("Presiona Enter para continuar...")
-            limpiar_consola()
-
-        elif opcion == '2':
-            # Opción para exportar cheques a CSV
-            dni_cliente, tipo_cheque, estado = ingresar_datos_filtro()
-            filtrados = filtrar_cheques(
-                cheques, 
-                dni_cliente, 
-                tipo_cheque, 
-                estado
-            )
-
-            if filtrados:
-                exportar_cheques_csv(filtrados, dni_cliente)
-            else:
-                print(RED + "No se encontraron cheques que coincidan con los criterios." + RESET)
-            input("Presiona Enter para continuar...")
-            limpiar_consola()
-
         elif opcion == '3':
             # Opción para salir del programa
             print(YELLOW + "Gracias por utilizar el sistema. Saliendo..." + RESET)

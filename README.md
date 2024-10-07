@@ -18,3 +18,11 @@ Para hacer de **ITBANK** una plataforma rápida, moderna y segura, utilizamos un
 
 - 🐍 **Django**: Un framework robusto para crear un backend seguro y eficiente.
 - 🗄️ **MySQL**: La base de datos confiable para almacenar toda la información bancaria.
+
+## 🧑‍💻 Desarrolladores
+
+- Francisco Ruslender
+- Gonzalo Blondi
+- Manuel Krivoy
+- Diego Agustín Gómez
+- Tomás Deibe

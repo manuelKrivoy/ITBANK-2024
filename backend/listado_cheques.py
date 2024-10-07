@@ -116,6 +116,22 @@ def filtrar_por_fecha(cheques, fecha_inicio, fecha_fin):
 
     return filtrados
 
+#retorna la cantidad de repeticiones que tiene un numero de cheque para un DNI dado
+def nro_cheque_repetido(cheques, dni_cliente):
+    cont=0
+    posicion=-1
+    for i, cheque in enumerate(cheques):
+        if cheque['DNI'] == dni_cliente:
+            posicion = i
+            break
+    nro_cheque = cheques[posicion]['NroCheque']
+
+    for cheque in cheques:
+        if cheque['NroCheque'] == nro_cheque:
+            cont+=1
+
+    return cont
+
 # Función para ingresar rango de fechas
 def ingresar_rango_fechas():
     while True:
@@ -145,6 +161,7 @@ def exportar_cheques_csv(cheques, dni_cliente):
 
     print(GREEN + f"Cheques exportados a '{nombre_archivo}'." + RESET)
 
+#opciones 1 y 2 del menu de opciones
 def opciones_1_y_2(cheques, opcion):
     #filtrar cheques
     dni_cliente, tipo_cheque, estado = ingresar_datos_filtro()
@@ -154,14 +171,18 @@ def opciones_1_y_2(cheques, opcion):
         tipo_cheque, 
         estado
     )
-    if filtrados:
-        if opcion == '1':
-            for cheque in filtrados:
-                print(CYAN + str(cheque) + RESET)
-        elif opcion == '2':
-            exportar_cheques_csv(filtrados, dni_cliente)
+    cont=nro_cheque_repetido(cheques, dni_cliente)
+    if cont==1:
+        if filtrados:
+            if opcion == '1':
+                for cheque in filtrados:
+                    print(CYAN + str(cheque) + RESET)
+            elif opcion == '2':
+                exportar_cheques_csv(filtrados, dni_cliente)
+        else:
+            print(RED + "No se encontraron cheques que coincidan con los criterios." + RESET)
     else:
-        print(RED + "No se encontraron cheques que coincidan con los criterios." + RESET)
+        print(f"  ERROR  el dni ingresado posee {cont} numeros de cheque REPETIDOS");
 
 # Menú de opciones actualizado
 def menu_opciones():

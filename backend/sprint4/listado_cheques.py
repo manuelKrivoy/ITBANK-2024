@@ -129,7 +129,7 @@ def nro_cheque_repetido(cheques, dni_cliente):
     for cheque in cheques:
         if cheque['NroCheque'] == nro_cheque:
             cont+=1
-
+            
     return cont
 
 # Función para ingresar rango de fechas
@@ -160,29 +160,6 @@ def exportar_cheques_csv(cheques, dni_cliente):
         writer.writerows(cheques)
 
     print(GREEN + f"Cheques exportados a '{nombre_archivo}'." + RESET)
-
-#opciones 1 y 2 del menu de opciones
-def opciones_1_y_2(cheques, opcion):
-    #filtrar cheques
-    dni_cliente, tipo_cheque, estado = ingresar_datos_filtro()
-    filtrados = filtrar_cheques(
-        cheques, 
-        dni_cliente, 
-        tipo_cheque, 
-        estado
-    )
-    cont=nro_cheque_repetido(cheques, dni_cliente)
-    if cont==1:
-        if filtrados:
-            if opcion == '1':
-                for cheque in filtrados:
-                    print(CYAN + str(cheque) + RESET)
-            elif opcion == '2':
-                exportar_cheques_csv(filtrados, dni_cliente)
-        else:
-            print(RED + "No se encontraron cheques que coincidan con los criterios." + RESET)
-    else:
-        print(f"  ERROR  el dni ingresado posee {cont} numeros de cheque REPETIDOS");
 
 # Menú de opciones actualizado
 def menu_opciones():
@@ -226,19 +203,39 @@ def main():
     # Bucle de opciones
     while True:
         opcion = menu_opciones()
+        if opcion== '1' or opcion== '2':
+            dni_cliente, tipo_cheque, estado = ingresar_datos_filtro()
+            filtrados = filtrar_cheques(
+                cheques, 
+                dni_cliente, 
+                tipo_cheque, 
+                estado
+                )
+            cont=nro_cheque_repetido(cheques, dni_cliente)   
+            if cont==1:
+                if filtrados:
+                    if opcion == '1':
+                        for cheque in filtrados:
+                            print(CYAN + str(cheque) + RESET)
+                        input("Presiona Enter para continuar...")
+                        limpiar_consola()
 
-        if opcion == '1' or opcion == '2':
-            opciones_1_y_2(cheques, opcion)
-            input("Presiona Enter para continuar...")
-            limpiar_consola()
-            
+                    elif opcion == '2':
+                        exportar_cheques_csv(filtrados, dni_cliente)
+                        input("Presiona Enter para continuar...")
+                        limpiar_consola()    
+                else:
+                    print(RED + "No se encontraron cheques que coincidan con los criterios." + RESET)   
+            else:
+                print(RED + f" ERROR  el dni ingresado posee {cont} numeros de cheque REPETIDOS" + RESET);
+                input("Presiona Enter para continuar...")
+                limpiar_consola()
         elif opcion == '3':
             # Opción para salir del programa
             print(YELLOW + "Gracias por utilizar el sistema. Saliendo..." + RESET)
             break
-
         else:
-            print(RED + "Opción no válida. Por favor, elija una opción del menú." + RESET)
+            print(RED + "Opción no válida. Por favor, elija una opción del menú." + RESET)    
 
 if __name__ == "__main__":
     main()

@@ -1,4 +1,3 @@
-import random
 import time
 import csv
 import sys
@@ -68,60 +67,113 @@ def ingresar_datos_filtro():
             print(RED + "El tipo de cheque debe ser EMITIDO o DEPOSITADO." + RESET)
     while True:
         estado = input("Ingrese el estado del cheque (PENDIENTE, APROBADO, RECHAZADO) o presione Enter para omitir: ")
-        if not estado or estado.lower() in ['pendiente', 'aprobado', 'rechazado']:
+        if not estado or estado.upper() in ['PENDIENTE', 'APROBADO', 'RECHAZADO']:
             break
         else:
             print(RED + "El estado del cheque debe ser PENDIENTE, APROBADO o RECHAZADO o vacío" + RESET)
-    return dni_cliente, tipo_cheque, estado
+    return dni_cliente, tipo_cheque.upper(), estado.upper() if estado else None
 
 # Función para leer cheques desde un archivo CSV
 def leer_cheques_csv(nombre_archivo):
     cheques = []
-    with open(nombre_archivo, mode='r') as file:
+    with open(nombre_archivo, mode='r', encoding='utf-8') as file:
         reader = csv.DictReader(file)
         for row in reader:
-            # Convertir los timestamps a formato legible
-            row['FechaOrigen'] = datetime.fromtimestamp(int(row['FechaOrigen'])).strftime('%Y-%m-%d %H:%M:%S')
-            row['FechaPago'] = datetime.fromtimestamp(int(row['FechaPago'])).strftime('%Y-%m-%d %H:%M:%S')
             cheques.append(row)
     return cheques
 
 # Función para filtrar cheques
 def filtrar_cheques(cheques, dni_cliente, tipo_cheque, estado=None):
     filtrados = []
-    
+
     for cheque in cheques:
-        if cheque['DNI'] == dni_cliente and cheque['TipoCheque'] == tipo_cheque:
-            if estado is None or cheque['Estado'] == estado:
+        if cheque['DNI'] == dni_cliente and cheque['TipoCheque'].upper() == tipo_cheque:
+            if estado is None or cheque['Estado'].upper() == estado:
                 filtrados.append(cheque)
     
+    # Preguntar al usuario si desea filtrar por fecha
+    opcion_fecha = input("¿Desea filtrar por un rango de fechas? (s/n): ").lower()
+    if opcion_fecha == 's':
+        fecha_inicio, fecha_fin = ingresar_rango_fechas()
+        filtrados = filtrar_por_fecha(filtrados, fecha_inicio, fecha_fin)
+
     return filtrados
+
+# Función para filtrar cheques por fecha
+def filtrar_por_fecha(cheques, fecha_inicio, fecha_fin):
+    # Convertir las fechas de entrada en objetos datetime
+    fecha_inicio_dt = datetime.strptime(fecha_inicio, "%Y-%m-%d")
+    fecha_fin_dt = datetime.strptime(fecha_fin, "%Y-%m-%d")
+
+    # Filtrar cheques que estén dentro del rango de fechas
+    filtrados = [
+        cheque for cheque in cheques
+        if fecha_inicio_dt <= datetime.strptime(cheque['FechaOrigen'].split()[0], "%Y-%m-%d") <= fecha_fin_dt
+    ]
+
+    if not filtrados:
+        print(RED + "No se encontraron cheques en el rango de fechas." + RESET)
+
+    return filtrados
+
+#retorna la cantidad de repeticiones que tiene un numero de cheque para un DNI dado
+def nro_cheque_repetido(cheques, dni_cliente):
+    cont=0
+    posicion=-1
+    for i, cheque in enumerate(cheques):
+        if cheque['DNI'] == dni_cliente:
+            posicion = i
+            break
+    nro_cheque = cheques[posicion]['NroCheque']
+
+    for cheque in cheques:
+        if cheque['NroCheque'] == nro_cheque:
+            cont+=1
+            
+    return cont
+
+# Función para ingresar rango de fechas
+def ingresar_rango_fechas():
+    while True:
+        try:
+            fecha_inicio = input("Ingrese la fecha de inicio (YYYY-MM-DD): ")
+            fecha_fin = input("Ingrese la fecha de fin (YYYY-MM-DD): ")
+            # Validar formato de fechas
+            fecha_inicio_dt = datetime.strptime(fecha_inicio, "%Y-%m-%d")
+            fecha_fin_dt = datetime.strptime(fecha_fin, "%Y-%m-%d")
+            # Asegurarse de que fecha_inicio no sea posterior a fecha_fin
+            if fecha_inicio_dt > fecha_fin_dt:
+                print(RED + "La fecha de inicio no puede ser posterior a la fecha de fin." + RESET)
+                continue
+            return fecha_inicio, fecha_fin
+        except ValueError:
+            print(RED + "Formato de fecha incorrecto. Use YYYY-MM-DD." + RESET)
 
 # Función para exportar cheques a CSV
 def exportar_cheques_csv(cheques, dni_cliente):
     timestamp_actual = int(time.time())
     nombre_archivo = f"{dni_cliente}_{timestamp_actual}.csv"
-    
-    with open(nombre_archivo, mode='w', newline='') as file:
+
+    with open(nombre_archivo, mode='w', newline='', encoding='utf-8') as file:
         writer = csv.DictWriter(file, fieldnames=cheques[0].keys())
         writer.writeheader()
         writer.writerows(cheques)
-    
+
     print(GREEN + f"Cheques exportados a '{nombre_archivo}'." + RESET)
 
-# Menú de opciones
+# Menú de opciones actualizado
 def menu_opciones():
-    print(BLUE +"\n--- Menú de Opciones ---")
+    print(BLUE + "\n--- Menú de Opciones ---")
     print("1. Filtrar cheques")
     print("2. Exportar cheques a CSV")
-    print("3. Salir" )
+    print("3. Salir")
     return input("Elige una opción: " + RESET)
 
 # Función principal
 def main():
     if not iniciar_sesion():
         return
-    
+
     while True:
         # Leer los cheques desde el archivo CSV proporcionado como argumento o solicitarlo al usuario
         if len(sys.argv) < 2:
@@ -138,49 +190,52 @@ def main():
             if retry != 's':
                 print(YELLOW + "Gracias por utilizar el sistema." + RESET)
                 return
+        except Exception as e:
+            print(RED + f"Ocurrió un error al leer el archivo: {e}" + RESET)
+            retry = input("¿Quieres intentar de nuevo? (s/n): ").lower()
+            if retry != 's':
+                print(YELLOW + "Gracias por utilizar el sistema." + RESET)
+                return
 
     limpiar_consola()
-    print(GREEN + "Cheques cargados exitosamente" + RESET)
+    print(GREEN + "Cheques cargados exitosamente." + RESET)
     
     # Bucle de opciones
     while True:
         opcion = menu_opciones()
-        
-        if opcion == '1':
-            # Opción para filtrar cheques
+        if opcion== '1' or opcion== '2':
             dni_cliente, tipo_cheque, estado = ingresar_datos_filtro()
-            filtrados = filtrar_cheques(cheques, dni_cliente, tipo_cheque.upper(), estado.lower() if estado else None )
+            filtrados = filtrar_cheques(
+                cheques, 
+                dni_cliente, 
+                tipo_cheque, 
+                estado
+                )
+            cont=nro_cheque_repetido(cheques, dni_cliente)   
+            if cont==1:
+                if filtrados:
+                    if opcion == '1':
+                        for cheque in filtrados:
+                            print(CYAN + str(cheque) + RESET)
+                        input("Presiona Enter para continuar...")
+                        limpiar_consola()
 
-            if filtrados:
-                for cheque in filtrados:
-                    print(CYAN + str(cheque) + RESET)
-                   # input("Presiona Enter para continuar...")
+                    elif opcion == '2':
+                        exportar_cheques_csv(filtrados, dni_cliente)
+                        input("Presiona Enter para continuar...")
+                        limpiar_consola()    
+                else:
+                    print(RED + "No se encontraron cheques que coincidan con los criterios." + RESET)   
             else:
-                print(RED + "No se encontraron cheques que coincidan con los criterios." + RESET)
-               # input("Presiona Enter para continuar...")
-            
-            input("Presiona Enter para continuar...")
-            
-            limpiar_consola()
-
-        elif opcion == '2':
-            # Opción para exportar cheques a CSV
-            dni_cliente, tipo_cheque, estado = ingresar_datos_filtro()
-            filtrados = filtrar_cheques(cheques, dni_cliente, tipo_cheque, estado if estado else None)
-
-            if filtrados:
-                exportar_cheques_csv(filtrados, dni_cliente)
-            else:
-                print(RED + "No se encontraron cheques que coincidan con los criterios." + RESET)
+                print(RED + f" ERROR  el dni ingresado posee {cont} numeros de cheque REPETIDOS" + RESET);
                 input("Presiona Enter para continuar...")
-
+                limpiar_consola()
         elif opcion == '3':
             # Opción para salir del programa
             print(YELLOW + "Gracias por utilizar el sistema. Saliendo..." + RESET)
             break
-
         else:
-            print(RED + "Opción no válida. Por favor, elige una opción del menú." + RESET)
+            print(RED + "Opción no válida. Por favor, elija una opción del menú." + RESET)    
 
 if __name__ == "__main__":
     main()

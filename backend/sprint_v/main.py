@@ -1,44 +1,10 @@
+## Importo clases
+from clases import Cliente, Cuenta, Transaccion, ModuloCalculos
+
 import json
 from datetime import datetime
 import random
 
-class Cliente:
-    def __init__(self, numero, nombre, apellido, dni, tipo):
-        self.numero = numero
-        self.nombre = nombre
-        self.apellido = apellido
-        self.dni = dni
-        self.tipo = tipo
-        self.cuentas = []
-        self.transacciones = []
-
-    def agregar_cuenta(self, cuenta):
-        self.cuentas.append(cuenta)
-
-    def agregar_transaccion(self, transaccion):
-        self.transacciones.append(transaccion)
-
-class Cuenta:
-    def __init__(self, tipo, saldo=0):
-        self.tipo = tipo
-        self.saldo = saldo
-
-class Transaccion:
-    def __init__(self, estado, tipo, monto, fecha):
-        self.estado = estado
-        self.tipo = tipo
-        self.monto = monto
-        self.fecha = fecha
-
-class ModuloCalculos:
-    @staticmethod
-    def calcular_comision(tipo_cliente, monto):
-        if tipo_cliente == "Classic":
-            return monto * 0.01  # 1%
-        elif tipo_cliente == "Gold":
-            return monto * 0.005  # 0.5%
-        else:
-            return 0  # Sin comisiones para Black
 
 def validar_json(file_path):
     try:

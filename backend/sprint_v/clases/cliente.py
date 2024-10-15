@@ -9,6 +9,7 @@ class Cliente:
         self.cuentas = []
         self.transacciones = []
         self.cajaDeAhorroPesos = cajaAhorroPesos
+        self.autorizacion = False
         
         
     def agregar_cuenta(self, cuenta):
@@ -19,6 +20,35 @@ class Cliente:
 
     def retirarDinero(self, cuenta, monto):
         pass
+
+def realizarTransferencia(self, clienteDestino, monto, autorizacion):
+    # Calcular monto final con comisión
+    if self.tipo == 'Classic':
+        montoFinal = monto * 1.01
+    elif self.tipo == 'Gold':
+        montoFinal = monto * 1.005
+    else:  # Asumimos que cualquier otro tipo es 'Black'
+        montoFinal = monto
+
+    limites_autorizacion = {
+        'Classic': 150000,
+        'Gold': 500000,
+        'Black': None  # Sin límite para cuenta Black
+    }
+
+    limite = limites_autorizacion.get(clienteDestino.tipo)
+
+    if limite is not None and montoFinal > limite and not autorizacion:
+        print("La cuenta destino no autorizó la transferencia")
+        return
+
+    if self.cajaDeAhorroPesos.saldo >= montoFinal:
+        self.cajaDeAhorroPesos.saldo -= montoFinal
+        clienteDestino.cajaDeAhorroPesos.saldo += montoFinal
+        print("Transferencia realizada con éxito")
+    else:
+        print("Saldo insuficiente")
+                       
 
 
 ## Defino clases para el tipo de cliente utilizando herencia
@@ -74,7 +104,7 @@ class ClienteGold(Cliente):
         
 
 
-class ClienteBlack(ClienteGold):
+class ClienteBlack(Cliente):
     def __init__(self, numero, nombre, apellido, dni,tarjetaDebito, cajaAhorroPesos, cajaAhorroDolares ):
         super().__init__(numero, nombre, apellido, dni, 'Black', tarjetaDebito, cajaAhorroPesos)
         self.cajaAhorroDolares = cajaAhorroDolares

@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 class Cliente:
     def __init__(self, numero, nombre, apellido, dni, tipo, tarjetaDebito, cajaAhorroPesos):
         self.numero = numero
@@ -10,6 +12,8 @@ class Cliente:
         self.transacciones = []
         self.cajaDeAhorroPesos = cajaAhorroPesos
         self.autorizacion = False
+        self.montoRetiradoHoy = 0  # Registro de cuánto ha retirado hoy
+        self.fechaUltimoRetiro = datetime.now().date()  # Fecha del último retiro
         
         
     def agregar_cuenta(self, cuenta):
@@ -20,6 +24,22 @@ class Cliente:
 
     def retirarDinero(self, cuenta, monto):
         pass
+
+    def resetearMontoDiario(self):
+        # Si es un nuevo día, reseteamos el monto retirado
+        if self.fechaUltimoRetiro != datetime.now().date():
+            self.montoRetiradoHoy = 0
+            self.fechaUltimoRetiro = datetime.now().date()
+
+    def puedeRetirar(self, monto, limiteDiario):
+        self.resetearMontoDiario()
+        if self.montoRetiradoHoy + monto > limiteDiario:
+            print(f"No puede retirar más de ${limiteDiario} por día.")
+            return False
+        return True
+
+    def registrarRetiro(self, monto):
+        self.montoRetiradoHoy += monto
 
 def realizarTransferencia(self, clienteDestino, monto, autorizacion):
     # Calcular monto final con comisión
@@ -53,35 +73,43 @@ def realizarTransferencia(self, clienteDestino, monto, autorizacion):
 
 ## Defino clases para el tipo de cliente utilizando herencia
 class ClienteClassic(Cliente):
+    LIMITE_DIARIO = 10000
     def __init__(self, numero, nombre, apellido, dni,tarjetaDebito, cajaAhorroPesos):
         super().__init__(numero, nombre, apellido, dni, 'Classic', tarjetaDebito, cajaAhorroPesos)
 
     def retirarDinero(self, cuenta, monto):
-        if monto > 10000:
-            if cuenta.saldo >= monto:
-                cuenta.saldo -= monto
-                cuenta.saldo -= cuenta.comision
-                return True
+        self.resetearMontoDiario()
+        if not self.puedeRetirar(monto, self.LIMITE_DIARIO):
             return False
+        
+        if cuenta.saldo >= monto:
+            cuenta.saldo -= monto
+            self.registrarRetiro(monto)
+            return True
         else:
-            print("No puede retirar más de $10000")
+            print("Saldo insuficiente")
+            return False
 
 
 class ClienteGold(Cliente):
+    LIMITE_DIARIO = 20000
     def __init__(self, numero, nombre, apellido, dni,tarjetaDebito, cajaAhorroPesos, cajaAhorroDolares):
         super().__init__(numero, nombre, apellido, dni, 'Gold', tarjetaDebito, cajaAhorroPesos)
         self.cajaAhorroDolares = cajaAhorroDolares
         self.tarjetaCredito = None
     
     def retirarDinero(self, cuenta, monto):
-        if monto > 20000:
-            if cuenta.saldo >= monto:
-                cuenta.saldo -= monto
-                cuenta.saldo -= cuenta.comision
-                return True
+        self.resetearMontoDiario()
+        if not self.puedeRetirar(monto, self.LIMITE_DIARIO):
             return False
+        
+        if cuenta.saldo >= monto:
+            cuenta.saldo -= monto
+            self.registrarRetiro(monto)
+            return True
         else:
-            print("No puede retirar más de $20000")  
+            print("Saldo insuficiente")
+            return False 
 
     def agregarTarjetaCredito(self, tarjetaCredito):
         if self.tarjetaCredito is None:
@@ -105,6 +133,7 @@ class ClienteGold(Cliente):
 
 
 class ClienteBlack(Cliente):
+    LIMITE_DIARIO = 100000
     def __init__(self, numero, nombre, apellido, dni,tarjetaDebito, cajaAhorroPesos, cajaAhorroDolares ):
         super().__init__(numero, nombre, apellido, dni, 'Black', tarjetaDebito, cajaAhorroPesos)
         self.cajaAhorroDolares = cajaAhorroDolares
@@ -121,14 +150,24 @@ class ClienteBlack(Cliente):
             self.tarjetaCredito.remove(tarjetaCredito)
         else:
             print("No tiene esa tarjeta de crédito")
+
+    def venderUsd(self, monto):
+        if self.cajaAhorroDolares.saldo >= monto:
+            self.cajaAhorroDolares.saldo -= monto 
+    
+    def comprarUsd(self, monto):
+        self.cajaAhorroDolares.saldo += monto
     
     def retirarDinero(self, cuenta, monto):
-        if monto > 100000:
-            if cuenta.saldo >= monto:
-                cuenta.saldo -= monto
-                cuenta.saldo -= cuenta.comision
-                return True
+        self.resetearMontoDiario()
+        if not self.puedeRetirar(monto, self.LIMITE_DIARIO):
             return False
+        
+        if cuenta.saldo >= monto:
+            cuenta.saldo -= monto
+            self.registrarRetiro(monto)
+            return True
         else:
-            print("No puede retirar más de $100000")        
+            print("Saldo insuficiente")
+            return False       
 

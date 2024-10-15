@@ -36,7 +36,7 @@ class ClienteClassic(Cliente):
 
 
 class ClienteGold(Cliente):
-    def __init__(self, numero, nombre, apellido, dni):
+    def __init__(self, numero, nombre, apellido, dni,tarjetaDebito):
         super().__init__(numero, nombre, apellido, dni, 'Gold')
     
     def retirarDinero(self, cuenta, monto):

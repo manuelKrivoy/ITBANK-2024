@@ -68,15 +68,6 @@ def crear_historial(clientes):
             nueva_transaccion = Transaccion(estado, tipo_transaccion, monto, fecha)
             cliente.agregar_transaccion(nueva_transaccion)
 
-# Datos de ejemplo y creación de clientes
-usuarios = {
-    "krivoymanuel@gmail.com": "1234",
-    "tomasdeibi@gmail.com": "1234",
-    "franciscoruslender@gmail.com": "1234",
-    "gonzaloblondi@gmail.com": "1234",
-    "diegogomez@gmail.com": "1234",
-    "test": "test"  # Usuario de prueba
-}
 
 # Crear algunos clientes de ejemplo
 clientes_data = [

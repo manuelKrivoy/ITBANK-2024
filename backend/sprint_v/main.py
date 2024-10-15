@@ -1,5 +1,5 @@
 ## Importo clases
-from clases import Cliente, CuentaBancaria, Transaccion, ModuloCalculos
+from clases import Cliente, CuentaBancaria, Transaccion, ModuloCalculos, TarjetaDebito, TarjetaCredito
 
 import json
 from datetime import datetime

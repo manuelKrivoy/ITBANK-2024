@@ -42,33 +42,33 @@ class Cliente:
     def registrarRetiro(self, monto):
         self.montoRetiradoHoy += monto
 
-def realizarTransferencia(self, clienteDestino, monto, autorizacion):
-    # Calcular monto final con comisión
-    if self.tipo == 'Classic':
-        montoFinal = monto * 1.01
-    elif self.tipo == 'Gold':
-        montoFinal = monto * 1.005
-    else:  # Asumimos que cualquier otro tipo es 'Black'
-        montoFinal = monto
+    def realizarTransferencia(self, clienteDestino, monto, autorizacion):
+        # Calcular monto final con comisión
+        if self.tipo == 'Classic':
+            montoFinal = monto * 1.01
+        elif self.tipo == 'Gold':
+            montoFinal = monto * 1.005
+        else:  # Asumimos que cualquier otro tipo es 'Black'
+            montoFinal = monto
 
-    limites_autorizacion = {
-        'Classic': 150000,
-        'Gold': 500000,
-        'Black': None  # Sin límite para cuenta Black
-    }
+        limites_autorizacion = {
+            'Classic': 150000,
+            'Gold': 500000,
+            'Black': None  # Sin límite para cuenta Black
+        }
 
-    limite = limites_autorizacion.get(clienteDestino.tipo)
+        limite = limites_autorizacion.get(clienteDestino.tipo)
 
-    if limite is not None and montoFinal > limite and not autorizacion:
-        print("La cuenta destino no autorizó la transferencia")
-        return
+        if limite is not None and montoFinal > limite and not autorizacion:
+            print("La cuenta destino no autorizó la transferencia")
+            return
 
-    if self.cajaDeAhorroPesos.saldo >= montoFinal:
-        self.cajaDeAhorroPesos.saldo -= montoFinal
-        clienteDestino.cajaDeAhorroPesos.saldo += montoFinal
-        print("Transferencia realizada con éxito")
-    else:
-        print("Saldo insuficiente")
+        if self.cajaDeAhorroPesos.saldo >= montoFinal:
+            self.cajaDeAhorroPesos.saldo -= montoFinal
+            clienteDestino.cajaDeAhorroPesos.saldo += montoFinal
+            print("Transferencia realizada con éxito")
+        else:
+            print("Saldo insuficiente")
                        
 
 

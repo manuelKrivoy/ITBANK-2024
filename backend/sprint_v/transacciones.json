@@ -1,0 +1,73 @@
+[
+  {
+    "numero": 1,
+    "nombre": "Juan",
+    "apellido": "Perez",
+    "DNI": "12345678",
+    "tipo": "CLASSIC",
+    "transacciones": [
+      {
+        "estado": "PENDIENTE",
+        "tipo": "RETIRO_EFECTIVO_CAJERO_AUTOMATICO",
+        "cuentaNumero": 1001,
+        "monto": 8000,
+        "fecha": "10/10/2024 14:35:00"
+      },
+      {
+        "estado": "PENDIENTE",
+        "tipo": "TRANSFERENCIA_ENVIADA",
+        "cuentaNumero": 1001,
+        "cuentaDestino": 2001,
+        "monto": 150000,
+        "fecha": "10/10/2024 16:00:00"
+      }
+    ]
+  },
+  {
+    "numero": 2,
+    "nombre": "Maria",
+    "apellido": "Lopez",
+    "DNI": "87654321",
+    "tipo": "GOLD",
+    "transacciones": [
+      {
+        "estado": "PENDIENTE",
+        "tipo": "RETIRO_EFECTIVO_CAJERO_AUTOMATICO",
+        "cuentaNumero": 1002,
+        "monto": 15000,
+        "fecha": "11/10/2024 11:25:00"
+      },
+      {
+        "estado": "PENDIENTE",
+        "tipo": "COMPRAR_DOLAR",
+        "cuentaNumero": 1002,
+        "monto": 500,
+        "fecha": "11/10/2024 12:00:00"
+      }
+    ]
+  },
+  {
+    "numero": 3,
+    "nombre": "Pedro",
+    "apellido": "Gomez",
+    "DNI": "11223344",
+    "tipo": "BLACK",
+    "transacciones": [
+      {
+        "estado": "PENDIENTE",
+        "tipo": "RETIRO_EFECTIVO_CAJERO_AUTOMATICO",
+        "cuentaNumero": 1003,
+        "monto": 50000,
+        "fecha": "12/10/2024 09:45:00"
+      },
+      {
+        "estado": "PENDIENTE",
+        "tipo": "TRANSFERENCIA_ENVIADA",
+        "cuentaNumero": 1003,
+        "cuentaDestino": 3001,
+        "monto": 100000,
+        "fecha": "12/10/2024 10:30:00"
+      }
+    ]
+  }
+]

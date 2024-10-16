@@ -53,27 +53,34 @@ def procesar_transacciones(json_file):
 
 # Funcion que le asigna estado a la transaccion
 def validar_transaccion(cliente, transaccion, data_transaccion):
-    print("Me estoy ejecutando", transaccion)
     tipo = transaccion.tipo
     monto = transaccion.monto
     
     # Ejemplo de procesamiento de retiros en cajero
     if tipo == "RETIRO_EFECTIVO_CAJERO_AUTOMATICO":
         cuenta = cliente.cajaDeAhorroPesos 
-        if cliente.retirarDinero(cuenta, monto):
+        if cliente.retirar_dinero(cuenta, monto):
             transaccion.estado = "ACEPTADA"
         else:
             transaccion.estado = "RECHAZADA"
             transaccion.razon = "Saldo insuficiente o límite diario excedido"
     
-    # Procesar otras transacciones (transferencias, compras de dólares, etc.)
+    # Procesar transferencias
     elif tipo == "TRANSFERENCIA_ENVIADA":
         cliente_destino = buscar_cliente_destino(data_transaccion["cuentaDestino"], cliente)  
-        if cliente.realizarTransferencia(cliente_destino, monto, cliente.autorizacion):
+        if cliente.realizar_transferencia(cliente_destino, monto, cliente.autorizacion):
             transaccion.estado = "ACEPTADA"
         else:
             transaccion.estado = "RECHAZADA"
             transaccion.razon = "Transferencia no autorizada o saldo insuficiente"
+    
+    ## Procesar altas de tarjetas
+    elif tipo == "ALTA_TARJETA_CREDITO":
+        if cliente.alta_tarjeta_credito(data_transaccion["numeroTarjeta"]):
+            transaccion.estado = "ACEPTADA"
+        else:
+            transaccion.estado = "RECHAZADA"
+            transaccion.razon = "No se pudo dar de alta la tarjeta"
     
     cliente.agregar_transaccion(transaccion)
 

@@ -20,6 +20,14 @@
         "cuentaDestino": 2001,
         "monto": 150000,
         "fecha": "10/10/2024 16:00:00"
+      },
+      {
+        "estado": "PENDIENTE",
+        "tipo": "ALTA_TARJETA_CREDITO",
+        "cuentaNumero": 1001,
+        "numeroTarjeta": "1111222233334444",
+        "monto": 50000,
+        "fecha": "10/10/2024 17:30:00"
       }
     ]
   },
@@ -43,6 +51,14 @@
         "cuentaNumero": 1002,
         "monto": 500,
         "fecha": "11/10/2024 12:00:00"
+      },
+      {
+        "estado": "PENDIENTE",
+        "tipo": "ALTA_TARJETA_CREDITO",
+        "cuentaNumero": 1001,
+        "numeroTarjeta": "1111222233334444",
+        "monto": 50000,
+        "fecha": "10/10/2024 17:30:00"
       }
     ]
   },

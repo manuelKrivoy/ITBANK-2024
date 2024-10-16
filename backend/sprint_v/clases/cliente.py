@@ -23,26 +23,26 @@ class Cliente:
     def agregar_transaccion(self, transaccion):
         self.transacciones.append(transaccion)
 
-    def retirarDinero(self, cuenta, monto):
+    def retirar_dinero(self, cuenta, monto):
         pass
 
-    def resetearMontoDiario(self):
+    def resetear_monto_diario(self):
         # Si es un nuevo día, reseteamos el monto retirado
         if self.fechaUltimoRetiro != datetime.now().date():
             self.montoRetiradoHoy = 0
             self.fechaUltimoRetiro = datetime.now().date()
 
-    def puedeRetirar(self, monto, limiteDiario):
-        self.resetearMontoDiario()
+    def puede_retirar(self, monto, limiteDiario):
+        self.resetear_monto_diario()
         if self.montoRetiradoHoy + monto > limiteDiario:
             print(f"No puede retirar más de ${limiteDiario} por día.")
             return False
         return True
 
-    def registrarRetiro(self, monto):
+    def registrar_retiro(self, monto):
         self.montoRetiradoHoy += monto
 
-    def realizarTransferencia(self, clienteDestino, monto, autorizacion):
+    def realizar_transferencia(self, clienteDestino, monto, autorizacion):
         # Calcular monto final con comisión
         if self.tipo == 'Classic':
             montoFinal = monto * 1.01
@@ -69,6 +69,9 @@ class Cliente:
             print("Transferencia realizada con éxito")
         else:
             print("Saldo insuficiente")
+    
+    def alta_tarjeta_credito(self, tarjetaCredito):
+        pass
                        
 
 
@@ -78,18 +81,21 @@ class ClienteClassic(Cliente):
     def __init__(self, numero, nombre, apellido, dni,tarjetaDebito, cajaAhorroPesos, direccion):
         super().__init__(numero, nombre, apellido, dni, 'Classic', tarjetaDebito, direccion, cajaAhorroPesos, )
 
-    def retirarDinero(self, cuenta, monto):
-        self.resetearMontoDiario()
-        if not self.puedeRetirar(monto, self.LIMITE_DIARIO):
+    def retirar_dinero(self, cuenta, monto):
+        self.resetear_monto_diario()
+        if not self.puede_retirar(monto, self.LIMITE_DIARIO):
             return False
         
         if cuenta.saldo >= monto:
             cuenta.saldo -= monto
-            self.registrarRetiro(monto)
+            self.registrar_retiro(monto)
             return True
         else:
             print("Saldo insuficiente")
             return False
+    
+    def alta_tarjeta_credito(self, tarjetaCredito):
+        print("No puede dar de alta tarjetas siendo cliente Classic")
 
 
 class ClienteGold(Cliente):
@@ -99,36 +105,37 @@ class ClienteGold(Cliente):
         self.cajaAhorroDolares = cajaAhorroDolares
         self.tarjetaCredito = None
     
-    def retirarDinero(self, cuenta, monto):
-        self.resetearMontoDiario()
-        if not self.puedeRetirar(monto, self.LIMITE_DIARIO):
+    def retirar_dinero(self, cuenta, monto):
+        self.resetear_monto_diario()
+        if not self.puede_retirar(monto, self.LIMITE_DIARIO):
             return False
         
         if cuenta.saldo >= monto:
             cuenta.saldo -= monto
-            self.registrarRetiro(monto)
+            self.registrar_retiro(monto)
             return True
         else:
             print("Saldo insuficiente")
             return False 
 
-    def agregarTarjetaCredito(self, tarjetaCredito):
+    def alta_tarjeta_credito(self, tarjetaCredito):
         if self.tarjetaCredito is None:
             self.tarjetaCredito = tarjetaCredito 
+            return True
         else:
             print("Ya tiene una tarjeta de crédito")
 
-    def eliminarTarjetaCredito(self):
+    def eliminar_tarjeta_credito(self):
         if self.tarjetaCredito is not None:
             self.tarjetaCredito = None
         else:
             print("No tiene tarjeta de crédito")
 
-    def venderUsd(self, monto):
+    def vender_usd(self, monto):
         if self.cajaAhorroDolares.saldo >= monto:
             self.cajaAhorroDolares.saldo -= monto 
     
-    def comprarUsd(self, monto):
+    def comprar_usd(self, monto):
         self.cajaAhorroDolares.saldo += monto
         
 
@@ -143,30 +150,31 @@ class ClienteBlack(Cliente):
     def agregarTarjetaCredito(self, tarjetaCredito):
         if self.tarjetaCredito.length < 5:
             self.tarjetaCredito.append = tarjetaCredito
+            return True
         else:
             print("Ya tiene 5 tarjetas de crédito")
     
-    def eliminarTarjetaCredito(self, tarjetaCredito):
+    def eliminar_tarjeta_credito(self, tarjetaCredito):
         if tarjetaCredito in self.tarjetaCredito:
             self.tarjetaCredito.remove(tarjetaCredito)
         else:
             print("No tiene esa tarjeta de crédito")
 
-    def venderUsd(self, monto):
+    def vender_usd(self, monto):
         if self.cajaAhorroDolares.saldo >= monto:
             self.cajaAhorroDolares.saldo -= monto 
     
-    def comprarUsd(self, monto):
+    def comprar_usd(self, monto):
         self.cajaAhorroDolares.saldo += monto
     
-    def retirarDinero(self, cuenta, monto):
-        self.resetearMontoDiario()
-        if not self.puedeRetirar(monto, self.LIMITE_DIARIO):
+    def retirar_dinero(self, cuenta, monto):
+        self.resetear_monto_diario()
+        if not self.puede_retirar(monto, self.LIMITE_DIARIO):
             return False
         
         if cuenta.saldo >= monto:
             cuenta.saldo -= monto
-            self.registrarRetiro(monto)
+            self.registrar_retiro(monto)
             return True
         else:
             print("Saldo insuficiente")

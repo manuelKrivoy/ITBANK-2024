@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
 class Cliente:
-    def __init__(self, numero, nombre, apellido, dni, tipo, tarjetaDebito, cajaAhorroPesos):
+    def __init__(self, numero, nombre, apellido, dni, tipo, tarjetaDebito, direccion, cajaAhorroPesos):
         self.numero = numero
         self.nombre = nombre
         self.apellido = apellido
@@ -10,6 +10,7 @@ class Cliente:
         self.tarjetaDebito = tarjetaDebito
         self.cuentas = []
         self.transacciones = []
+        self.direccion = direccion
         self.cajaDeAhorroPesos = cajaAhorroPesos
         self.autorizacion = False
         self.montoRetiradoHoy = 0  # Registro de cuánto ha retirado hoy
@@ -74,8 +75,8 @@ def realizarTransferencia(self, clienteDestino, monto, autorizacion):
 ## Defino clases para el tipo de cliente utilizando herencia
 class ClienteClassic(Cliente):
     LIMITE_DIARIO = 10000
-    def __init__(self, numero, nombre, apellido, dni,tarjetaDebito, cajaAhorroPesos):
-        super().__init__(numero, nombre, apellido, dni, 'Classic', tarjetaDebito, cajaAhorroPesos)
+    def __init__(self, numero, nombre, apellido, dni,tarjetaDebito, cajaAhorroPesos, direccion):
+        super().__init__(numero, nombre, apellido, dni, 'Classic', tarjetaDebito, direccion, cajaAhorroPesos, )
 
     def retirarDinero(self, cuenta, monto):
         self.resetearMontoDiario()
@@ -93,8 +94,8 @@ class ClienteClassic(Cliente):
 
 class ClienteGold(Cliente):
     LIMITE_DIARIO = 20000
-    def __init__(self, numero, nombre, apellido, dni,tarjetaDebito, cajaAhorroPesos, cajaAhorroDolares):
-        super().__init__(numero, nombre, apellido, dni, 'Gold', tarjetaDebito, cajaAhorroPesos)
+    def __init__(self, numero, nombre, apellido, dni,tarjetaDebito, cajaAhorroPesos, direccion, cajaAhorroDolares):
+        super().__init__(numero, nombre, apellido, dni, 'Gold', tarjetaDebito,direccion, cajaAhorroPesos)
         self.cajaAhorroDolares = cajaAhorroDolares
         self.tarjetaCredito = None
     
@@ -134,8 +135,8 @@ class ClienteGold(Cliente):
 
 class ClienteBlack(Cliente):
     LIMITE_DIARIO = 100000
-    def __init__(self, numero, nombre, apellido, dni,tarjetaDebito, cajaAhorroPesos, cajaAhorroDolares ):
-        super().__init__(numero, nombre, apellido, dni, 'Black', tarjetaDebito, cajaAhorroPesos)
+    def __init__(self, numero, nombre, apellido, dni,tarjetaDebito, cajaAhorroPesos,direccion, cajaAhorroDolares ):
+        super().__init__(numero, nombre, apellido, dni, 'Black', tarjetaDebito, direccion, cajaAhorroPesos)
         self.cajaAhorroDolares = cajaAhorroDolares
         self.tarjetaCredito = None
 

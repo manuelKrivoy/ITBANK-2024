@@ -1,5 +1,4 @@
-## Importo clases
-from clases import Cliente, CuentaBancaria, Transaccion, ModuloCalculos, TarjetaDebito, TarjetaCredito
+from clases import ClienteClassic, ClienteBlack, ClienteGold,  Transaccion,  TarjetaDebito, CajaAhorroPesos, CajaAhorroDolares
 
 import json
 from datetime import datetime
@@ -26,9 +25,23 @@ def procesar_transacciones(json_file):
     
     for item in data:
         cliente_numero = item["numero"]
+        tipo_cliente = item["tipo"]
         
         if cliente_numero not in clientes:
-            clientes[cliente_numero] = Cliente(cliente_numero, item["nombre"], item["apellido"], item["DNI"], item["tipo"])
+            if tipo_cliente == "CLASSIC":
+                clientes[cliente_numero] = ClienteClassic(
+                    cliente_numero, item["nombre"], item["apellido"], item["DNI"], "Mitre 1234", CajaAhorroPesos(0)
+                )
+            elif tipo_cliente == "GOLD":
+                clientes[cliente_numero] = ClienteGold(
+                    cliente_numero, item["nombre"], item["apellido"], item["DNI"], "San Martin 456", 
+                    CajaAhorroPesos(0), CajaAhorroDolares(0)
+                )
+            elif tipo_cliente == "BLACK":
+                clientes[cliente_numero] = ClienteBlack(
+                    cliente_numero, item["nombre"], item["apellido"], item["DNI"], "Italia 789", 
+                    CajaAhorroPesos(0), CajaAhorroDolares(0)
+                )
         
         for trans in item["transacciones"]:
             fecha_transaccion = datetime.strptime(trans["fecha"], "%d/%m/%Y %H:%M:%S")
@@ -69,19 +82,11 @@ def crear_historial(clientes):
             cliente.agregar_transaccion(nueva_transaccion)
 
 
-# Crear algunos clientes de ejemplo
-clientes_data = [
-    {"numero": 100001, "nombre": "Manuel", "apellido": "Krivoy", "DNI": "29494777", "tipo": "Classic"},
-    {"numero": 100002, "nombre": "Tomás", "apellido": "De Ibi", "DNI": "29494778", "tipo": "Gold"},
-    {"numero": 100003, "nombre": "Francisco", "apellido": "Ruslender", "DNI": "29494779", "tipo": "Black"},
-    {"numero": 100004, "nombre": "Gonzalo", "apellido": "Blondi", "DNI": "29494780", "tipo": "Classic"},
-    {"numero": 100005, "nombre": "Diego", "apellido": "Gómez", "DNI": "29494781", "tipo": "Gold"},
-]
-
-clientes = {}
-for data in clientes_data:
-    cliente = Cliente(data["numero"], data["nombre"], data["apellido"], data["DNI"], data["tipo"])
-    clientes[data["numero"]] = cliente
+clientes = {
+    1: ClienteClassic(1, "Juan", "Perez", "12345678",TarjetaDebito("1234-5678-9012"), "Mitre 924", CajaAhorroPesos(50000)),
+    2: ClienteGold(2, "Maria", "Lopez", "87654321",TarjetaDebito("9876-5432-1098"), "San Martin 898", CajaAhorroPesos(50000), CajaAhorroDolares(10000)),
+    3: ClienteBlack(3, "Pedro", "Gomez", "11223344",TarjetaDebito("6543-2109-8765"), "Italia 1023", CajaAhorroPesos(50000), CajaAhorroDolares(10000))
+}
 
 # Crear historial aleatorio para los clientes
 crear_historial(clientes)

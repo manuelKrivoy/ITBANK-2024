@@ -10,15 +10,15 @@ class TestCliente(unittest.TestCase):
         self.cuenta_dolares = CajaAhorroDolares(10000)
         
         # Clientes
-        self.cliente_classic = ClienteClassic(1, "Juan", "Perez", "12345678", "1234-5678-9012", self.cuenta_pesos)
-        self.cliente_gold = ClienteGold(2, "Maria", "Lopez", "87654321", "9876-5432-1098", self.cuenta_pesos, self.cuenta_dolares)
-        self.cliente_black = ClienteBlack(3, "Pedro", "Gomez", "11223344", "6543-2109-8765", self.cuenta_pesos, self.cuenta_dolares)
+        self.cliente_classic = ClienteClassic(1, "Juan", "Perez", "12345678", "1234-5678-9012","Mitre 924", self.cuenta_pesos)
+        self.cliente_gold = ClienteGold(2, "Maria", "Lopez", "87654321", "9876-5432-1098","San Martin 898", self.cuenta_pesos, self.cuenta_dolares)
+        self.cliente_black = ClienteBlack(3, "Pedro", "Gomez", "11223344", "6543-2109-8765","Italia 1023", self.cuenta_pesos, self.cuenta_dolares)
     
     def test_retirar_dinero_classic(self):
         # Test: Retirar dentro del límite diario
         resultado = self.cliente_classic.retirarDinero(self.cuenta_pesos, 5000)
         self.assertTrue(resultado)
-        # No hay comisión específica en las clases de cuentas, así que solo se resta el monto retirado
+
         self.assertEqual(self.cuenta_pesos.saldo, 50000 - 5000)
 
         # Test: Exceder el límite diario

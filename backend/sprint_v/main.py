@@ -64,28 +64,28 @@ def validar_transaccion(cliente, transaccion, data_transaccion):
     # Ejemplo de procesamiento de retiros en cajero
     if tipo == "RETIRO_EFECTIVO_CAJERO_AUTOMATICO":
         cuenta = cliente.cajaDeAhorroPesos 
-        if cliente.retirar_dinero(cuenta, monto):
+        if cliente.retirar_dinero(cuenta, monto) == 1:
             transaccion.estado = "ACEPTADA"
         else:
             transaccion.estado = "RECHAZADA"
-            transaccion.razon = "Saldo insuficiente o límite diario excedido"
+            transaccion.razon = cliente.retirar_dinero(cuenta, monto)
     
     # Procesar transferencias
     elif tipo == "TRANSFERENCIA_ENVIADA":
         cliente_destino = buscar_cliente_destino(data_transaccion["cuentaDestino"], cliente)  
-        if cliente.realizar_transferencia(cliente_destino, monto, cliente.autorizacion):
+        if cliente.realizar_transferencia(cliente_destino, monto, cliente.autorizacion) == 1:
             transaccion.estado = "ACEPTADA"
         else:
             transaccion.estado = "RECHAZADA"
-            transaccion.razon = "Transferencia no autorizada o saldo insuficiente/negativo"
+            transaccion.razon = cliente.realizar_transferencia(cliente_destino, monto, cliente.autorizacion)
     
     ## Procesar altas de tarjetas
     elif tipo == "ALTA_TARJETA_CREDITO":
-        if cliente.alta_tarjeta_credito(data_transaccion["numeroTarjeta"]):
+        if cliente.alta_tarjeta_credito(data_transaccion["numeroTarjeta"]) == 1:
             transaccion.estado = "ACEPTADA"
         else:
             transaccion.estado = "RECHAZADA"
-            transaccion.razon = "No se pudo dar de alta la tarjeta"
+            transaccion.razon = cliente.alta_tarjeta_credito(data_transaccion["numeroTarjeta"])
     
     cliente.agregar_transaccion(transaccion)
 

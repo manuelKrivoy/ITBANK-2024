@@ -32,14 +32,12 @@ class Cliente:
 
     def puede_retirar(self, monto, limiteDiario):
         if monto < 0:
-            print("No puede retirar un monto negativo")
-            return False
+            return "No puede retirar un monto negativo"
         else:
             self.resetear_monto_diario()
             if self.montoRetiradoHoy + monto > limiteDiario:
-                print(f"No puede retirar más de ${limiteDiario} por día.")
-                return False
-            return True
+                return f"No puede retirar más de ${limiteDiario} por día."
+            return 1
 
     def registrar_retiro(self, monto):
         self.montoRetiradoHoy += monto
@@ -53,10 +51,9 @@ class Cliente:
             cuenta.saldo -= monto
             self.registrar_retiro(monto)
             print(f"Se ha retirado ${monto} con éxito.")
-            return True
+            return 1
         else:
-            print("Saldo insuficiente")
-            return False
+            return "Saldo insuficiente"
 
     def realizar_transferencia(self, clienteDestino, monto, autorizacion):
         # Calcular monto final con comisión
@@ -76,15 +73,14 @@ class Cliente:
         limite = limites_autorizacion.get(clienteDestino.tipo)
 
         if limite is not None and montoFinal > limite and not autorizacion:
-            print("La cuenta destino no autorizó la transferencia")
-            return
+            return "La cuenta destino no autorizó la transferencia"
 
         if self.cajaDeAhorroPesos.saldo >= montoFinal:
             self.cajaDeAhorroPesos.saldo -= montoFinal
             clienteDestino.cajaDeAhorroPesos.saldo += montoFinal
-            print("Transferencia realizada con éxito")
+            return 1
         else:
-            print("Saldo insuficiente")
+            return "Saldo insuficiente"
 
     def alta_tarjeta_credito(self, tarjetaCredito):
         pass
@@ -115,7 +111,7 @@ class ClienteClassic(Cliente):
         return super().retirar_dinero(cuenta, monto, self.LIMITE_DIARIO)
 
     def alta_tarjeta_credito(self, tarjetaCredito):
-        print("No puede dar de alta tarjetas siendo cliente Classic")
+        return "No puede tener tarjeta de crédito siendo cliente Classic"
 
 
 class ClienteGold(Cliente):
@@ -132,9 +128,9 @@ class ClienteGold(Cliente):
     def alta_tarjeta_credito(self, tarjetaCredito):
         if self.tarjetaCredito is None:
             self.tarjetaCredito = tarjetaCredito
-            return True
+            return 1
         else:
-            print("Ya tiene una tarjeta de crédito")
+            return "Ya tiene una tarjeta de crédito"
 
     def eliminar_tarjeta_credito(self):
         if self.tarjetaCredito is not None:
@@ -157,9 +153,9 @@ class ClienteBlack(Cliente):
     def agregar_tarjeta_credito(self, tarjetaCredito):
         if len(self.tarjetaCredito) < 5:
             self.tarjetaCredito.append(tarjetaCredito)
-            return True
+            return 1
         else:
-            print("Ya tiene 5 tarjetas de crédito")
+            return "No puede tener más de 5 tarjetas de crédito"
 
     def eliminar_tarjeta_credito(self, tarjetaCredito):
         if tarjetaCredito in self.tarjetaCredito:

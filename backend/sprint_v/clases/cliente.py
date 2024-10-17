@@ -15,7 +15,9 @@ class Cliente:
         self.autorizacion = False
         self.montoRetiradoHoy = 0  # Registro de cuánto ha retirado hoy
         self.fechaUltimoRetiro = datetime.now().date()  # Fecha del último retiro
-        
+
+    def __str__(self):
+        return f"{self.nombre} {self.apellido} ({self.tipo})"  
         
     def agregar_cuenta(self, cuenta):
         self.cuentas.append(cuenta)
@@ -73,7 +75,7 @@ class Cliente:
 
         limite = limites_autorizacion.get(clienteDestino.tipo)
 
-        if limite is not None and montoFinal > limite and no autorizacion:
+        if limite is not None and montoFinal > limite and not autorizacion:
             print("La cuenta destino no autorizó la transferencia")
             return
 

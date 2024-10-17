@@ -1,7 +1,12 @@
 import json
 from datetime import datetime
 from clases import ClienteClassic, ClienteBlack, ClienteGold, Transaccion, CajaAhorroPesos, CajaAhorroDolares
+import os
 
+
+
+def limpiarpantalla():
+    os.system('cls' if os.name == 'nt' else 'clear')
 ## Funcion para ver si el json es valido.
 def validar_json(file_path):
     try:
@@ -111,9 +116,16 @@ clientes = procesar_transacciones(json_file)
 
 if clientes:
     generar_reporte_html(clientes)
+    limpiarpantalla()
     print("Reporte generado exitosamente en 'reporte.html'.")
+    print()
     for cliente in clientes.values():
         print(cliente)
+        print("Transacciones:")
+        for transaccion in cliente.transacciones:
+            print(transaccion)
+        print("\n")
+    
     input("Presione Enter para salir...")
 else:
     print("No se pudo procesar el archivo JSON.")

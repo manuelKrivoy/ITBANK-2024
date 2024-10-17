@@ -28,6 +28,14 @@
         "numeroTarjeta": "1111222233334444",
         "monto": 50000,
         "fecha": "10/10/2024 17:30:00"
+      },
+      {
+        "estado": "PENDIENTE",
+        "tipo": "RETIRO_EFECTIVO_CAJERO_AUTOMATICO",
+        "cuentaNumero": 1001,
+        "numeroTarjeta": "1111222233334444",
+        "monto": -10,
+        "fecha": "10/10/2024 17:30:00"
       }
     ]
   },

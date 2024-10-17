@@ -15,7 +15,9 @@ class Cliente:
         self.autorizacion = False
         self.montoRetiradoHoy = 0  # Registro de cuánto ha retirado hoy
         self.fechaUltimoRetiro = datetime.now().date()  # Fecha del último retiro
-        
+    
+    def __str__(self):
+        return f"{self.numero} - {self.nombre} {self.apellido} ({self.tipo}) transacciones: {self.transacciones}"
         
     def agregar_cuenta(self, cuenta):
         self.cuentas.append(cuenta)
@@ -33,11 +35,15 @@ class Cliente:
             self.fechaUltimoRetiro = datetime.now().date()
 
     def puede_retirar(self, monto, limiteDiario):
-        self.resetear_monto_diario()
-        if self.montoRetiradoHoy + monto > limiteDiario:
-            print(f"No puede retirar más de ${limiteDiario} por día.")
+        if monto < 0:
+            print("No puede retirar un monto negativo")
             return False
-        return True
+        else:
+            self.resetear_monto_diario()
+            if self.montoRetiradoHoy + monto > limiteDiario:
+                print(f"No puede retirar más de ${limiteDiario} por día.")
+                return False
+            return True
 
     def registrar_retiro(self, monto):
         self.montoRetiradoHoy += monto

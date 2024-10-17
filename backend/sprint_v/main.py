@@ -72,7 +72,7 @@ def validar_transaccion(cliente, transaccion, data_transaccion):
             transaccion.estado = "ACEPTADA"
         else:
             transaccion.estado = "RECHAZADA"
-            transaccion.razon = "Transferencia no autorizada o saldo insuficiente"
+            transaccion.razon = "Transferencia no autorizada o saldo insuficiente/negativo"
     
     ## Procesar altas de tarjetas
     elif tipo == "ALTA_TARJETA_CREDITO":
@@ -112,5 +112,8 @@ clientes = procesar_transacciones(json_file)
 if clientes:
     generar_reporte_html(clientes)
     print("Reporte generado exitosamente en 'reporte.html'.")
+    for cliente in clientes.values():
+        print(cliente)
+    input("Presione Enter para salir...")
 else:
     print("No se pudo procesar el archivo JSON.")

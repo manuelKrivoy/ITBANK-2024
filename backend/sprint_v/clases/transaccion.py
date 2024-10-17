@@ -7,4 +7,4 @@ class Transaccion:
         self.razon = None
 
     def __str__(self):
-        return f"Transaccion de tipo {self.tipo} por un monto de {self.monto} en fecha {self.fecha}"
+        return f"Transaccion de tipo {self.tipo} por un monto de {self.monto} en fecha {self.fecha} y con estado {self.estado}"

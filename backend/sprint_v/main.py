@@ -3,10 +3,9 @@ from datetime import datetime
 from clases import ClienteClassic, ClienteBlack, ClienteGold, Transaccion, CajaAhorroPesos, CajaAhorroDolares
 import os
 
-
-
 def limpiarpantalla():
     os.system('cls' if os.name == 'nt' else 'clear')
+    
 ## Funcion para ver si el json es valido.
 def validar_json(file_path):
     try:
@@ -98,7 +97,7 @@ def buscar_cliente_destino(numero_cuenta, cliente):
 def generar_reporte_html(clientes):
     with open("reporte.html", "w") as f:
         f.write("<html><body><h1>Reporte de Transacciones</h1><table border='1'>")
-        f.write("<tr><th>Cliente</th><th>Transacción</th><th>Estado</th><th>Monto</th><th>Fecha</th><th>Razón (si rechazada)</th></tr>")
+        f.write("<tr><th>Cliente</th><th>Transaccion</th><th>Estado</th><th>Monto</th><th>Fecha</th><th>Razon</th></tr>")
         
         for cliente in clientes.values():
             for trans in cliente.transacciones:

@@ -7,11 +7,13 @@ class TestCliente(unittest.TestCase):
     def setUp(self):
         self.cuenta_pesos = CajaAhorroPesos(50000)  
         self.cuenta_dolares = CajaAhorroDolares(10000)
+        self.cuenta_pesos_barata = CajaAhorroPesos(400)
         
         # defino un cliente de cada tipo
         self.cliente_classic = ClienteClassic(1, "Juan", "Perez", "12345678", "1234-5678-9012","Mitre 924", self.cuenta_pesos)
         self.cliente_gold = ClienteGold(2, "Maria", "Lopez", "87654321", "9876-5432-1098","San Martin 898", self.cuenta_pesos, self.cuenta_dolares)
         self.cliente_black = ClienteBlack(3, "Pedro", "Gomez", "11223344", "6543-2109-8765","Italia 1023", self.cuenta_pesos, self.cuenta_dolares)
+        self.classic_testear_saldo_insuficiente= ClienteClassic(4,"Manuel","Krivoy","43840924","1234-5678-9012","Mitre 924", self.cuenta_pesos_barata)
     
     def test_retirar_dinero_classic(self):
         # Test: Retirar dentro del límite diario
@@ -21,8 +23,8 @@ class TestCliente(unittest.TestCase):
         self.assertEqual(self.cuenta_pesos.saldo, 50000 - 5000)
 
         # Test: Exceder el límite diario
-        resultado = self.cliente_classic.retirar_dinero(self.cuenta_pesos, 6000)  # Esto excede el límite diario
-        self.assertFalse(resultado)
+        resultado = self.cliente_classic.retirar_dinero(self.cuenta_pesos, 5001)  # Esto excede el límite diario
+        self.assertEqual(resultado,"No puede retirar más de $10000 por día.")
     
     def test_limite_diario_gold(self):
         # Test: Retirar más allá del límite diario
@@ -30,8 +32,8 @@ class TestCliente(unittest.TestCase):
         self.assertTrue(resultado)
         self.assertEqual(self.cliente_gold.montoRetiradoHoy, 15000)
         
-        resultado = self.cliente_gold.retirar_dinero(self.cuenta_pesos, 10000)  # exceder el límite
-        self.assertFalse(resultado)
+        resultado = self.cliente_gold.retirar_dinero(self.cuenta_pesos, 21000)  # exceder el límite
+        self.assertEqual(resultado, "No puede retirar más de $20000 por día.")
     
     def test_resetear_monto_diario(self):
         # Test: Asegurarse de que el monto retirado se resetea al día siguiente
@@ -47,9 +49,10 @@ class TestCliente(unittest.TestCase):
 
     def test_retirar_dinero_saldo_insuficiente(self):
         # Test: Retirar más dinero del que tiene disponible
-        resultado = self.cliente_classic.retirar_dinero(self.cuenta_pesos, 60000)
-        self.assertFalse(resultado)
-        self.assertEqual(self.cuenta_pesos.saldo, 50000)  # El saldo debe mantenerse igual
+        resultado = self.classic_testear_saldo_insuficiente.retirar_dinero(self.cuenta_pesos_barata, 401)
+        self.assertEqual(resultado, "Saldo insuficiente")
+        self.assertEqual(self.cuenta_pesos_barata.saldo, 400)  # El saldo debe mantenerse igual
+
 
     def test_vender_usd(self):
         # Test: Vender dólares en cliente Gold

@@ -14,4 +14,3 @@ class TarjetaDebito(Tarjeta):
 class TarjetaCredito(Tarjeta):
     def __init__(self, numero):
         super().__init__(numero, 'Credito')
-    

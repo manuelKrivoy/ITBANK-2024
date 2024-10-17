@@ -32,34 +32,33 @@ class Cliente:
 
     def puede_retirar(self, monto, limiteDiario):
         if monto < 0:
-            return "No puede retirar un monto negativo"
+            return False, "No puede retirar un monto negativo"
         else:
             self.resetear_monto_diario()
             if self.montoRetiradoHoy + monto > limiteDiario:
-                return f"No puede retirar más de ${limiteDiario} por día."
-            return 1
+                return False, f"No puede retirar más de ${limiteDiario} por día."
+            return True, ""
 
     def registrar_retiro(self, monto):
         self.montoRetiradoHoy += monto
 
     # Método generalizado para retirar dinero en todas las subclases
     def retirar_dinero(self, cuenta, monto, limiteDiario):
-        if monto < 0:
-            return "No puede retirar un monto negativo"
-        else:
             self.resetear_monto_diario()
-            if not self.puede_retirar(monto, limiteDiario):
-                return False
-            if cuenta.saldo >= monto:
-                cuenta.saldo -= monto
-                self.registrar_retiro(monto)
-                print(f"Se ha retirado ${monto} con éxito.")
-                return 1
+            puede_retirar, mensaje = self.puede_retirar(monto, limiteDiario)
+            if not puede_retirar:
+                return mensaje
             else:
-                return "Saldo insuficiente"
+                if cuenta.saldo >= monto:
+                    cuenta.saldo -= monto
+                    self.registrar_retiro(monto)
+                    return f"Se ha retirado ${monto} con éxito."
+                else:
+                    return "Saldo insuficiente"
 
     def realizar_transferencia(self, clienteDestino, monto, autorizacion):
         # Calcular monto final con comisión
+        # Definir lógica en subclases 
         if self.tipo == 'Classic':
             montoFinal = monto * 1.01
         elif self.tipo == 'Gold':
@@ -107,7 +106,7 @@ class Cliente:
 class ClienteClassic(Cliente):
     LIMITE_DIARIO = 10000
 
-    def __init__(self, numero, nombre, apellido, dni, tarjetaDebito, cajaAhorroPesos, direccion):
+    def __init__(self, numero, nombre, apellido, dni, tarjetaDebito,direccion, cajaAhorroPesos, ):
         super().__init__(numero, nombre, apellido, dni, 'Classic', tarjetaDebito, direccion, cajaAhorroPesos)
 
     def retirar_dinero(self, cuenta, monto):

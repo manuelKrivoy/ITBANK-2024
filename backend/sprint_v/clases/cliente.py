@@ -44,16 +44,19 @@ class Cliente:
 
     # Método generalizado para retirar dinero en todas las subclases
     def retirar_dinero(self, cuenta, monto, limiteDiario):
-        self.resetear_monto_diario()
-        if not self.puede_retirar(monto, limiteDiario):
-            return False
-        if cuenta.saldo >= monto:
-            cuenta.saldo -= monto
-            self.registrar_retiro(monto)
-            print(f"Se ha retirado ${monto} con éxito.")
-            return 1
+        if monto < 0:
+            return "No puede retirar un monto negativo"
         else:
-            return "Saldo insuficiente"
+            self.resetear_monto_diario()
+            if not self.puede_retirar(monto, limiteDiario):
+                return False
+            if cuenta.saldo >= monto:
+                cuenta.saldo -= monto
+                self.registrar_retiro(monto)
+                print(f"Se ha retirado ${monto} con éxito.")
+                return 1
+            else:
+                return "Saldo insuficiente"
 
     def realizar_transferencia(self, clienteDestino, monto, autorizacion):
         # Calcular monto final con comisión

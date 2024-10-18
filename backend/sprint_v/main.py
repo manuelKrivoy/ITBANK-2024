@@ -33,23 +33,23 @@ def procesar_transacciones(json_file):
             ## Si no existe creo al cliente.
             if tipo_cliente == "CLASSIC":
                 clientes[cliente_numero] = ClienteClassic(
-                    cliente_numero, item["nombre"], item["apellido"], item["DNI"], "Debito", CajaAhorroPesos(10000), "Mitre 1234"
+                    cliente_numero, item["nombre"], item["apellido"], item["DNI"], "Debito", "Mitre 1234", CajaAhorroPesos(1000000)
                 )
             elif tipo_cliente == "GOLD":
                 clientes[cliente_numero] = ClienteGold(
-                    cliente_numero, item["nombre"], item["apellido"], item["DNI"], "Debito", CajaAhorroPesos(20000), 
-                    "San Martin 456", CajaAhorroDolares(5000)
+                    cliente_numero, item["nombre"], item["apellido"], item["DNI"], "Debito", "San Martin 456", CajaAhorroPesos(20000), 
+                    CajaAhorroDolares(5000) 
                 )
             elif tipo_cliente == "BLACK":
                 clientes[cliente_numero] = ClienteBlack(
-                    cliente_numero, item["nombre"], item["apellido"], item["DNI"], "Debito", CajaAhorroPesos(100000),
-                    "Italia 789", CajaAhorroDolares(10000)
+                    cliente_numero, item["nombre"], item["apellido"], item["DNI"], "Debito","Italia 789", CajaAhorroPesos(100000),
+                     CajaAhorroDolares(10000)
                 )
         
         # Procesar transacciones
         for trans in item["transacciones"]:
             fecha_transaccion = datetime.strptime(trans["fecha"], "%d/%m/%Y %H:%M:%S")
-            nueva_transaccion = Transaccion( trans["tipo"], trans["monto"], fecha_transaccion, trans["estado"])
+            nueva_transaccion = Transaccion(trans["tipo"], trans["monto"], fecha_transaccion, trans["estado"])
             # Mediante esa funcion se le asigna estado : aprobado / rechazado
             validar_transaccion(clientes[cliente_numero], nueva_transaccion, trans)
     
@@ -72,11 +72,11 @@ def validar_transaccion(cliente, transaccion, data_transaccion):
     # Procesar transferencias
     elif tipo == "TRANSFERENCIA_ENVIADA":
         cliente_destino = buscar_cliente_destino(data_transaccion["cuentaDestino"], cliente)  
-        if cliente.realizar_transferencia(cliente_destino, monto, cliente.autorizacion) == 1:
+        if cliente.realizar_transferencia(cliente_destino, monto) == 1:
             transaccion.estado = "ACEPTADA"
         else:
             transaccion.estado = "RECHAZADA"
-            transaccion.razon = cliente.realizar_transferencia(cliente_destino, monto, cliente.autorizacion)
+            transaccion.razon = cliente.realizar_transferencia(cliente_destino, monto)
     
     ## Procesar altas de tarjetas
     elif tipo == "ALTA_TARJETA_CREDITO":
@@ -105,9 +105,6 @@ def generar_reporte_html(clientes):
                 f.write(f"<tr><td>{cliente.nombre} {cliente.apellido}</td><td>{trans.tipo}</td><td>{trans.estado}</td><td>{trans.monto}</td><td>{trans.fecha}</td><td>{razon}</td></tr>")
         
         f.write("</table></body></html>")
-
-
-
 
 json_file = "transacciones.json"
 

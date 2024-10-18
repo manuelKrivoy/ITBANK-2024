@@ -54,6 +54,7 @@ class TestCliente(unittest.TestCase):
         self.assertEqual(self.cuenta_pesos_barata.saldo, 400)  # El saldo debe mantenerse igual
 
 
+
     def test_vender_usd(self):
         # Test: Vender dólares en cliente Gold
         self.cliente_gold.vender_usd(5000)

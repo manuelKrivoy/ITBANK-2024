@@ -44,45 +44,44 @@ class Cliente:
 
     # Método generalizado para retirar dinero en todas las subclases
     def retirar_dinero(self, cuenta, monto, limiteDiario):
-            self.resetear_monto_diario()
-            puede_retirar, mensaje = self.puede_retirar(monto, limiteDiario)
-            if not puede_retirar:
-                return mensaje
+        self.resetear_monto_diario()
+        puede_retirar, mensaje = self.puede_retirar(monto, limiteDiario)
+        if not puede_retirar:
+            return mensaje
+        else:
+            if cuenta.saldo >= monto:
+                cuenta.saldo -= monto
+                self.registrar_retiro(monto)
+                return 1
             else:
-                if cuenta.saldo >= monto:
-                    cuenta.saldo -= monto
-                    self.registrar_retiro(monto)
-                    return f"Se ha retirado ${monto} con éxito."
-                else:
-                    return "Saldo insuficiente"
+                return "Saldo insuficiente"
 
-    def realizar_transferencia(self, clienteDestino, monto, autorizacion):
-        # Calcular monto final con comisión
-        # Definir lógica en subclases 
-        if self.tipo == 'Classic':
-            montoFinal = monto * 1.01
-        elif self.tipo == 'Gold':
-            montoFinal = monto * 1.005
-        else:  # Asumimos que cualquier otro tipo es 'Black'
-            montoFinal = monto
+    def realizar_transferencia(self, clienteDestino, monto):
+        # Calcular el monto final con la comisión
+        montoConComision = monto * self.comision
 
         limites_autorizacion = {
             'Classic': 150000,
             'Gold': 500000,
-            'Black': None  # Sin límite para cuenta Black
+            'Black': None  # Sin límite para cuentas Black
         }
 
-        limite = limites_autorizacion.get(clienteDestino.tipo)
+        limite = limites_autorizacion.get(self.tipo)
 
-        if limite is not None and montoFinal > limite and not autorizacion:
-            return "La cuenta destino no autorizó la transferencia"
+        # Verificar si la transferencia requiere autorización
+        if limite is not None and monto > limite and not self.autorizacion:
+            return "La cuenta destino no ha autorizado la transferencia."
+        if self.cajaDeAhorroPesos.saldo < montoConComision:
 
-        if self.cajaDeAhorroPesos.saldo >= montoFinal:
-            self.cajaDeAhorroPesos.saldo -= montoFinal
-            clienteDestino.cajaDeAhorroPesos.saldo += montoFinal
-            return 1
-        else:
-            return "Saldo insuficiente"
+            return "Saldo insuficiente."
+
+        # Ejecutar la transferencia
+        self.cajaDeAhorroPesos.saldo -= montoConComision
+        # Se transfiere monto sin comisión
+        clienteDestino.cajaDeAhorroPesos.saldo += monto  
+
+
+        return 1
 
     def alta_tarjeta_credito(self, tarjetaCredito):
         pass
@@ -106,8 +105,12 @@ class Cliente:
 class ClienteClassic(Cliente):
     LIMITE_DIARIO = 10000
 
-    def __init__(self, numero, nombre, apellido, dni, tarjetaDebito,direccion, cajaAhorroPesos, ):
+    def __init__(self, numero, nombre, apellido, dni, tarjetaDebito, direccion, cajaAhorroPesos):
         super().__init__(numero, nombre, apellido, dni, 'Classic', tarjetaDebito, direccion, cajaAhorroPesos)
+        self.comision = 1.01
+    
+    def aprobar_desaprobar_transferencia(self):
+        self.autorizacion = not self.autorizacion
 
     def retirar_dinero(self, cuenta, monto):
         return super().retirar_dinero(cuenta, monto, self.LIMITE_DIARIO)
@@ -115,14 +118,17 @@ class ClienteClassic(Cliente):
     def alta_tarjeta_credito(self, tarjetaCredito):
         return "No puede tener tarjeta de crédito siendo cliente Classic"
 
-
 class ClienteGold(Cliente):
     LIMITE_DIARIO = 20000
 
-    def __init__(self, numero, nombre, apellido, dni, tarjetaDebito, cajaAhorroPesos, direccion, cajaAhorroDolares):
+    def __init__(self, numero, nombre, apellido, dni, tarjetaDebito, direccion, cajaAhorroPesos, cajaAhorroDolares):
         super().__init__(numero, nombre, apellido, dni, 'Gold', tarjetaDebito, direccion, cajaAhorroPesos)
         self.cajaAhorroDolares = cajaAhorroDolares
         self.tarjetaCredito = None
+        self.comision = 1.005
+
+    def aprobar_desaprobar_transferencia(self):
+        self.autorizacion = not self.autorizacion
 
     def retirar_dinero(self, cuenta, monto):
         return super().retirar_dinero(cuenta, monto, self.LIMITE_DIARIO)
@@ -140,14 +146,15 @@ class ClienteGold(Cliente):
         else:
             print("No tiene tarjeta de crédito")
 
-
 class ClienteBlack(Cliente):
     LIMITE_DIARIO = 100000
 
-    def __init__(self, numero, nombre, apellido, dni, tarjetaDebito, cajaAhorroPesos, direccion, cajaAhorroDolares):
+    def __init__(self, numero, nombre, apellido, dni, tarjetaDebito, direccion, cajaAhorroPesos, cajaAhorroDolares):
         super().__init__(numero, nombre, apellido, dni, 'Black', tarjetaDebito, direccion, cajaAhorroPesos)
         self.cajaAhorroDolares = cajaAhorroDolares
         self.tarjetaCredito = []
+        self.comision = 1
+        self.autorizacion = True
 
     def retirar_dinero(self, cuenta, monto):
         return super().retirar_dinero(cuenta, monto, self.LIMITE_DIARIO)

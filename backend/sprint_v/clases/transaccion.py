@@ -4,7 +4,7 @@ class Transaccion:
         self.tipo = tipo
         self.monto = monto
         self.fecha = fecha
-        self.razon = razon  # Añadir atributo razon para almacenar la razón del rechazo
+        self.razon = razon  
 
     def __str__(self):
         return f"Transaccion(tipo={self.tipo}, monto={self.monto}, fecha={self.fecha}, estado={self.estado}, razon={self.razon})"

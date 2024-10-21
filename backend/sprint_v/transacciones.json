@@ -5,7 +5,6 @@
     "apellido": "Perez",
     "DNI": "12345678",
     "tipo": "CLASSIC",
-    "cajaAhorroPesos": 1000000,
     "transacciones": [
       {
         "estado": "PENDIENTE",
@@ -13,6 +12,30 @@
         "cuentaNumero": 1001,
         "monto": 8000,
         "fecha": "10/10/2024 14:35:00"
+      },
+      {
+        "estado": "PENDIENTE",
+        "tipo": "TRANSFERENCIA_ENVIADA",
+        "cuentaNumero": 1001,
+        "cuentaDestino": 1001,
+        "monto": 150000,
+        "fecha": "10/10/2024 16:00:00"
+      },
+      {
+        "estado": "PENDIENTE",
+        "tipo": "ALTA_TARJETA_CREDITO",
+        "cuentaNumero": 1001,
+        "numeroTarjeta": "1111222233334444",
+        "monto": 50000,
+        "fecha": "10/10/2024 17:30:00"
+      },
+      {
+        "estado": "PENDIENTE",
+        "tipo": "RETIRO_EFECTIVO_CAJERO_AUTOMATICO",
+        "cuentaNumero": 1001,
+        "numeroTarjeta": "1111222233334444",
+        "monto": -10,
+        "fecha": "10/10/2024 17:30:00"
       }
     ]
   },
@@ -22,7 +45,6 @@
     "apellido": "Lopez",
     "DNI": "87654321",
     "tipo": "GOLD",
-    "cajaAhorroPesos": 1000000,
     "transacciones": [
       {
         "estado": "PENDIENTE",
@@ -33,11 +55,26 @@
       },
       {
         "estado": "PENDIENTE",
-        "tipo": "TRANSFERENCIA_ENVIADA",
+        "tipo": "COMPRAR_DOLAR",
         "cuentaNumero": 1002,
-        "cuentaDestino": 3,
-        "monto": 4000,
+        "monto": 500,
         "fecha": "11/10/2024 12:00:00"
+      },
+      {
+        "estado": "PENDIENTE",
+        "tipo": "ALTA_TARJETA_CREDITO",
+        "cuentaNumero": 1001,
+        "numeroTarjeta": "1111222233334444",
+        "monto": 50000,
+        "fecha": "10/10/2024 17:30:00"
+      },
+      {
+        "estado": "PENDIENTE",
+        "tipo": "ALTA_TARJETA_CREDITO",
+        "cuentaNumero": 1001,
+        "numeroTarjeta": "1111222233334444",
+        "monto": 50000,
+        "fecha": "10/10/2024 17:30:00"
       }
     ]
   },
@@ -47,7 +84,6 @@
     "apellido": "Gomez",
     "DNI": "11223344",
     "tipo": "BLACK",
-    "cajaAhorroPesos": 1000000,
     "transacciones": [
       {
         "estado": "PENDIENTE",
@@ -60,8 +96,8 @@
         "estado": "PENDIENTE",
         "tipo": "TRANSFERENCIA_ENVIADA",
         "cuentaNumero": 1003,
-        "cuentaDestino": 2,
-        "monto": 1000,
+        "cuentaDestino": 1003,
+        "monto": 100000,
         "fecha": "12/10/2024 10:30:00"
       }
     ]

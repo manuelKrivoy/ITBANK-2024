@@ -1,0 +1,1 @@
+-- Consultas para generar los reportes solicitados en el sprint.

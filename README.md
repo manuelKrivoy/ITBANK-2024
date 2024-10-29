@@ -25,4 +25,3 @@ Para hacer de **ITBANK** una plataforma rápida, moderna y segura, utilizamos un
 - Gonzalo Blondi
 - Manuel Krivoy
 - Diego Agustín Gómez
-- Tomás Deibe

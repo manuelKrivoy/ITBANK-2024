@@ -4,8 +4,9 @@
 CREATE TABLE Tipo_Cliente (type_id INTEGER PRIMARY KEY, type_name TEXT NOT NULL);
 CREATE TABLE Tipo_Cuenta (account_type_id INTEGER PRIMARY KEY, account_type_name TEXT NOT NULL);
 CREATE TABLE Marca_Tarjeta (brand_id INTEGER PRIMARY KEY, brand_name TEXT NOT NULL);
-
+INSERT INTO Tipo_Cliente (type_name) VALUES ('Classic'), ('Gold'), ('Black');
 INSERT INTO Marca_Tarjeta (brand_name) VALUES ('Visa'), ('Mastercard'), ('American Express');
+
 
 CREATE TABLE Tarjeta (
     card_id INTEGER PRIMARY KEY,

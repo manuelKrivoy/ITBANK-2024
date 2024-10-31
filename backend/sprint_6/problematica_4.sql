@@ -6,6 +6,8 @@ JOIN Cliente c ON s.branch_id = c.branch_id
 GROUP BY s.branch_name 
 ORDER BY cantidad_clientes DESC;
 
+-- falta agregar por empleado / tarjeta
+
 CREATE TABLE auditoria_cuenta (
     old_id INTEGER,
     new_id INTEGER,

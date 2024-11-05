@@ -1,1 +1,3 @@
 Django Sprint
+
+-- Crear entorno virtual con nombre django-env e instalarle pip para que funcione

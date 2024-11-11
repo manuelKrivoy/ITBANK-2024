@@ -29,9 +29,8 @@ class Cliente(models.Model): ## Entidad Cliente.
     dni = models.CharField(max_length=10)
     fecha_nacimiento = models.DateField()
     direcciones = models.ManyToManyField(Direccion) ## Many to Many para permitir muchas direcciones al mismo cliente
-    sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE)
     tipo = models.ForeignKey(TipoCliente, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.nombre} - {self.nombre} '
+        return f'{self.nombre} - {self.apellido} - {self.dni} - {self.fecha_nacimiento} - {self.tipo}'
     

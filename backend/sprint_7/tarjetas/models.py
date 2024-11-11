@@ -7,6 +7,12 @@ class TipoTarjeta(models.Model): ## Entidad Tipo de Tarjeta.
     def __str__(self):
         return f'{self.nombre} '
 
+class MarcaTarjeta(models.Model): ## Entidad Marca de Tarjeta.
+    nombre = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f'{self.nombre} '
+    
 class Tarjeta(models.Model): ## Entidad Tarjeta.
     numero = models.CharField(max_length=16)
     fecha_expiracion = models.DateField()
@@ -15,6 +21,9 @@ class Tarjeta(models.Model): ## Entidad Tarjeta.
     sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE)
     tipo = models.ForeignKey(TipoTarjeta, on_delete=models.CASCADE)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    marca = models.ForeignKey(MarcaTarjeta, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.numero} - {self.fecha_expiracion} - {self.sucursal} - {self.tipo} - {self.cliente}'
+
+

@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import TipoTarjeta, Tarjeta, MarcaTarjeta
 
-# Register your models here.
+admin.site.register(TipoTarjeta)
+admin.site.register(Tarjeta)
+admin.site.register(MarcaTarjeta)

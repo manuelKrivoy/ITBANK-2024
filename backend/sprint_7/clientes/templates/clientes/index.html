@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lista de Clientes</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'clientes/styles.css' %}" />
   </head>
   <body>
     <h1>Clientes</h1>
@@ -16,7 +18,7 @@
           <th>Apellido</th>
           <th>Dni</th>
           <th>Direcciones</th>
-          <th>ID Tipo CLiente (1- Classic, 2- Gold, 3-Black)</th>
+          <th>ID Tipo Cliente (1- Classic, 2- Gold, 3-Black)</th>
         </tr>
       </thead>
       <tbody>

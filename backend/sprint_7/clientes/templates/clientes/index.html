@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{% static 'clientes/styles.css' %}" />
   </head>
   <body>
-    <h1>Listado de cuentas</h1>
+    <h1>Listado de clientes</h1>
     {% if clientes %}
     <table>
       <thead>
@@ -23,7 +23,7 @@
       </thead>
       <tbody>
         {% for cliente in clientes %}
-        <tr data-href="{% url 'clientes:detail' cliente.id %}">
+        <tr data-href="{% url 'clientes:detail' cliente.id %}"></tr>
           <td>{{ cliente.id }}</td>
           <td>{{ cliente.nombre }}</td>
           <td>{{ cliente.apellido }}</td>

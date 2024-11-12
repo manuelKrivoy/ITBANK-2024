@@ -1,3 +1,6 @@
 from django.shortcuts import render
+from .models import Cuenta  
 
-# Create your views here.
+def lista_cuentas(request):
+    cuentas = Cuenta.objects.all()  
+    return render(request, 'cuentas/lista_cuentas.html', {'cuentas': cuentas})

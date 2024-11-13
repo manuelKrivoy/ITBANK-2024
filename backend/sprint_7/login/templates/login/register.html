@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registrarse</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'login/styles.css' %}" />
+</head>
+<body>{% block content %}
+  <div class="container"> 
+    <form method="POST" novalidate>
+    {% csrf_token %}
+    <h2>Sign Up</h2>
+      
+    {% for field in form %}
+    <p>
+      {% if field.errors %}
+      <ul class="errorlist">
+        {% for error in field.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+       {{ field.label_tag }} {{ field }}
+    </p>
+    {% endfor %}
+    <button type="submit"> Registrarse</button>
+  </form>
+</div>  
+  {% endblock content%} </body>
+</html>

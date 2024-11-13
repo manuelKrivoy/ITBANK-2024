@@ -18,3 +18,5 @@ class TarjetaForm(forms.ModelForm):
             'fecha_expiracion': forms.DateInput(attrs={'type': 'date'}),
             'fecha_otorgamiento': forms.DateInput(attrs={'type': 'date'}),
         }
+
+

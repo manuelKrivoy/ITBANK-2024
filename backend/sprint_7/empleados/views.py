@@ -10,7 +10,6 @@ from django.utils.decorators import method_decorator
 @method_decorator(login_required, name='dispatch')
 class EmpleadoListView(ListView):
     model = Empleado
-    template_name = 'empleados/lista_empleados.html'
     context_object_name = 'empleados'
 
 # Vista para ver el detalle de un empleado

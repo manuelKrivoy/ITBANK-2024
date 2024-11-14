@@ -25,7 +25,7 @@ class EmpleadoCreateView(CreateView):
     model = Empleado
     form_class = EmpleadoForm
     template_name = 'empleados/crear_empleado.html'
-    success_url = reverse_lazy('lista_empleados')
+    success_url = reverse_lazy('empleados:lista_empleados')
 
 # Vista para editar un empleado existente
 @method_decorator(login_required, name='dispatch')
@@ -33,11 +33,11 @@ class EmpleadoUpdateView(UpdateView):
     model = Empleado
     form_class = EmpleadoForm
     template_name = 'empleados/editar_empleado.html'
-    success_url = reverse_lazy('lista_empleados')
+    success_url = reverse_lazy('empleados:lista_empleados')
 
 # Vista para eliminar un empleado
 @method_decorator(login_required, name='dispatch')
 class EmpleadoDeleteView(DeleteView):
     model = Empleado
     template_name = 'empleados/eliminar_empleado.html'
-    success_url = reverse_lazy('lista_empleados')
+    success_url = reverse_lazy('empleados:lista_empleados')

@@ -12,7 +12,7 @@
       <h1>Editar al empleado "{{ empleado.nombre }} {{ empleado.apellido }}"</h1>
       <form method="post">
         {% csrf_token %} {{ form.as_p }}
-        <button type="submit">Actualizar</button>
+        <button class="button" type="submit">Actualizar</button>
       </form>
     </div>
     <p><a class="goback" href="{% url 'empleados:lista_empleados' %}">Volver a la lista de empleados</a></p>

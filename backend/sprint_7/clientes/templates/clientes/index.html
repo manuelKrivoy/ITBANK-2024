@@ -44,6 +44,7 @@
     <p>No hay clientes disponibles.</p>
     {% endif %}
     <a href="{% url 'clientes:alta' %}" class="button">Crear Cliente</a>
+    <a href="{% url 'empleados:lista_empleados' %}" class="switch-button">Ir a menú empleados</a>
     <a href="{% url 'login:logout' %}" class="logoutbutton">Cerrar Sesión</a>
     <script>
       document.addEventListener("DOMContentLoaded", () => {

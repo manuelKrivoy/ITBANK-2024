@@ -178,3 +178,18 @@ tr[data-href] {
 .logoutbutton:hover {
   background-color: #e53d3d;
 }
+
+.switch-button {
+  background-color: #0e5f9b;
+  color: white;
+  padding: 10px 20px;
+  border: 2px solid #0e5f9b;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 20px;
+}
+.switch-button:hover {
+  background-color: #3182bd;
+}

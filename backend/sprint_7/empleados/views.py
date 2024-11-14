@@ -3,19 +3,24 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 from .models import Empleado
 from .forms import EmpleadoForm
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 # Vista para listar empleados
+@method_decorator(login_required, name='dispatch')
 class EmpleadoListView(ListView):
     model = Empleado
     template_name = 'empleados/lista_empleados.html'
     context_object_name = 'empleados'
 
 # Vista para ver el detalle de un empleado
+@method_decorator(login_required, name='dispatch')
 class EmpleadoDetailView(DetailView):
     model = Empleado
     template_name = 'empleados/detalle_empleado.html'
 
 # Vista para crear un nuevo empleado
+@method_decorator(login_required, name='dispatch')
 class EmpleadoCreateView(CreateView):
     model = Empleado
     form_class = EmpleadoForm
@@ -23,6 +28,7 @@ class EmpleadoCreateView(CreateView):
     success_url = reverse_lazy('lista_empleados')
 
 # Vista para editar un empleado existente
+@method_decorator(login_required, name='dispatch')
 class EmpleadoUpdateView(UpdateView):
     model = Empleado
     form_class = EmpleadoForm
@@ -30,6 +36,7 @@ class EmpleadoUpdateView(UpdateView):
     success_url = reverse_lazy('lista_empleados')
 
 # Vista para eliminar un empleado
+@method_decorator(login_required, name='dispatch')
 class EmpleadoDeleteView(DeleteView):
     model = Empleado
     template_name = 'empleados/eliminar_empleado.html'

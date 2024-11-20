@@ -16,5 +16,6 @@
   - **Descripción:** Lograr persistencia de datos con BDD SQL. 💾
 
 - **Sprint 7:**
+
   - **Tecnología:** Django 🌐
   - **Descripción:** Crear CRUD con Django. 📝

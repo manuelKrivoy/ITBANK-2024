@@ -19,3 +19,8 @@
 
   - **Tecnología:** Django 🌐
   - **Descripción:** Crear CRUD con Django. 📝
+
+- **Sprint 8:**
+
+  - **Tecnología:** Django Rest Framework 🌐
+  - **Descripción:** Creacion de la API para conectar el Frontend con el Backend. 📡

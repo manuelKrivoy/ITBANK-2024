@@ -8,7 +8,7 @@ class Direccion (models.Model): ## Entidad Dirección.
     codigo_postal = models.CharField(max_length=100)
 
     def __str__(self):
-        return f'{self.calle} - {self.ciudad} - {self.provincia} - {self.codigo_postal}'
+        return f'{self.calle} - {self.numero} - {self.ciudad} - {self.provincia} - {self.codigo_postal}'
     
 class TipoCliente(models.Model): ## Entidad Tipo de Cliente.
     nombre = models.CharField(max_length=100)

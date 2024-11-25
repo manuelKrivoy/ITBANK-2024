@@ -55,6 +55,3 @@ class Transferencia(models.Model):  # Entidad transferencia.
     def __str__(self):
         return f'{self.fecha} - {self.monto} - Emisor: {self.clienteEmisor} - Receptor: {self.clienteReceptor} - Sucursal: {self.sucursal}'
 
-
-    def __str__(self):
-        return f'{self.fecha} - {self.monto} - Emisor: {self.clienteEmisor} - Receptor: {self.clienteReceptor} - Sucursal: {self.sucursal}'

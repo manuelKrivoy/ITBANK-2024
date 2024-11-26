@@ -32,6 +32,7 @@ class Cliente(models.Model):
     fecha_nacimiento = models.DateField(default='1900-01-01')
     direcciones = models.ManyToManyField(Direccion)
     tipo = models.ForeignKey(TipoCliente, on_delete=models.CASCADE, default=1)
+    cvu= models.CharField(max_length=22, default='')
     usd = models.FloatField(default=0)
     pesos = models.FloatField(default=0)
 

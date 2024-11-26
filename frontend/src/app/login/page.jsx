@@ -122,16 +122,26 @@ const Page = () => {
             ) : (
               <>
                 <Logo src="/logo.svg" alt="Logo" />
+                <TextField
+                  id="username"
+                  fullWidth
+                  label="Nombre de usuario"
+                  type="text"
+                  margin="normal"
+                  variant="outlined"
+                  value={formData.username}
+                  onChange={handleInputChange}
+                />
                 {!isLogin && (
                   <>
                     <TextField
-                      id="username"
+                      id="email"
                       fullWidth
-                      label="Nombre de usuario"
-                      type="text"
+                      label="Correo electrónico"
+                      type="email"
                       margin="normal"
                       variant="outlined"
-                      value={formData.username}
+                      value={formData.email}
                       onChange={handleInputChange}
                     />
                     <TextField
@@ -177,16 +187,6 @@ const Page = () => {
                     />
                   </>
                 )}
-                <TextField
-                  id="username"
-                  fullWidth
-                  label="Nombre de usuario"
-                  type="text"
-                  margin="normal"
-                  variant="outlined"
-                  value={formData.username}
-                  onChange={handleInputChange}
-                />
                 <TextField
                   id="password"
                   fullWidth

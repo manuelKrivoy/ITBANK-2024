@@ -22,6 +22,7 @@ class Tarjeta(models.Model): ## Entidad Tarjeta.
     cliente = models.ForeignKey(Cliente,related_name='tarjetas', on_delete=models.CASCADE)
     marca = models.ForeignKey(MarcaTarjeta, on_delete=models.CASCADE)
     tarjeta_principal = models.BooleanField(default=False)
+    background = models.CharField(max_length=1, default='1')
 
     def __str__(self):
         return f'{self.numero} - {self.fecha_expiracion} - {self.tipo} - {self.cliente}'

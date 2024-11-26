@@ -1,13 +1,19 @@
+import random
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User
 from clientes.models import Cliente
+from tarjetas.models import Tarjeta, TipoTarjeta, MarcaTarjeta
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import authenticate
+from datetime import date, timedelta
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 class RegisterView(APIView):
     permission_classes = [AllowAny]
+
     def post(self, request):
         username = request.data.get('username')
         email = request.data.get('email')
@@ -17,26 +23,19 @@ class RegisterView(APIView):
         dni = request.data.get('dni')
         fecha_nacimiento = request.data.get('fecha_nacimiento')
 
-        # Validar que todos los campos están presentes
         if not all([username, email, password, nombre, apellido, dni, fecha_nacimiento]):
             return Response({'error': 'Todos los campos son requeridos'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Verificar si el nombre de usuario ya existe
         if User.objects.filter(username=username).exists():
             return Response({'error': 'El nombre de usuario ya está en uso'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Verificar si el correo ya existe
         if User.objects.filter(email=email).exists():
             return Response({'error': 'El correo ya está en uso'}, status=status.HTTP_400_BAD_REQUEST)
-        
-        # Verificar si el DNI ya existe
+
         if Cliente.objects.filter(dni=dni).exists():
             return Response({'error': 'El DNI ya está en uso'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Crear el usuario
         user = User.objects.create_user(username=username, email=email, password=password)
-
-        # Crear el cliente
         cliente = Cliente.objects.create(
             user=user,
             nombre=nombre,
@@ -45,24 +44,48 @@ class RegisterView(APIView):
             fecha_nacimiento=fecha_nacimiento,
         )
 
+        # Crear una tarjeta principal automáticamente
+        tarjeta = Tarjeta.objects.create(
+            numero="1234567890123456",
+            fecha_expiracion=date.today() + timedelta(days=365 * 5),  # Válida por 5 años
+            fecha_otorgamiento=date.today(),
+            cvv="123",
+            tipo=TipoTarjeta.objects.get_or_create(nombre="Débito")[0],  # Tipo "Débito" predeterminado
+            cliente=cliente,
+            marca=MarcaTarjeta.objects.get_or_create(nombre="Visa")[0],  # Marca "Visa" predeterminada
+            tarjeta_principal=True
+        )
+
         return Response({'message': 'Usuario registrado correctamente'}, status=status.HTTP_201_CREATED)
 
 
 class LoginView(APIView):
-    def post(self, request):
-        user = request.data.get('user')
-        password = request.data.get('password')
-        print(user, password)
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
-        # Validar credenciales
-        user = authenticate(username=user, password=password)
-        if user:
+    def get(self, request):
+        user = request.user  # Usuario autenticado automáticamente por BasicAuth
+        try:
+            cliente = Cliente.objects.get(user=user)
+            tarjeta_principal = cliente.tarjetas.filter(tarjeta_principal=True).first()
+
+            if not tarjeta_principal:
+                return Response({'error': 'No se encontró una tarjeta principal'}, status=status.HTTP_404_NOT_FOUND)
+
             return Response({
-                'message': 'Inicio de sesión exitoso',
-                'user': {
-                    'id': user.id,
-                    'email': user.email,
+                'id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'cliente': {
+                    'nombre': cliente.nombre,
+                    'apellido': cliente.apellido,
+                },
+                'tarjeta_principal': {
+                    'numero': tarjeta_principal.numero,
+                    'marca': tarjeta_principal.marca.nombre,
+                    'fecha_expiracion': tarjeta_principal.fecha_expiracion,
+                    'background': tarjeta_principal.background,
                 }
             }, status=status.HTTP_200_OK)
-        else:
-            return Response({"error": "Credenciales inválidas"}, status=status.HTTP_401_UNAUTHORIZED)
+        except Cliente.DoesNotExist:
+            return Response({'error': 'Cliente no encontrado'}, status=status.HTTP_404_NOT_FOUND)

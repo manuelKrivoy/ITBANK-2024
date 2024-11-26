@@ -13,11 +13,11 @@ const MyCards = ({ type }) => {
 
   const getBackgroundColor = (level) => {
     switch (level) {
-      case "gold":
+      case "1":
         return "#eecc16 "; // color dorado
-      case "silver":
+      case "2":
         return "#C0C0C0"; // color plateado
-      case "black":
+      case "3":
         return "#000000"; // color negro
       default:
         return "#E0E0E0"; // color por defecto (gris claro)
@@ -25,7 +25,7 @@ const MyCards = ({ type }) => {
   };
 
   const getTextColor = (level) => {
-    return level === "black" ? "#ffffff" : "#000000";
+    return level === "1" ? "#ffffff" : "#000000";
   };
   if (!user) {
     return <div>Loading...</div>;
@@ -71,23 +71,23 @@ const MyCards = ({ type }) => {
             <Image
               width={80}
               height={20}
-              src={`/cards_types/${user.cards[0]?.name || "default"}.png`}
-              alt={user.cards[0]?.name || "Usuario"}
+              src={`/cards_types/${user.tarjeta_principal?.name || "default"}.png`}
+              alt={user.tarjeta_principal?.name || "Usuario"}
               priority
             />
           </Box>
           <Box display="flex" justifyContent="space-between" mt={2}>
             <Typography variant="body2">VÁLIDA HASTA</Typography>
-            <Typography variant="body2">{user.cards[0]?.expiration || "12/29"}</Typography>
+            <Typography variant="body2">{user.tarjeta_principal.fecha_expiracion || "12/29"}</Typography>
           </Box>
           <Typography variant="h6" mt={2} display="flex" justifyContent="space-between">
-            {user.cards[0]?.numeroTarjeta || "**** **** **** ****"}
+            {user.tarjeta_principal?.numeroTarjeta || "**** **** **** ****"}
             <Typography
               variant="body2"
               sx={{ textDecoration: "underline", cursor: "pointer" }}
               onClick={toggleCVUVisibility}
             >
-              {showCVUCNN ? ` ${user.cards[0]?.cvv || "No disponible"}` : "Ver CVV"}
+              {showCVUCNN ? ` ${user.tarjeta_principal?.cvv || "No disponible"}` : "Ver CVV"}
             </Typography>
           </Typography>
         </>
@@ -98,8 +98,8 @@ const MyCards = ({ type }) => {
   return (
     <Card
       sx={{
-        backgroundColor: getBackgroundColor(user.cards[0]?.level),
-        color: type === "savings" ? "#fff" : getTextColor(user.cards[0]?.level),
+        backgroundColor: getBackgroundColor(user.tarjeta_principal?.background),
+        color: type === "savings" ? "#fff" : getTextColor(user.tarjeta_principal?.level),
         padding: "16px",
         borderRadius: "12px",
         minHeight: "200px",

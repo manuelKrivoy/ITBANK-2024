@@ -15,7 +15,7 @@ import withReactContent from "sweetalert2-react-content";
 const MySwal = withReactContent(Swal);
 
 const Page = () => {
-  const { users, loggedUser, userLogOut } = useContext(UserContext);
+  const { loginUser, logoutUser, user } = useContext(UserContext);
   const router = useRouter();
 
   const [isLogin, setIsLogin] = useState(true);
@@ -31,7 +31,7 @@ const Page = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    userLogOut();
+    logoutUser();
   }, []);
 
   const toggleForm = () => {
@@ -43,19 +43,22 @@ const Page = () => {
     setFormData({ ...formData, [id]: value });
   };
 
-  const handleLogIn = () => {
+  const handleLogIn = async () => {
     setIsLoading(true);
-    const { email, password } = formData;
-
-    const user = users.find((user) => user.email === email && user.password === password);
-
-    if (user) {
-      loggedUser(user);
+    const result = await loginUser(formData.username, formData.password);
+    if (result.success) {
+      MySwal.fire({
+        title: "Bienvenido",
+        text: "Inicio de sesión exitoso",
+        icon: "success",
+        confirmButtonText: "Aceptar",
+        confirmButtonColor: "#4caf50",
+      });
       router.push("/profile");
     } else {
       MySwal.fire({
         title: "Error",
-        text: "Datos incorrectos",
+        text: result.message || "No se pudo iniciar sesión",
         icon: "error",
         confirmButtonText: "Aceptar",
         confirmButtonColor: "#f50057",
@@ -106,7 +109,6 @@ const Page = () => {
       setIsLoading(false);
     }
   };
-
   return (
     <Root>
       <LeftSide>
@@ -176,13 +178,13 @@ const Page = () => {
                   </>
                 )}
                 <TextField
-                  id="email"
-                  type="email"
+                  id="username"
                   fullWidth
-                  label="Correo electrónico"
+                  label="Nombre de usuario"
+                  type="text"
                   margin="normal"
                   variant="outlined"
-                  value={formData.email}
+                  value={formData.username}
                   onChange={handleInputChange}
                 />
                 <TextField
@@ -202,7 +204,7 @@ const Page = () => {
                     color="primary"
                     fullWidth
                     onClick={handleLogIn}
-                    disabled={!formData.email || !formData.password}
+                    disabled={!formData.username || !formData.password}
                   >
                     Iniciar Sesión
                   </HoverButton>

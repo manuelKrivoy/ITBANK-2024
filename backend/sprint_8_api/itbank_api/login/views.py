@@ -4,6 +4,7 @@ from rest_framework import status
 from django.contrib.auth.models import User
 from clientes.models import Cliente
 from rest_framework.permissions import AllowAny
+from django.contrib.auth import authenticate
 
 class RegisterView(APIView):
     permission_classes = [AllowAny]
@@ -45,3 +46,23 @@ class RegisterView(APIView):
         )
 
         return Response({'message': 'Usuario registrado correctamente'}, status=status.HTTP_201_CREATED)
+
+
+class LoginView(APIView):
+    def post(self, request):
+        user = request.data.get('user')
+        password = request.data.get('password')
+        print(user, password)
+
+        # Validar credenciales
+        user = authenticate(username=user, password=password)
+        if user:
+            return Response({
+                'message': 'Inicio de sesión exitoso',
+                'user': {
+                    'id': user.id,
+                    'email': user.email,
+                }
+            }, status=status.HTTP_200_OK)
+        else:
+            return Response({"error": "Credenciales inválidas"}, status=status.HTTP_401_UNAUTHORIZED)

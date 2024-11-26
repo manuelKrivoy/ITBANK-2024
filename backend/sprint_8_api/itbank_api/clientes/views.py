@@ -54,6 +54,27 @@ class ClienteViewSet(viewsets.ModelViewSet):
             status=status.HTTP_200_OK
         )
 
+    @action(detail=False, methods=['get'], url_path='mi-saldo')
+    def traer_saldo_cliente(self, request):
+        """
+        Endpoint para traer el saldo del cliente autenticado.
+        """
+        # Obtener el usuario autenticado
+        usuario = request.user
+        
+        # Buscar al cliente asociado al usuario
+        cliente = get_object_or_404(Cliente, user=usuario)
+
+        # Construir la respuesta
+        return Response(
+            {
+                "tipo_cliente": cliente.tipo.nombre,
+                "saldo_usd": cliente.usd,
+                "saldo_pesos": cliente.pesos,
+            },
+            status=status.HTTP_200_OK
+        )
+    
 
 class SucursalViewSet(viewsets.ReadOnlyModelViewSet):
     """

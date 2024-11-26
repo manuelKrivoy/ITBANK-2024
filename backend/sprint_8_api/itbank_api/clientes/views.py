@@ -75,7 +75,35 @@ class ClienteViewSet(viewsets.ModelViewSet):
             status=status.HTTP_200_OK
         )
     
+    @action(detail=False, methods=['get'], url_path='cantidad-clientes')
+    def cantidad_clientes(self, request):
+        """
+        Endpoint para traer la cantidad de clientes registrados.
+        """
+        cantidad = Cliente.objects.count()
 
+        # Construir la respuesta
+        return Response(
+            {
+                "cantidad_clientes": cantidad,
+            },
+            status=status.HTTP_200_OK
+        )
+
+    @action(detail=False, methods=['get'], url_path='ids-clientes-activos')
+    def ids_clientes_activos(self, request):
+        """
+        Endpoint para traer los IDs de los clientes activos.
+        """
+        clientes_activos = Cliente.objects.values_list('id', flat=True)
+
+        # Construir la respuesta
+        return Response(
+            {
+                "ids_clientes_activos": list(clientes_activos),
+            },
+            status=status.HTTP_200_OK
+        )
 class SucursalViewSet(viewsets.ReadOnlyModelViewSet):
     """
     Model View Set para listar sucursales públicamente.

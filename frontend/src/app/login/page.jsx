@@ -19,9 +19,16 @@ const Page = () => {
   const router = useRouter();
 
   const [isLogin, setIsLogin] = useState(true);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // Estado de carga
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    nombre: "",
+    apellido: "",
+    dni: "",
+    fecha_nacimiento: "",
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     userLogOut();
@@ -31,15 +38,20 @@ const Page = () => {
     setIsLogin(!isLogin);
   };
 
-  const handleLogIn = () => {
-    setIsLoading(true); // Activar spinner
+  const handleInputChange = (event) => {
+    const { id, value } = event.target;
+    setFormData({ ...formData, [id]: value });
+  };
 
-    // Obtengo mail y contraseña de los inputs
+  const handleLogIn = () => {
+    setIsLoading(true);
+    const { email, password } = formData;
+
     const user = users.find((user) => user.email === email && user.password === password);
 
     if (user) {
       loggedUser(user);
-      router.push("/profile"); // Redirección a /profile
+      router.push("/profile");
     } else {
       MySwal.fire({
         title: "Error",
@@ -48,16 +60,51 @@ const Page = () => {
         confirmButtonText: "Aceptar",
         confirmButtonColor: "#f50057",
       });
-      setIsLoading(false); // Desactivar spinner en caso de error
+      setIsLoading(false);
     }
   };
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
+  const handleSignUp = async () => {
+    setIsLoading(true);
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+    try {
+      const response = await fetch("http://localhost:8000/api/register/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.status === 201) {
+        MySwal.fire({
+          title: "Éxito",
+          text: "Usuario registrado correctamente",
+          icon: "success",
+          confirmButtonText: "Aceptar",
+          confirmButtonColor: "#4caf50",
+        });
+        setIsLogin(true); // Cambiar al formulario de inicio de sesión
+      } else {
+        MySwal.fire({
+          title: "Error",
+          text: data.error || "No se pudo registrar el usuario",
+          icon: "error",
+          confirmButtonText: "Aceptar",
+          confirmButtonColor: "#f50057",
+        });
+      }
+    } catch (error) {
+      MySwal.fire({
+        title: "Error",
+        text: "Ocurrió un problema con la solicitud",
+        icon: "error",
+        confirmButtonText: "Aceptar",
+        confirmButtonColor: "#f50057",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -74,21 +121,70 @@ const Page = () => {
               <>
                 <Logo src="/logo.svg" alt="Logo" />
                 {!isLogin && (
-                  <TextField id="dni" fullWidth label="DNI" type="number" margin="normal" variant="outlined" />
+                  <>
+                    <TextField
+                      id="username"
+                      fullWidth
+                      label="Nombre de usuario"
+                      type="text"
+                      margin="normal"
+                      variant="outlined"
+                      value={formData.username}
+                      onChange={handleInputChange}
+                    />
+                    <TextField
+                      id="nombre"
+                      fullWidth
+                      label="Nombre"
+                      type="text"
+                      margin="normal"
+                      variant="outlined"
+                      value={formData.nombre}
+                      onChange={handleInputChange}
+                    />
+                    <TextField
+                      id="apellido"
+                      fullWidth
+                      label="Apellido"
+                      type="text"
+                      margin="normal"
+                      variant="outlined"
+                      value={formData.apellido}
+                      onChange={handleInputChange}
+                    />
+                    <TextField
+                      id="dni"
+                      fullWidth
+                      label="DNI"
+                      type="number"
+                      margin="normal"
+                      variant="outlined"
+                      value={formData.dni}
+                      onChange={handleInputChange}
+                    />
+                    <TextField
+                      id="fecha_nacimiento"
+                      fullWidth
+                      label="Fecha de nacimiento"
+                      type="date"
+                      margin="normal"
+                      variant="outlined"
+                      InputLabelProps={{ shrink: true }}
+                      value={formData.fecha_nacimiento}
+                      onChange={handleInputChange}
+                    />
+                  </>
                 )}
                 <TextField
                   id="email"
                   type="email"
                   fullWidth
-                  label={isLogin ? "Correo electrónico" : "Nombre completo"}
+                  label="Correo electrónico"
                   margin="normal"
                   variant="outlined"
-                  value={email}
-                  onChange={handleEmailChange}
+                  value={formData.email}
+                  onChange={handleInputChange}
                 />
-                {!isLogin && (
-                  <TextField id="name" fullWidth label="Correo electrónico" margin="normal" variant="outlined" />
-                )}
                 <TextField
                   id="password"
                   fullWidth
@@ -96,8 +192,8 @@ const Page = () => {
                   type="password"
                   margin="normal"
                   variant="outlined"
-                  value={password}
-                  onChange={handlePasswordChange}
+                  value={formData.password}
+                  onChange={handleInputChange}
                 />
 
                 {isLogin ? (
@@ -106,12 +202,26 @@ const Page = () => {
                     color="primary"
                     fullWidth
                     onClick={handleLogIn}
-                    disabled={!email || !password}
+                    disabled={!formData.email || !formData.password}
                   >
                     Iniciar Sesión
                   </HoverButton>
                 ) : (
-                  <HoverButton variant="contained" color="primary" fullWidth disabled>
+                  <HoverButton
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    onClick={handleSignUp}
+                    disabled={
+                      !formData.username ||
+                      !formData.email ||
+                      !formData.password ||
+                      !formData.nombre ||
+                      !formData.apellido ||
+                      !formData.dni ||
+                      !formData.fecha_nacimiento
+                    }
+                  >
                     Registrarse
                   </HoverButton>
                 )}

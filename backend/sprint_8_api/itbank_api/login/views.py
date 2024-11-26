@@ -3,8 +3,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User
 from clientes.models import Cliente
+from rest_framework.permissions import AllowAny
 
 class RegisterView(APIView):
+    permission_classes = [AllowAny]
     def post(self, request):
         username = request.data.get('username')
         email = request.data.get('email')
@@ -25,6 +27,10 @@ class RegisterView(APIView):
         # Verificar si el correo ya existe
         if User.objects.filter(email=email).exists():
             return Response({'error': 'El correo ya está en uso'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Verificar si el DNI ya existe
+        if Cliente.objects.filter(dni=dni).exists():
+            return Response({'error': 'El DNI ya está en uso'}, status=status.HTTP_400_BAD_REQUEST)
 
         # Crear el usuario
         user = User.objects.create_user(username=username, email=email, password=password)

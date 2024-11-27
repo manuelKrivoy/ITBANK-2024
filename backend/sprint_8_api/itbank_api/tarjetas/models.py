@@ -5,13 +5,13 @@ class TipoTarjeta(models.Model): ## Entidad Tipo de Tarjeta.
     nombre = models.CharField(max_length=100)
 
     def __str__(self):
-        return f'{self.nombre} '
+        return f'{self.nombre}'
 
 class MarcaTarjeta(models.Model): ## Entidad Marca de Tarjeta.
     nombre = models.CharField(max_length=100)
 
     def __str__(self):
-        return f'{self.nombre} '
+        return f'{self.nombre}'
     
 class Tarjeta(models.Model): ## Entidad Tarjeta.
     numero = models.CharField(max_length=16)

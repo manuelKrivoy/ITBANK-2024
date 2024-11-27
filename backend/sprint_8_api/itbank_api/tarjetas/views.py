@@ -1,14 +1,14 @@
-from django.http import Http404
-from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from .models import Cliente, Tarjeta
-from .serializers import TarjetaSerializer
-from django.shortcuts import get_object_or_404
 from rest_framework.exceptions import NotFound, PermissionDenied
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
-
+from .models import Tarjeta, Cliente
+from .serializers import TarjetaSerializer
+from rest_framework import viewsets
+from clientes.serializers import ClienteSerializer
+from django.shortcuts import get_object_or_404
+from django.http import Http404
 
 class TarjetaViewSet(viewsets.ModelViewSet):
     queryset = Tarjeta.objects.all()
@@ -17,20 +17,24 @@ class TarjetaViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]  # Solo usuarios autenticados
 
     # Endpoint para traer tarjetas de clientes específicos
-    @action(detail=False, methods=['get'], url_path='filtrar-por-cliente/(?P<cliente_id>[^/.]+)')
-    def filtrar_por_cliente(self, request, cliente_id=None):
-        try:
-            cliente = get_object_or_404(Cliente, id=cliente_id)
-        except Http404:
-            raise NotFound(detail=f"No se encontró un cliente con el ID {cliente_id}.")
-
-        # Verificar si el usuario autenticado corresponde al cliente solicitado
-        if not hasattr(cliente, 'user') or cliente.user != request.user:
-            raise PermissionDenied(detail="No tienes permiso para acceder a estas tarjetas.")
-
+    @action(detail=False, methods=['get'], url_path='mis-tarjetas')
+    def mis_tarjetas(self, request):
+        usuario= request.user
+        cliente = get_object_or_404(Cliente, user=usuario)
         tarjetas = Tarjeta.objects.filter(cliente=cliente)
         if not tarjetas.exists():
             raise NotFound(detail="No se encontraron tarjetas para el cliente especificado.")
+        
+        # Serializar los datos del cliente
+        cliente_serializer = ClienteSerializer(cliente)
+        
+        # Serializar las tarjetas
+        tarjetas_serializer = self.get_serializer(tarjetas, many=True)
 
-        serializer = self.get_serializer(tarjetas, many=True)
-        return Response(serializer.data)
+        # Combinar ambos resultados (cliente + tarjetas)
+        data = {
+            'cliente': cliente_serializer.data,
+            'tarjetas': tarjetas_serializer.data
+        }
+
+        return Response(data)

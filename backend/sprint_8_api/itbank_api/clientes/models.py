@@ -50,7 +50,7 @@ class Deuda(models.Model):
     def __str__(self):
         return f'{self.cliente} - {self.fecha} - {self.monto} - {self.descripcion}'
 class Transferencia(models.Model):
-    fecha = models.DateField()
+    fecha = models.DateField(default=date.today)
     monto = models.DecimalField(max_digits=10, decimal_places=2)
     clienteEmisor = models.ForeignKey(
         Cliente, 
@@ -62,7 +62,7 @@ class Transferencia(models.Model):
         on_delete=models.CASCADE, 
         related_name='transferencias_recibidas'
     )
-    sucursal = models.ForeignKey(Sucursal, on_delete=models.CASCADE)
+    tipo = models.CharField(max_length=100, default='')
 
     def __str__(self):
-        return f'{self.fecha} - {self.monto} - Emisor: {self.clienteEmisor} - Receptor: {self.clienteReceptor} - Sucursal: {self.sucursal}'
+        return f'{self.fecha} - {self.monto} - Emisor: {self.clienteEmisor} - Receptor: {self.clienteReceptor} '

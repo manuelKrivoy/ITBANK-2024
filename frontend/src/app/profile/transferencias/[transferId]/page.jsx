@@ -13,8 +13,9 @@ const TransferPage = () => {
 
   // Acceder a los parámetros de la URL
   const currency = searchParams.get("currency");
-  const amount = searchParams.get("amount");
-  const recipient = searchParams.get("recipient");
+  const amount = searchParams.get("monto");
+  const recipient = searchParams.get("clienteReceptor");
+  const emisor = searchParams.get("clienteEmisor");
 
   const handleDownload = () => {
     // Si el archivo está en la carpeta 'public/docs/comprobante.pdf'
@@ -58,13 +59,13 @@ const TransferPage = () => {
               <strong>ID de Transferencia:</strong> {params.transferId}
             </Typography>
             <Typography variant="body1">
-              <strong>Usuario remitente:</strong> {user.name}
+              <strong>Usuario remitente:</strong> {emisor}
             </Typography>
             <Typography variant="body1">
               <strong>Usuario destinatario:</strong> {recipient}
             </Typography>
             <Typography variant="body1">
-              <strong>Monto:</strong> {currency} {amount}
+              <strong>Monto:</strong> $ {currency} {amount}
             </Typography>
           </Box>
 

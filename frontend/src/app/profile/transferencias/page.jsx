@@ -22,7 +22,7 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 
 const CuentasPage = () => {
-  const { user: actualUser, modifyCurrencyAmount } = useContext(UserContext);
+  const { user: actualUser } = useContext(UserContext);
   const [currency, setCurrency] = useState("$");
   const [recipient, setRecipient] = useState("");
   const [amount, setAmount] = useState("");
@@ -30,32 +30,56 @@ const CuentasPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
+  const [saldos, setSaldos] = useState({});
+  const fetchUsers = async () => {
+    try {
+      const credetenials = localStorage.getItem("authCredentials");
+      const response = await fetch("http://localhost:8000/api/clientes/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Basic ${credetenials}`, // Cambia "username" y "password" por tus credenciales.
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setUsers(data); // Asume que el formato de respuesta es un arreglo de usuarios.
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchSaldos = async () => {
+    try {
+      const credentials = localStorage.getItem("authCredentials");
+      const response = await fetch("http://localhost:8000/api/clientes/mi-saldo/", {
+        method: "GET",
+        headers: {
+          Authorization: `Basic ${credentials}`,
+        },
+      });
+
+      const data = await response.json();
+      setSaldos(data || {});
+    } catch (error) {
+      console.error("Error al obtener los saldos:", error);
+    }
+  };
+  const handleType = (event, newType) => {
+    if (newType !== null) {
+      setType(newType);
+    }
+  };
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch("http://localhost:8000/api/clientes/", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Basic ${btoa("username:password")}`, // Cambia "username" y "password" por tus credenciales.
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setUsers(data); // Asume que el formato de respuesta es un arreglo de usuarios.
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchUsers();
+    fetchSaldos();
   }, []);
 
   const confirmTransfer = (recipient, currency, amount) => {
@@ -73,39 +97,70 @@ const CuentasPage = () => {
     });
   };
 
-  const handleTransfer = (recipient, currency, amount) => {
-    if (currency === "USD" && actualUser.saldoDolares < amount) {
+  const handleTransfer = async (recipient, currency, amount) => {
+    const numericAmount = parseFloat(amount); // Convertir el monto a número
+
+    const credentials = localStorage.getItem("authCredentials");
+    const recipientId = users.find((user) => user.nombre === recipient)?.id;
+
+    if (!recipientId) {
       Swal.fire({
         icon: "error",
-        title: "Saldo insuficiente",
-        text: "No tienes suficientes dólares para realizar esta transferencia",
+        title: "Error",
+        text: "No se encontró al destinatario",
         confirmButtonText: "Aceptar",
-        confirmButtonColor: "#3085d6",
       });
       return;
     }
 
-    if (currency === "$" && actualUser.saldoPesos < amount) {
+    const transferData = {
+      monto: numericAmount, // Aquí se usa el monto convertido a número
+      cliente_receptor_id: recipientId,
+    };
+
+    try {
+      const response = await fetch(
+        currency === "USD"
+          ? "http://localhost:8000/api/clientes/transferir-usd/"
+          : "http://localhost:8000/api/clientes/transferir-pesos/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Basic ${credentials}`,
+          },
+          body: JSON.stringify(transferData),
+        }
+      );
+
+      const result = await response.json();
+      if (response.ok) {
+        Swal.fire({
+          icon: "success",
+          title: "Transferencia exitosa",
+          text: result.mensaje,
+          confirmButtonText: "Aceptar",
+        });
+        router.push(
+          `/profile/transferencias/${result.id}?monto=${result.monto}&clienteEmisor=${result.cliente_emisor}&clienteReceptor=${result.cliente_receptor}`
+        );
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Error en la transferencia",
+          text: result.mensaje,
+          confirmButtonText: "Aceptar",
+        });
+      }
+    } catch (error) {
+      console.error("Error al realizar la transferencia:", error);
       Swal.fire({
         icon: "error",
-        title: "Saldo insuficiente",
-        text: "No tienes suficientes pesos para realizar esta transferencia",
+        title: "Error en la transferencia",
+        text: "Hubo un error al intentar realizar la transferencia. Inténtalo nuevamente.",
         confirmButtonText: "Aceptar",
-        confirmButtonColor: "#3085d6",
       });
-      return;
     }
-
-    modifyCurrencyAmount(currency, amount);
-
-    const transferId = Math.random().toString(36).substr(2, 9);
-    const queryParams = new URLSearchParams({
-      currency,
-      amount,
-      recipient,
-    }).toString();
-
-    router.push(`./transferencias/${transferId}?${queryParams}`);
   };
 
   const isButtonDisabled = !recipient || !currency || !amount;
@@ -145,9 +200,9 @@ const CuentasPage = () => {
             >
               {users.map(
                 (user) =>
-                  actualUser.dni !== user.dni && (
-                    <MenuItem key={user.id} value={user.name}>
-                      {user.name}
+                  actualUser.cliente.dni !== user.dni && (
+                    <MenuItem key={user.id} value={user.nombre}>
+                      {user.nombre} {user.apellido}
                     </MenuItem>
                   )
               )}

@@ -2,14 +2,15 @@ from rest_framework import viewsets
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.exceptions import MethodNotAllowed
-from .models import Cliente, Sucursal
+from .models import Cliente, Sucursal, Transferencia
 from tarjetas.models import Tarjeta
-from .serializers import ClienteSerializer, SucursalSerializer, DeudaSerializer
+from .serializers import ClienteSerializer, SucursalSerializer, DeudaSerializer, TransferenciaSerializer
 from tarjetas.serializers import TarjetaSerializer
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
+from django.db import transaction
 
 class ClienteViewSet(viewsets.ModelViewSet):
     """
@@ -136,25 +137,33 @@ class ClienteViewSet(viewsets.ModelViewSet):
         Endpoint para pagar una deuda de un cliente específico.
         """
         # Obtener al cliente autenticado
-        user = request.user
-        cliente = get_object_or_404(Cliente, user=user)
+        usuario = request.user
+        cliente = get_object_or_404(Cliente, user=usuario)
 
-        # Obtener y eliminar la deuda asociada al cliente
-
+        # Obtener la deuda correspondiente
         deuda = get_object_or_404(cliente.deuda_set, pk=deuda_id)
-        deuda_info = deuda
-        if cliente.pesos > deuda.monto:
-            cliente.pesos -= deuda.monto
-            cliente.save()
-            deuda.delete()
-                    # Responder con éxito
+
+        # Verificar si el cliente tiene saldo suficiente para pagar la deuda
+        if cliente.pesos >= deuda.monto:
+            # Usar una transacción para asegurar la consistencia
+            with transaction.atomic():
+                # Actualizar el saldo del cliente
+                cliente.pesos -= float(deuda.monto)
+                cliente.save()
+
+                # Eliminar la deuda
+                deuda.delete()
+
+            # Responder con éxito
             return Response(
                 {
-                    "mensaje": f"Deuda con ID {deuda_id} ({deuda_info.descripcion}) eliminada correctamente.",
+                    "mensaje": f"Deuda con ID {deuda_id} ({deuda.descripcion}) eliminada correctamente.",
+                    
                 },
                 status=status.HTTP_200_OK
             )
         else:
+            # Si el saldo no es suficiente
             return Response(
                 {
                     "mensaje": (
@@ -163,13 +172,142 @@ class ClienteViewSet(viewsets.ModelViewSet):
                         f"Monto de la deuda: {deuda.monto}."
                     ),
                 },
-                status=status.HTTP_400_BAD_REQUEST  # Cambia el código de estado según sea necesario
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+    @action(detail=False, methods=['POST'], url_path='transferir-pesos')
+    def transferir_pesos(self, request):
+        """
+        Endpoint para realizar una transferencia de pesos entre dos clientes.
+        """
+        # Obtener los datos de la transferencia
+        monto = request.data.get('monto')
+        cliente_emisor = request.user
+        cliente_receptor_id = request.data.get('cliente_receptor_id')
+
+        # Obtener los clientes
+        cliente_emisor = get_object_or_404(Cliente, user=cliente_emisor)
+        cliente_receptor = get_object_or_404(Cliente, pk=cliente_receptor_id)
+
+        # Verificar si el cliente emisor tiene saldo suficiente
+        if cliente_emisor.pesos >= monto:
+            with transaction.atomic():
+                cliente_emisor.pesos -= float(monto)
+                cliente_receptor.pesos += float(monto)
+
+                cliente_emisor.save()
+                cliente_receptor.save()
+                transferencia = Transferencia(
+                    monto=monto,
+                    clienteEmisor=cliente_emisor,
+                    clienteReceptor=cliente_receptor,
+                    tipo = 'pesos'
+                )
+                transferencia.save()
+
+            # Responder con éxito
+            return Response(
+                {
+                    "id": transferencia.id,
+                    "mensaje": f"Transferencia de ${monto} realizada correctamente de {cliente_emisor.nombre} a {cliente_receptor.nombre}.",
+                    "monto":  monto, 
+                    "cliente_emisor": cliente_emisor.nombre  + " " + cliente_emisor.apellido,
+                    "cliente_receptor": cliente_receptor.nombre + " " + cliente_receptor.apellido,
+                    "tipo": 'pesos'
+                },
+                status=status.HTTP_200_OK
+            )
+        else:
+            # Si el saldo no es suficiente
+            return Response(
+                {
+                    "mensaje": (
+                        f"SALDO INSUFICIENTE EN PESOS "
+                        f"Saldo actual: {cliente_emisor.pesos}. "
+                        f"Monto de la transferencia: {monto}."
+                    ),
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+    @action(detail=False, methods=['POST'], url_path='transferir-usd')
+    def transferir_usd(self, request):
+        """
+        Endpoint para realizar una transferencia de usd entre dos clientes.
+        """
+        # Obtener los datos de la transferencia
+        monto = request.data.get('monto')
+        cliente_emisor = request.user
+        cliente_receptor_id = request.data.get('cliente_receptor_id')
+
+        # Obtener los clientes
+        cliente_emisor = get_object_or_404(Cliente, user=cliente_emisor)
+        cliente_receptor = get_object_or_404(Cliente, pk=cliente_receptor_id)
+
+        # Verificar si el cliente emisor tiene saldo suficiente
+        if cliente_emisor.usd >= monto:
+            with transaction.atomic():
+                cliente_emisor.usd -= float(monto)
+                cliente_receptor.usd += float(monto)
+
+                cliente_emisor.save()
+                cliente_receptor.save()
+                transferencia = Transferencia(
+                    monto=monto,
+                    clienteEmisor=cliente_emisor,
+                    clienteReceptor=cliente_receptor,
+                    tipo = 'usd'
+                )
+                transferencia.save()
+
+            # Responder con éxito
+            return Response(
+                {
+                    "mensaje": f"Transferencia de ${monto} realizada correctamente de {cliente_emisor.nombre} a {cliente_receptor.nombre}.",
+                    "id": transferencia.id,
+                    "monto":  monto, 
+                    "cliente_emisor": cliente_emisor.nombre+ " " + cliente_emisor.apellido,
+                    "cliente_receptor": cliente_receptor.nombre + " " + cliente_receptor.apellido,
+                    "tipo": 'usd'
+                },
+                status=status.HTTP_200_OK
+            )
+        else:
+            # Si el saldo no es suficiente
+            return Response(
+                {
+                    "mensaje": (
+                        f"SALDO INSUFICIENTE EN USD "
+                        f"Saldo actual: {cliente_emisor.usd}. "
+                        f"Monto de la transferencia: {monto}."
+                    ),
+                },
+                status=status.HTTP_400_BAD_REQUEST
             )
 
-
-
+    @action(detail=False, methods=['get'], url_path='mis-transferencias')
+    def mis_transferencias(self, request):
+        """
+        Endpoint para traer las transferencias del cliente autenticado.
+        """
+        # Obtener al usuario autenticado
+        usuario = request.user
         
+        # Buscar al cliente asociado al usuario autenticado
+        cliente = get_object_or_404(Cliente, user=usuario)
 
+        # Obtener las transferencias asociadas al cliente
+        transferencias = Transferencia.objects.filter(clienteEmisor=cliente)
+
+        # Serializar las transferencias
+        transferencias_serializer = TransferenciaSerializer(transferencias, many=True)
+
+        # Construir la respuesta
+        return Response(
+            {
+                "transferencias": transferencias_serializer.data,
+            },
+            status=status.HTTP_200_OK
+        )
 
 class SucursalViewSet(viewsets.ReadOnlyModelViewSet):
     """

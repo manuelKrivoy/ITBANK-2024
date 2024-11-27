@@ -1,6 +1,6 @@
 # FILE: clientes/serializers.py
 from rest_framework import serializers
-from .models import Cliente, Sucursal, Deuda
+from .models import Cliente, Sucursal, Deuda, Transferencia
 
 class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,4 +15,9 @@ class SucursalSerializer(serializers.ModelSerializer):
 class DeudaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Deuda
+        fields = '__all__'
+
+class TransferenciaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Transferencia
         fields = '__all__'

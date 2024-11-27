@@ -4,18 +4,37 @@ import DefaultLayout from "../components/Layouts/DefaultLayout";
 import { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 import { ToggleButton, ToggleButtonGroup, Typography, Box, Paper } from "@mui/material";
+import { useEffect } from "react";
 
 const CuentasPage = () => {
-  const { user } = useContext(UserContext);
   const [type, setType] = useState("pesos");
+  const [saldos, setSaldos] = useState({});
+  const fetchSaldos = async () => {
+    try {
+      const credentials = localStorage.getItem("authCredentials");
+      const response = await fetch("http://localhost:8000/api/clientes/mi-saldo/", {
+        method: "GET",
+        headers: {
+          Authorization: `Basic ${credentials}`,
+        },
+      });
 
+      const data = await response.json();
+      setSaldos(data || {});
+    } catch (error) {
+      console.error("Error al obtener los saldos:", error);
+    }
+  };
   const handleType = (event, newType) => {
     if (newType !== null) {
       setType(newType);
     }
   };
 
-  const balance = type === "pesos" ? user.cliente.pesos : user.cliente.usd;
+  useEffect(() => {
+    fetchSaldos();
+  }, []);
+  const balance = type === "pesos" ? saldos.saldo_pesos : saldos.saldo_usd;
   return (
     <Box
       sx={{

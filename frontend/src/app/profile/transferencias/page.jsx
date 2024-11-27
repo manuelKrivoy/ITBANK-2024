@@ -38,7 +38,7 @@ const CuentasPage = () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Basic ${credetenials}`, // Cambia "username" y "password" por tus credenciales.
+          Authorization: `Basic ${credetenials}`,
         },
       });
 

@@ -51,9 +51,9 @@ class RegisterView(APIView):
             fecha_expiracion=date.today() + timedelta(days=365 * 5),  # Válida por 5 años
             fecha_otorgamiento=date.today(),
             cvv="123",
-            tipo=TipoTarjeta.objects.get_or_create(nombre="Débito")[0],  # Tipo "Débito" predeterminado
+            tipo=TipoTarjeta.objects.get_or_create(nombre="debito")[0],  # Tipo "Débito" predeterminado
             cliente=cliente,
-            marca=MarcaTarjeta.objects.get_or_create(nombre="Visa")[0],  # Marca "Visa" predeterminada
+            marca=MarcaTarjeta.objects.get_or_create(nombre="visa")[0],  # Marca "Visa" predeterminada
             background=random.choice(['1', '2', '3']),  # Fondo aleatorio
             tarjeta_principal=True
         )

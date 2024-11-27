@@ -55,10 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 ]
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # Dominio de tu frontend
-]
-
+CORS_ALLOW_ALL_ORIGINS = True 
 
 ROOT_URLCONF = 'itbank_api.urls'
 

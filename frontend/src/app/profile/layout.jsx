@@ -55,7 +55,6 @@ const AccessDenied = () => {
 // Layout principal
 export default function RootLayout({ children }) {
   const { user } = useContext(UserContext);
-  console.log(user);
   return !user ? (
     <AccessDenied />
   ) : (

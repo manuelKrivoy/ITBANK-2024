@@ -15,7 +15,7 @@ const CuentasPage = () => {
     }
   };
 
-  const balance = type === "pesos" ? user.saldoPesos : user.saldoDolares;
+  const balance = type === "pesos" ? user.cliente.pesos : user.cliente.usd;
   return (
     <Box
       sx={{

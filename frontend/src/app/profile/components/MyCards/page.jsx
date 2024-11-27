@@ -10,7 +10,6 @@ const MyCards = ({ type }) => {
   const { user } = useContext(UserContext);
   const [showBalance, setShowBalance] = useState(true);
   const [showCVUCNN, setshowCVUCNN] = useState(false);
-
   const getBackgroundColor = (level) => {
     switch (level) {
       case "1":
@@ -25,7 +24,7 @@ const MyCards = ({ type }) => {
   };
 
   const getTextColor = (level) => {
-    return level === "1" ? "#ffffff" : "#000000";
+    return level === "3" ? "#ffffff" : "#000000";
   };
   if (!user) {
     return <div>Loading...</div>;
@@ -49,7 +48,7 @@ const MyCards = ({ type }) => {
             </div>
           </Box>
           <Box display="flex" mt={2} alignItems="center" justifyContent="space-between">
-            <Typography variant="h4">Saldo: {showBalance ? `$${user.saldoPesos}` : "******"}</Typography>
+            <Typography variant="h4">Saldo: {showBalance ? `$${user.cliente.pesos}` : "******"}</Typography>
           </Box>
           <Box display="flex" mt={4} alignItems="center">
             <Typography
@@ -57,7 +56,7 @@ const MyCards = ({ type }) => {
               sx={{ textDecoration: "underline", cursor: "pointer" }}
               onClick={toggleCVUVisibility}
             >
-              {showCVUCNN ? `CVU: ${user.cvu}` : "Ver CVU"}
+              {showCVUCNN ? `CVU: ${user.cliente.cvu}` : "Ver CVU"}
             </Typography>
           </Box>
         </>
@@ -67,12 +66,14 @@ const MyCards = ({ type }) => {
             <Typography variant="body2">Titular de la tarjeta</Typography>
           </Box>
           <Box display="flex" justifyContent="space-between">
-            <Typography variant="h6">{user.name}</Typography>
+            <Typography variant="h6">
+              {user.cliente.nombre} {user.cliente.apellido}
+            </Typography>
             <Image
               width={80}
               height={20}
-              src={`/cards_types/${user.tarjeta_principal?.name || "default"}.png`}
-              alt={user.tarjeta_principal?.name || "Usuario"}
+              src={`/cards_types/${user.tarjeta_principal?.marca || "default"}.png`}
+              alt={user.cliente.nombre + user.cliente.apellido || "Usuario"}
               priority
             />
           </Box>
@@ -81,7 +82,7 @@ const MyCards = ({ type }) => {
             <Typography variant="body2">{user.tarjeta_principal.fecha_expiracion || "12/29"}</Typography>
           </Box>
           <Typography variant="h6" mt={2} display="flex" justifyContent="space-between">
-            {user.tarjeta_principal?.numeroTarjeta || "**** **** **** ****"}
+            {user.tarjeta_principal?.numero || "**** **** **** ****"}
             <Typography
               variant="body2"
               sx={{ textDecoration: "underline", cursor: "pointer" }}
@@ -99,7 +100,7 @@ const MyCards = ({ type }) => {
     <Card
       sx={{
         backgroundColor: getBackgroundColor(user.tarjeta_principal?.background),
-        color: type === "savings" ? "#fff" : getTextColor(user.tarjeta_principal?.level),
+        color: type === "savings" ? "#fff" : getTextColor(user.tarjeta_principal?.background),
         padding: "16px",
         borderRadius: "12px",
         minHeight: "200px",

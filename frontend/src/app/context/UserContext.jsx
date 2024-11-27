@@ -42,6 +42,7 @@ const UserProvider = ({ children }) => {
 
   const logoutUser = () => {
     setUser(null);
+    localStorage.removeItem("user");
   };
 
   return <UserContext.Provider value={{ user, loginUser, logoutUser }}>{children}</UserContext.Provider>;

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   Container,
   TextField,
@@ -11,6 +11,7 @@ import {
   Select,
   FormControl,
   Stack,
+  CircularProgress,
 } from "@mui/material";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -18,16 +19,44 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import SendIcon from "@mui/icons-material/Send";
 import { UserContext } from "../../context/UserContext";
 import Swal from "sweetalert2";
-import DefaultLayout from "../components/Layouts/DefaultLayout";
 import { useRouter } from "next/navigation";
 
 const CuentasPage = () => {
-  const { users, user, modifyCurrencyAmount } = useContext(UserContext);
+  const { user: actualUser, modifyCurrencyAmount } = useContext(UserContext);
   const [currency, setCurrency] = useState("$");
   const [recipient, setRecipient] = useState("");
   const [amount, setAmount] = useState("");
-  const actualUser = user;
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const router = useRouter();
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/clientes/", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Basic ${btoa("username:password")}`, // Cambia "username" y "password" por tus credenciales.
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setUsers(data); // Asume que el formato de respuesta es un arreglo de usuarios.
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
   const confirmTransfer = (recipient, currency, amount) => {
     Swal.fire({
@@ -45,49 +74,58 @@ const CuentasPage = () => {
   };
 
   const handleTransfer = (recipient, currency, amount) => {
-    if (currency === "USD") {
-      if (user.saldoDolares < amount) {
-        Swal.fire({
-          icon: "error",
-          title: "Saldo insuficiente",
-          text: "No tienes suficientes dólares para realizar esta transferencia",
-          confirmButtonText: "Aceptar",
-          confirmButtonColor: "#3085d6",
-        });
-        return;
-      }
-    } else {
-      if (user.saldoPesos < amount) {
-        Swal.fire({
-          icon: "error",
-          title: "Saldo insuficiente",
-          text: "No tienes suficientes pesos para realizar esta transferencia",
-          confirmButtonText: "Aceptar",
-          confirmButtonColor: "#3085d6",
-        });
-        return;
-      }
+    if (currency === "USD" && actualUser.saldoDolares < amount) {
+      Swal.fire({
+        icon: "error",
+        title: "Saldo insuficiente",
+        text: "No tienes suficientes dólares para realizar esta transferencia",
+        confirmButtonText: "Aceptar",
+        confirmButtonColor: "#3085d6",
+      });
+      return;
     }
-    // Caso exitoso
+
+    if (currency === "$" && actualUser.saldoPesos < amount) {
+      Swal.fire({
+        icon: "error",
+        title: "Saldo insuficiente",
+        text: "No tienes suficientes pesos para realizar esta transferencia",
+        confirmButtonText: "Aceptar",
+        confirmButtonColor: "#3085d6",
+      });
+      return;
+    }
+
     modifyCurrencyAmount(currency, amount);
+
     const transferId = Math.random().toString(36).substr(2, 9);
+    const queryParams = new URLSearchParams({
+      currency,
+      amount,
+      recipient,
+    }).toString();
 
-    // Definir parámetros adicionales
-    const additionalParams = {
-      currency: currency,
-      amount: amount,
-      recipient: recipient,
-    };
-
-    // Convertir parámetros a una cadena de consulta
-    const queryParams = new URLSearchParams(additionalParams).toString();
-
-    // Redirección con parámetros
     router.push(`./transferencias/${transferId}?${queryParams}`);
   };
 
-  // Verifica si alguno de los campos está vacío
   const isButtonDisabled = !recipient || !currency || !amount;
+
+  if (loading) {
+    return (
+      <Container maxWidth="sm" sx={{ mt: 2 }}>
+        <CircularProgress />
+      </Container>
+    );
+  }
+
+  if (error) {
+    return (
+      <Container maxWidth="sm" sx={{ mt: 2 }}>
+        <Typography color="error">{`Error al cargar usuarios: ${error}`}</Typography>
+      </Container>
+    );
+  }
+
   return (
     <Container maxWidth="sm" sx={{ mt: 2 }}>
       <Paper elevation={3} sx={{ p: 4 }}>
@@ -153,7 +191,7 @@ const CuentasPage = () => {
             fullWidth
             startIcon={<SendIcon />}
             onClick={() => confirmTransfer(recipient, currency, amount)}
-            disabled={isButtonDisabled} // Deshabilita el botón si alguno de los campos está vacío
+            disabled={isButtonDisabled}
           >
             Transferir
           </Button>

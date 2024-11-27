@@ -12,7 +12,7 @@ import Image from "next/image";
 
 const DropdownUser = () => {
   const router = useRouter();
-  const { user, userLogOut } = useContext(UserContext);
+  const { user, logOutUser } = useContext(UserContext);
   const [anchorEl, setAnchorEl] = useState(null);
   const dropdownOpen = Boolean(anchorEl);
 
@@ -24,6 +24,11 @@ const DropdownUser = () => {
     setAnchorEl(null);
   };
 
+  const handleLogOut = () => {
+    logOutUser;
+    router.push("/login");
+  };
+  const profilePicture = user?.cliente.foto;
   return (
     <ClickOutside onClick={handleClose} className="relative">
       <Box display="flex" alignItems="center" gap={2}>
@@ -37,7 +42,7 @@ const DropdownUser = () => {
               mx: "auto",
             }}
           >
-            <Image alt={user?.name} src={user?.avatar} width={80} height={80} objectFit="cover" />
+            <Image alt={user?.cliente.nombre} src={profilePicture} width={80} height={80} objectFit="cover" />
           </Box>
         </IconButton>
       </Box>
@@ -58,13 +63,19 @@ const DropdownUser = () => {
               mx: "auto",
             }}
           >
-            <Image alt={user?.name} src={user?.avatar} width={80} height={80} objectFit="cover" />
+            <Image alt={user?.cliente.nombre} src={profilePicture} width={80} height={80} objectFit="cover" />
           </Box>
           <Typography variant="h6" mt={1}>
-            {user?.name}
+            {user?.cliente.nombre} {user?.cliente.apellido}
+          </Typography>
+          <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+            Cliente: {user?.cliente.tipo}
           </Typography>
           <Typography variant="body2" color="textSecondary">
-            Cliente nivel 6
+            {user?.cliente.dni}
+          </Typography>
+          <Typography variant="body2" color="textSecondary">
+            {user?.email}
           </Typography>
         </Box>
         <Divider />
@@ -81,13 +92,11 @@ const DropdownUser = () => {
           </Typography>
         </MenuItem>
 
-        <MenuItem>
+        <MenuItem onClick={handleLogOut}>
           <LogoutIcon />
-          <Link href="/login">
-            <Typography variant="body2" ml={2}>
-              Salir
-            </Typography>
-          </Link>
+          <Typography variant="body2" ml={2}>
+            Salir
+          </Typography>
         </MenuItem>
       </Menu>
     </ClickOutside>

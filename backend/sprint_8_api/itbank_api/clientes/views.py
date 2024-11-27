@@ -257,6 +257,7 @@ class ClienteViewSet(viewsets.ModelViewSet):
                     clienteReceptor=cliente_receptor,
                     tipo = 'usd'
                 )
+
                 transferencia.save()
 
             # Responder con éxito
@@ -297,7 +298,8 @@ class ClienteViewSet(viewsets.ModelViewSet):
 
         # Obtener las transferencias asociadas al cliente
         transferencias = Transferencia.objects.filter(clienteEmisor=cliente)
-
+        transferencias_recibidas = Transferencia.objects.filter(clienteReceptor=cliente)
+        transferencias = transferencias.union(transferencias_recibidas)
         # Serializar las transferencias
         transferencias_serializer = TransferenciaSerializer(transferencias, many=True)
 

@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { use, useContext, useEffect, useState } from "react";
 import { Card, CardContent, Typography, Box } from "@mui/material";
 import { UserContext } from "@/app/context/UserContext";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -7,9 +7,31 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import Image from "next/image";
 
 const MyCards = ({ type }) => {
+  const [saldos, setSaldos] = useState({});
   const { user } = useContext(UserContext);
   const [showBalance, setShowBalance] = useState(true);
   const [showCVUCNN, setshowCVUCNN] = useState(false);
+  const fetchSaldos = async () => {
+    try {
+      const credentials = localStorage.getItem("authCredentials");
+      const response = await fetch("http://localhost:8000/api/clientes/mi-saldo/", {
+        method: "GET",
+        headers: {
+          Authorization: `Basic ${credentials}`,
+        },
+      });
+
+      const data = await response.json();
+      setSaldos(data || {});
+    } catch (error) {
+      console.error("Error al obtener los saldos:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSaldos();
+  }, []);
+
   const getBackgroundColor = (level) => {
     switch (level) {
       case "1":
@@ -38,7 +60,7 @@ const MyCards = ({ type }) => {
       {type === "savings" ? (
         <>
           <Box display="flex" alignItems="center" justifyContent="space-between">
-            <Typography variant="h5">Cuenta ID: {user.id}</Typography>
+            <Typography variant="h5">Cuenta ID: {user.cliente.id}</Typography>
             <div onClick={toggleBalanceVisibility} style={{ cursor: "pointer" }}>
               {showBalance ? (
                 <VisibilityIcon style={{ color: "white" }} />
@@ -48,7 +70,7 @@ const MyCards = ({ type }) => {
             </div>
           </Box>
           <Box display="flex" mt={2} alignItems="center" justifyContent="space-between">
-            <Typography variant="h4">Saldo: {showBalance ? `$${user.cliente.pesos}` : "******"}</Typography>
+            <Typography variant="h4">Saldo: {showBalance ? `$${saldos.saldo_pesos}` : "******"}</Typography>
           </Box>
           <Box display="flex" mt={4} alignItems="center">
             <Typography

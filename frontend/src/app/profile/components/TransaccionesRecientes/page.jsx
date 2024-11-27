@@ -1,10 +1,12 @@
 "use client";
 import { Typography, List, ListItem, ListItemText, Box, Avatar } from "@mui/material";
 import ReceiptIcon from "@mui/icons-material/Receipt";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "@/app/context/UserContext";
 
 const TransaccionesRecientes = () => {
   const [transactions, setTransactions] = useState([]);
+  const { user } = useContext(UserContext);
 
   const fetchTransactions = async () => {
     try {
@@ -35,42 +37,47 @@ const TransaccionesRecientes = () => {
     <Box sx={{ borderRadius: "16px", p: 2, bgcolor: "background.paper" }}>
       <List>
         {transactions.length > 0 ? (
-          transactions.map((transaction, index) => (
-            <ListItem
-              key={index}
-              sx={{
-                borderBottom: "1px solid #e0e0e0",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <Box display="flex" alignItems="center">
-                <Avatar
-                  sx={{
-                    bgcolor: transaction.amount?.startsWith("+") ? "success.main" : "error.main",
-                    mr: 2,
-                  }}
-                >
-                  <ReceiptIcon />
-                </Avatar>
-                <ListItemText
-                  primary={transaction.description || "Sin descripción"}
-                  secondary={transaction.date || "Fecha no disponible"}
-                  primaryTypographyProps={{ fontWeight: "bold" }}
-                />
-              </Box>
-              <Typography
-                variant="body1"
+          transactions.map((transaction, index) => {
+            // Determina si la transacción es enviada o recibida
+            const isSent = transaction.clienteEmisor === user.cliente.id;
+
+            return (
+              <ListItem
+                key={index}
                 sx={{
-                  fontWeight: "bold",
-                  color: transaction.amount?.startsWith("+") ? "success.main" : "error.main",
+                  borderBottom: "1px solid #e0e0e0",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
-                {transaction.amount || "N/A"}
-              </Typography>
-            </ListItem>
-          ))
+                <Box display="flex" alignItems="center">
+                  <Avatar
+                    sx={{
+                      bgcolor: isSent ? "error.main" : "success.main", // Rojo para enviados, verde para recibidos
+                      mr: 2,
+                    }}
+                  >
+                    <ReceiptIcon />
+                  </Avatar>
+                  <ListItemText
+                    primary={`Transferencia  de ${transaction.tipo} ${isSent ? "enviada" : "recibida"}` || "N/A"}
+                    secondary={transaction.fecha || "Fecha no disponible"}
+                    primaryTypographyProps={{ fontWeight: "bold" }}
+                  />
+                </Box>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    fontWeight: "bold",
+                    color: isSent ? "error.main" : "success.main", // Rojo para montos enviados, verde para recibidos
+                  }}
+                >
+                  {`${isSent ? "-" : "+"} ${transaction.monto || "N/A"} ${transaction.tipo}`}
+                </Typography>
+              </ListItem>
+            );
+          })
         ) : (
           <Typography variant="body2" color="textSecondary" textAlign="center">
             No se encontraron transacciones recientes.

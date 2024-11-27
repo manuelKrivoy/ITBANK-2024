@@ -79,12 +79,11 @@ class LoginView(APIView):
                 'username': user.username,
                 'email': user.email,
                 'cliente': {
+                    'id': cliente.id,
                     'nombre': cliente.nombre,
                     'apellido': cliente.apellido,
                     'cvu': cliente.cvu,
                     'dni': cliente.dni,
-                    'pesos': cliente.pesos,
-                    'usd': cliente.usd,
                     'foto': foto,
                     'tipo': cliente.tipo.nombre,
                 },

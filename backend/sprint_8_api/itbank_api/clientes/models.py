@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from datetime import date
 
 class Direccion(models.Model):
     calle = models.CharField(max_length=100)
@@ -39,6 +40,15 @@ class Cliente(models.Model):
     def __str__(self):
         return f'{self.nombre} - {self.apellido} - {self.dni} - {self.fecha_nacimiento} - {self.tipo}'
 
+
+class Deuda(models.Model):
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    fecha = models.DateField(default=date.today)
+    monto = models.DecimalField(max_digits=10, decimal_places=2)
+    descripcion = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f'{self.cliente} - {self.fecha} - {self.monto} - {self.descripcion}'
 class Transferencia(models.Model):
     fecha = models.DateField()
     monto = models.DecimalField(max_digits=10, decimal_places=2)

@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.exceptions import MethodNotAllowed
 from .models import Cliente, Sucursal
 from tarjetas.models import Tarjeta
-from .serializers import ClienteSerializer, SucursalSerializer
+from .serializers import ClienteSerializer, SucursalSerializer, DeudaSerializer
 from tarjetas.serializers import TarjetaSerializer
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -104,6 +104,73 @@ class ClienteViewSet(viewsets.ModelViewSet):
             },
             status=status.HTTP_200_OK
         )
+    
+    @action(detail=False, methods=['get'], url_path='deudas')
+    def traer_deudas(self, request):
+        """
+        Endpoint para traer las deudas del cliente autenticado.
+        """
+        # Obtener al usuario autenticado a través de Basic Authentication
+        user = request.user
+
+        # Obtener el cliente asociado al usuario autenticado
+        cliente = get_object_or_404(Cliente, user=user)
+
+        # Obtener las deudas asociadas al cliente
+        deudas = cliente.deuda_set.all()  # Asegúrate de que "deuda_set" sea el related_name correcto.
+
+        # Serializar las deudas
+        deudas_serializer = DeudaSerializer(deudas, many=True)
+
+        # Construir la respuesta
+        return Response(
+            {
+                "deudas": deudas_serializer.data,
+            },
+            status=status.HTTP_200_OK
+        )
+    
+    @action(detail=False, methods=['DELETE'], url_path='pagar-deuda/(?P<deuda_id>[0-9]+)')
+    def pagar_deuda(self, request, deuda_id=None):
+        """
+        Endpoint para pagar una deuda de un cliente específico.
+        """
+        # Obtener al cliente autenticado
+        user = request.user
+        cliente = get_object_or_404(Cliente, user=user)
+
+        # Obtener y eliminar la deuda asociada al cliente
+
+        deuda = get_object_or_404(cliente.deuda_set, pk=deuda_id)
+        deuda_info = deuda
+        if cliente.pesos > deuda.monto:
+            cliente.pesos -= deuda.monto
+            cliente.save()
+            deuda.delete()
+                    # Responder con éxito
+            return Response(
+                {
+                    "mensaje": f"Deuda con ID {deuda_id} ({deuda_info.descripcion}) eliminada correctamente.",
+                },
+                status=status.HTTP_200_OK
+            )
+        else:
+            return Response(
+                {
+                    "mensaje": (
+                        f"El cliente no tiene suficiente saldo para pagar la deuda con ID {deuda_id}. "
+                        f"Saldo actual: {cliente.pesos}. "
+                        f"Monto de la deuda: {deuda.monto}."
+                    ),
+                },
+                status=status.HTTP_400_BAD_REQUEST  # Cambia el código de estado según sea necesario
+            )
+
+
+
+        
+
+
 class SucursalViewSet(viewsets.ReadOnlyModelViewSet):
     """
     Model View Set para listar sucursales públicamente.

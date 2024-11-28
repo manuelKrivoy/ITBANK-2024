@@ -11,6 +11,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 from django.db import transaction
+from prestamos.models import Prestamo
+from prestamos.serializers import PrestamoSerializer
 
 class ClienteViewSet(viewsets.ModelViewSet):
     """
@@ -310,6 +312,37 @@ class ClienteViewSet(viewsets.ModelViewSet):
             },
             status=status.HTTP_200_OK
         )
+    
+    @action(detail=False, methods=['get'], url_path='mis-prestamos')
+    def mis_prestamos(self, request):
+        """
+        Endpoint para traer los prestamos del cliente autenticado.
+        """
+        # Obtener al usuario autenticado
+        usuario = request.user
+        
+        # Buscar al cliente asociado al usuario autenticado
+        cliente = get_object_or_404(Cliente, user=usuario)
+
+        # Obtener los prestamos asociados al cliente
+        prestamos = Prestamo.objects.filter(cliente=cliente)
+        montoTotal = 0
+
+        # Calcular el monto total de prestamos
+        for prestamo in prestamos:
+            montoTotal = montoTotal + prestamo.valor
+
+        # Serializar los prestamos
+        prestamos_serializer = PrestamoSerializer(prestamos, many=True)
+
+        # Construir la respuesta
+        return Response(
+            {
+                "prestamos": prestamos_serializer.data,
+                "montoTotal": montoTotal
+            },
+            status=status.HTTP_200_OK
+        )   
 
 class SucursalViewSet(viewsets.ReadOnlyModelViewSet):
     """

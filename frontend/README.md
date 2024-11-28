@@ -1,35 +1,35 @@
 # ItBank
 
-Frontend para TP desarollado con REACT + VITE
+Frontend para TP desarollado con Next.js
 
-## Levanta el proyecto !
+## Correr FE en devmode:
 
-### 1. Clona the repository
-
-```bash
-git clone https://github.com/manuelKrivoy/ITBANK-2024.git
-cd itbank
-```
-
-### 2. Instala las dependencias
+### 1. Instala las dependencias
 
 ```bash
 npm install
 ```
 
-### 3. Levanta el proyecto
+### 2. Levanta el proyecto
 
 ```bash
 npm run dev
 ```
 
-### Usuarios para testear:
+## Correr FE buildado:
 
-- **Mail:** krivoymanuel@gmail.com **Password:** 1234
-- **Mail:** tomasdeibi@gmail.com **Password:** 1234
-- **Mail:** franciscoruslender@gmail.com **Password:** 1234
-- **Mail:** gonzaloblondi@gmail.com **Password:** 1234
-- **Mail:** diegogomez@gmail.com **Password:** 1234
+### 1. Instala las dependencias
+
+```bash
+npm install
+```
+
+### 2. Levanta el proyecto
+
+```bash
+npm run build
+npm start
+```
 
 ## 🧑‍💻 Desarrolladores
 
@@ -37,4 +37,3 @@ npm run dev
 - Gonzalo Blondi
 - Manuel Krivoy
 - Diego Agustín Gómez
-- Tomás Deibe

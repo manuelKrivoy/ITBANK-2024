@@ -95,7 +95,7 @@ const MyCards = ({ type }) => {
               width={80}
               height={20}
               src={`/cards_types/${user.tarjeta_principal?.marca || "default"}.png`}
-              alt={user.cliente.nombre + user.cliente.apellido || "Usuario"}
+              alt={user.tarjeta_principal.marca || "Usuario"}
               priority
             />
           </Box>

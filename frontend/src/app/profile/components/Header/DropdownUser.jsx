@@ -28,6 +28,10 @@ const DropdownUser = () => {
     logOutUser;
     router.push("/login");
   };
+
+  const handleSettings = () => {
+    router.push("/profile/configuracion");
+  };
   const profilePicture = user?.cliente.foto;
   return (
     <ClickOutside onClick={handleClose} className="relative">
@@ -72,26 +76,16 @@ const DropdownUser = () => {
             Cliente: {user?.cliente.tipo}
           </Typography>
           <Typography variant="body2" color="textSecondary">
-            {user?.cliente.dni}
-          </Typography>
-          <Typography variant="body2" color="textSecondary">
             {user?.email}
           </Typography>
         </Box>
         <Divider />
-        <MenuItem>
+        <MenuItem onClick={handleSettings}>
           <PersonIcon />
           <Typography variant="body2" ml={2}>
             Mi Perfil
           </Typography>
         </MenuItem>
-        <MenuItem>
-          <SettingsIcon />
-          <Typography variant="body2" ml={2}>
-            Configuración de Cuenta
-          </Typography>
-        </MenuItem>
-
         <MenuItem onClick={handleLogOut}>
           <LogoutIcon />
           <Typography variant="body2" ml={2}>

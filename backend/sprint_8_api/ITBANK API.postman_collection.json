@@ -1,0 +1,507 @@
+{
+	"info": {
+		"_postman_id": "058fe463-ea24-4e43-a86e-00e2a115f534",
+		"name": "ITBANK API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "29478363"
+	},
+	"item": [
+		{
+			"name": "clientes",
+			"item": [
+				{
+					"name": "Traer clientes",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1234",
+								"username": "manolo"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8000/api/clientes/"
+					},
+					"response": []
+				},
+				{
+					"name": "Traer cliente",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1234",
+								"username": "manolo"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8000/api/clientes/8"
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar cliente",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1234",
+								"username": "manolo"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8000/api/clientes/9/"
+					},
+					"response": []
+				},
+				{
+					"name": "Editar cliente",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1234",
+								"username": "manolo"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"nombre_editado_patch\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/clientes/8/"
+					},
+					"response": []
+				},
+				{
+					"name": "Editar cliente",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1234",
+								"username": "manolo"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 8,\r\n    \"nombre\": \"nombre_editado_put\",\r\n    \"apellido\": \"Krivoy\",\r\n    \"dni\": \"43840924\",\r\n    \"fecha_nacimiento\": \"2001-03-12\",\r\n    \"cvu\": \"123123123\",\r\n    \"usd\": 0.0,\r\n    \"pesos\": 0.0,\r\n    \"user\": 11,\r\n    \"tipo\": 1,\r\n    \"direcciones\": [1]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/clientes/8/"
+					},
+					"response": []
+				},
+				{
+					"name": "crear cliente",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1234",
+								"username": "manolo"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\":1,\r\n    \"nombre\":\"manu\",\r\n    \"apellido\":\"kri\",\r\n    \"dni\":\"43840924\",\r\n    \"fecha_nacimiento\":\"2001-12-03\",\r\n    \"direcciones\":[1]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/clientes/"
+					},
+					"response": []
+				},
+				{
+					"name": "mis datos",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1234",
+								"username": "manolo"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8000/api/clientes/mis-datos/"
+					},
+					"response": []
+				},
+				{
+					"name": "mi saldo",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1234",
+								"username": "manolo"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8000/api/clientes/mi-saldo"
+					},
+					"response": []
+				},
+				{
+					"name": "cantidad clientes",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1234",
+								"username": "manolo"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8000/api/clientes/cantidad-clientes/"
+					},
+					"response": []
+				},
+				{
+					"name": "pagar deuda",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1234",
+								"username": "manolo"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8000/api/clientes/pagar-deuda/5/"
+					},
+					"response": []
+				},
+				{
+					"name": "ver deudas cliente",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1234",
+								"username": "manolo"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8000/api/clientes/deudas"
+					},
+					"response": []
+				},
+				{
+					"name": "transferir-usd",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1234",
+								"username": "manolo"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"monto\":100,\r\n    \"cliente_receptor_id\":8\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/clientes/transferir-usd/"
+					},
+					"response": []
+				},
+				{
+					"name": "transferir-pesos",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1234",
+								"username": "manolo"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"monto\":100,\r\n    \"cliente_receptor_id\":8\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/clientes/transferir-pesos/"
+					},
+					"response": []
+				},
+				{
+					"name": "mis-transferencias",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1234",
+								"username": "manolo"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8000/api/clientes/mis-transferencias"
+					},
+					"response": []
+				},
+				{
+					"name": "Mis prestamos",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1234",
+								"username": "manolo"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8000/api/clientes/mis-prestamos/"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "registrarse",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"juanito12\",\r\n    \"email\": \"juan12@juan.com\",\r\n    \"password\":\"1234\",\r\n    \"nombre\":\"juan\",\r\n    \"apellido\":\"perez\",\r\n    \"dni\":\"412321312\",\r\n    \"fecha_nacimiento\":\"2001-01-01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/register/"
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1234",
+								"username": "manolo"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8000/api/login/"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "tarjetas",
+			"item": [
+				{
+					"name": "ver tarjetas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8000/api/tarjetas/"
+					},
+					"response": []
+				},
+				{
+					"name": "filtrar-por-cliente",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1234",
+								"username": "manolo"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8000/api/tarjetas/mis-tarjetas/"
+					},
+					"response": []
+				},
+				{
+					"name": "crear tarjeta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"numero\":\"123213124\",\r\n  \"fecha_expiracion\":\"2027-01-01\",\r\n  \"fecha_otorgamiento\":\"2024-11-26\",\r\n  \"cvv\":\"123\",\r\n  \"cliente\":8,\r\n  \"marca\":1,\r\n  \"tipo\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/tarjetas/"
+					},
+					"response": []
+				},
+				{
+					"name": "editar tarjeta",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "prestamos",
+			"item": [
+				{
+					"name": "Ver todos los prestamos",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1234",
+								"username": "manolo"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8000/api/prestamos"
+					},
+					"response": []
+				},
+				{
+					"name": "Ver un prestamo",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1234",
+								"username": "manolo"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8000/api/prestamos/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear préstamo",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1234",
+								"username": "manolo"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"valor\":14000,\r\n    \"tipo\":1,\r\n    \"cliente\":14\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/prestamos/"
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar Préstamo",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1234",
+								"username": "manolo"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/prestamos/1/"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Obtener sucursales",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8000/api/sucursales/"
+			},
+			"response": []
+		},
+		{
+			"name": "ids activos clientes",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "1234",
+						"username": "manolo"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8000/api/clientes/ids-clientes-activos/"
+			},
+			"response": []
+		}
+	]
+}

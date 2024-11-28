@@ -15,7 +15,6 @@ const UserProfilePage = () => {
       setUserEdit({
         nombre: user.cliente.nombre || "",
         apellido: user.cliente.apellido || "",
-        email: user.email || "",
         dni: user.cliente.dni || "",
       });
     }
@@ -71,7 +70,15 @@ const UserProfilePage = () => {
         Datos personales
       </Typography>
       <Box component="form" noValidate autoComplete="off">
-        <TextField label="DNI" name="dni" value={userEdit.dni} disabled fullWidth margin="normal" />
+        <TextField
+          label="DNI"
+          name="dni"
+          value={userEdit.dni}
+          onChange={handleChange}
+          disabled={!isEditing}
+          fullWidth
+          margin="normal"
+        />
         <TextField
           label="Nombre"
           name="nombre"
@@ -90,12 +97,13 @@ const UserProfilePage = () => {
           fullWidth
           margin="normal"
         />
+
         <TextField
           label="Email"
           name="email"
-          value={userEdit.email}
+          value={user.email}
           onChange={handleChange}
-          disabled={!isEditing}
+          disabled
           fullWidth
           margin="normal"
         />

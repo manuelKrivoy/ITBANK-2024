@@ -36,6 +36,7 @@ class Cliente(models.Model):
     cvu= models.CharField(max_length=22, default='')
     usd = models.FloatField(default=0)
     pesos = models.FloatField(default=0)
+    foto = models.CharField(max_length=100, default='')
 
     def __str__(self):
         return f'{self.nombre} - {self.apellido} - {self.dni} - {self.fecha_nacimiento} - {self.tipo}'

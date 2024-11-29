@@ -46,7 +46,13 @@ const DropdownUser = () => {
               mx: "auto",
             }}
           >
-            <Image alt={user?.cliente.nombre} src={profilePicture} width={80} height={80} objectFit="cover" />
+            <img
+              alt={user?.cliente.nombre}
+              src={profilePicture}
+              width="100"
+              height="100"
+              style={{ objectFit: "cover" }}
+            />
           </Box>
         </IconButton>
       </Box>
@@ -67,7 +73,13 @@ const DropdownUser = () => {
               mx: "auto",
             }}
           >
-            <Image alt={user?.cliente.nombre} src={profilePicture} width={80} height={80} objectFit="cover" />
+            <img
+              alt={user?.cliente.nombre}
+              src={profilePicture}
+              width="100"
+              height="100"
+              style={{ objectFit: "cover" }}
+            />
           </Box>
           <Typography variant="h6" mt={1}>
             {user?.cliente.nombre} {user?.cliente.apellido}

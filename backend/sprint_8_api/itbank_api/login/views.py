@@ -36,6 +36,11 @@ class RegisterView(APIView):
             return Response({'error': 'El DNI ya está en uso'}, status=status.HTTP_400_BAD_REQUEST)
 
         user = User.objects.create_user(username=username, email=email, password=password)
+          # Generar URL del avatar de DiceBear basado en el username
+        avatar_style = "adventurer"  # Puedes cambiar el estilo a otro de DiceBear
+        avatar_seed = user.username  # Usar el username como semilla para consistencia
+        foto = f'https://api.dicebear.com/6.x/{avatar_style}/svg?seed={avatar_seed}'
+
         cliente = Cliente.objects.create(
             user=user,
             nombre=nombre,
@@ -43,6 +48,7 @@ class RegisterView(APIView):
             dni=dni,
             fecha_nacimiento=fecha_nacimiento,
             cvu=random.randint(100000000000000000, 999999999999999999),  # CVU aleatorio de 18 dígitos
+            foto=foto,
         )
 
         # Crear una tarjeta principal automáticamente
@@ -70,7 +76,6 @@ class LoginView(APIView):
         try:
             cliente = Cliente.objects.get(user=user)
             tarjeta_principal = cliente.tarjetas.filter(tarjeta_principal=True).first()
-            foto = f'https://thispersondoesnotexist.com'
             if not tarjeta_principal:
                 return Response({'error': 'No se encontró una tarjeta principal'}, status=status.HTTP_404_NOT_FOUND)
 
@@ -84,7 +89,7 @@ class LoginView(APIView):
                     'apellido': cliente.apellido,
                     'cvu': cliente.cvu,
                     'dni': cliente.dni,
-                    'foto': foto,
+                    'foto': cliente.foto,
                     'tipo': cliente.tipo.nombre,
                 },
                 'tarjeta_principal': {

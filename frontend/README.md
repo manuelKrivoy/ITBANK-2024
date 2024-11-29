@@ -16,7 +16,7 @@ npm install
 npm run dev
 ```
 
-## Correr FE buildado:
+## Correr FE buildeado:
 
 ### 1. Instala las dependencias
 
@@ -30,10 +30,3 @@ npm install
 npm run build
 npm start
 ```
-
-## 🧑‍💻 Desarrolladores
-
-- Francisco Ruslender
-- Gonzalo Blondi
-- Manuel Krivoy
-- Diego Agustín Gómez

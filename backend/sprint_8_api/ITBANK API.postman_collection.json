@@ -306,7 +306,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\" : \"juanito12\",\r\n    \"email\": \"juan12@juan.com\",\r\n    \"password\":\"1234\",\r\n    \"nombre\":\"juan\",\r\n    \"apellido\":\"perez\",\r\n    \"dni\":\"412321312\",\r\n    \"fecha_nacimiento\":\"2001-01-01\"\r\n}",
+							"raw": "{\r\n    \"username\" : \"juanito123\",\r\n    \"email\": \"juan123@juan.com\",\r\n    \"password\":\"1234\",\r\n    \"nombre\":\"juan1\",\r\n    \"apellido\":\"perez1\",\r\n    \"dni\":\"4123213123\",\r\n    \"fecha_nacimiento\":\"2001-01-01\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -330,6 +330,24 @@
 						"method": "GET",
 						"header": [],
 						"url": "http://localhost:8000/api/login/"
+					},
+					"response": []
+				},
+				{
+					"name": "Registrar empleado",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"empleado1\",\r\n    \"dni\":\"43840928\",\r\n    \"nombre\":\"empleado\",\r\n    \"apellido\":\"empleado\",\r\n    \"email\":\"empleado@empleado.com\",\r\n    \"password\":\"1234\",\r\n    \"fecha_contratacion\":\"2020-10-10\",\r\n    \"sucursal_id\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/register/empleado/"
 					},
 					"response": []
 				}
@@ -473,6 +491,30 @@
 							}
 						},
 						"url": "http://localhost:8000/api/prestamos/1/"
+					},
+					"response": []
+				},
+				{
+					"name": "Mis prestamos",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "prestamos por sucursal",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "empleado1",
+								"password": "1234"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8000/api/prestamos/prestamos_por_sucursal/1/"
 					},
 					"response": []
 				}

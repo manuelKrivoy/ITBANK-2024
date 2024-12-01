@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User
 from clientes.models import Cliente
+from empleados.models import Empleado
 from tarjetas.models import Tarjeta, TipoTarjeta, MarcaTarjeta
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import authenticate
@@ -66,7 +67,40 @@ class RegisterView(APIView):
 
         return Response({'message': 'Usuario registrado correctamente'}, status=status.HTTP_201_CREATED)
 
+class RegisterEmployeeView(APIView):
+    permission_classes = [AllowAny]
 
+    def post(self, request):
+        username = request.data.get('username')
+        email = request.data.get('email')
+        password = request.data.get('password')
+        nombre = request.data.get('nombre')
+        apellido = request.data.get('apellido')
+        dni = request.data.get('dni')
+        fecha_contratacion = request.data.get('fecha_contratacion', None)
+        sucursal_id = request.data.get('sucursal_id', None)
+
+        if not all([username, email, password, nombre, apellido, dni]):
+            return Response({'error': 'Los campos username, email, password, nombre y apellido son obligatorios'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if User.objects.filter(username=username).exists():
+            return Response({'error': 'El nombre de usuario ya está en uso'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if Empleado.objects.filter(dni=dni).exists():
+            return Response({'error': 'El DNI ya está siendo utilizado por otro empleado'}, status=status.HTTP_400_BAD_REQUEST)
+
+        user = User.objects.create_user(username=username, email=email, password=password)
+        empleado = Empleado.objects.create(
+            user=user,
+            nombre=nombre,
+            apellido=apellido,
+            dni=dni,
+            fecha_contratacion=fecha_contratacion,
+            sucursal_id=sucursal_id
+        )
+        empleado.save()
+        return Response({'message': 'Empleado registrado correctamente'}, status=status.HTTP_201_CREATED)
+    
 class LoginView(APIView):
     authentication_classes = [BasicAuthentication]
     permission_classes = [IsAuthenticated]
